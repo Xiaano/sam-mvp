@@ -1,0 +1,10 @@
+{
+  "name": "@sam-mvp/shared",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Shared SAM MVP contracts and utilities",
+  "scripts": {
+    "check": "tsc -p tsconfig.json --noEmit",
+    "test": "echo \"No shared tests configured yet\""
+  }
+}

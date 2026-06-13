@@ -1,0 +1,803 @@
+# Build Log
+
+## Doel
+
+Dit document legt de historische bouwgeschiedenis van `sam-mvp` vast, los van de actuele status in `docs/CURRENT-STATUS.md`.
+
+De focus ligt op:
+
+* lokale installaties;
+* handmatige Ricardo-stappen;
+* door Codex voorbereide of geanalyseerde stappen;
+* validaties;
+* warnings en resterende aandachtspunten;
+* expliciet niet uitgevoerde acties.
+
+## Fase 1 - npm-uitvoercontextprobleem en lokale TypeScript-basis
+
+**Datum:** Controle nodig
+
+**Doel**
+
+De eerste veilige lokale installatiestap mogelijk maken zonder afhankelijk te zijn van de eerdere npm-fout in de Codex-uitvoercontext.
+
+**Ricardo handmatig uitgevoerd**
+
+* TypeScript toegevoegd als root devDependency.
+* Daarna gecontroleerd met:
+  * `npx tsc -v`
+  * aanwezigheid van `package-lock.json`
+  * controle van `package.json`
+* Daarna ook lokaal `npm run check` uitgevoerd.
+
+**Codex alleen documentair of analyserend**
+
+* vastgelegd dat Codex voorlopig geen npm-installaties uitvoert;
+* eerdere npm-fout gedocumenteerd;
+* veilige lokale vervolgstappen voorbereid.
+
+**Ontstane bestanden / artefacten**
+
+* bijgewerkt `package-lock.json`
+* bijgewerkt root `package.json`
+* lokale `node_modules` buiten bronwaarheid
+
+**Geslaagde validatie**
+
+* `node: v20.19.0`
+* `npm: 10.8.2`
+* `npx tsc -v: Version 6.0.3`
+* `npm run check` lokaal succesvol
+
+**Warnings / aandachtspunten**
+
+* eerdere Codex-uitvoercontextfout:
+  * `EPERM: operation not permitted, lstat 'C:\Users\Admin'`
+* deze blocker is later als `RESOLVED` vastgelegd voor het project zelf, maar blijft historisch relevant voor lokale uitvoering via Codex.
+
+**Bewust niet gedaan**
+
+* geen React
+* geen Vite
+* geen backendframework
+* geen Prisma
+* geen schema
+* geen globale npm-configwijziging via Codex
+
+## Fase 2 - Lokale Fastify-installatie voor de API-workspace
+
+**Datum:** Controle nodig
+
+**Doel**
+
+De goedgekeurde API-frameworkrichting technisch beschikbaar maken in `@sam-mvp/api`.
+
+**Ricardo handmatig uitgevoerd**
+
+* `npm install fastify -w @sam-mvp/api`
+* validatie via:
+  * `npm ls fastify -w @sam-mvp/api`
+  * `npm run check`
+
+**Codex alleen documentair of analyserend**
+
+* lokale Fastify-installatiestap voorbereid;
+* grenzen gedocumenteerd: nog geen serverbestand, routes of backendlogica.
+
+**Ontstane bestanden / artefacten**
+
+* bijgewerkt `sam-mvp/apps/api/package.json`
+* bijgewerkt `sam-mvp/package-lock.json`
+
+**Geslaagde validatie**
+
+* `fastify: 5.8.5`
+* `npm run check: GESLAAGD`
+
+**Warnings / aandachtspunten**
+
+* geen functionele waarschuwing gemeld in deze stap
+
+**Bewust niet gedaan**
+
+* geen `Express`
+* geen `CORS`-plugin
+* geen `Swagger`/`OpenAPI`
+* geen Prisma
+* geen database
+* geen routes/endpoints
+* geen backendcode in deze installatiestap
+
+## Fase 3 - Lokale `tsx`-installatie voor lichte API-runtime
+
+**Datum:** Controle nodig
+
+**Doel**
+
+Een lichte TypeScript-runtime voorbereiden om de Fastify API later lokaal te kunnen starten zonder zware buildpipeline.
+
+**Ricardo handmatig uitgevoerd**
+
+* `npm install -D tsx -w @sam-mvp/api`
+* controle via:
+  * `npm ls tsx -w @sam-mvp/api`
+  * `npm run check`
+
+**Codex alleen documentair of analyserend**
+
+* runtime-strategie en installatiestap voorbereid;
+* afgebakend dat nog geen runtime-startbestand of extra endpoints toegevoegd mochten worden.
+
+**Ontstane bestanden / artefacten**
+
+* bijgewerkt `sam-mvp/apps/api/package.json`
+* bijgewerkt `sam-mvp/package-lock.json`
+
+**Geslaagde validatie**
+
+* `npm run check` bleef lokaal succesvol
+
+**Warnings / aandachtspunten**
+
+* geen nieuwe technische warning gemeld in deze stap
+
+**Bewust niet gedaan**
+
+* geen `nodemon`
+* geen `ts-node`
+* geen extra backendframework
+* geen Prisma
+* geen database
+* geen server startbestand in deze installatiestap
+* geen extra routes/endpoints
+
+## Fase 4 - Lokale Prisma-installatie met warnings
+
+**Datum:** Controle nodig
+
+**Doel**
+
+`Prisma` en `@prisma/client` beschikbaar maken in `@sam-mvp/api`, nog zonder schema, database of migraties.
+
+**Ricardo handmatig uitgevoerd**
+
+* `npm install -D prisma -w @sam-mvp/api`
+* `npm install @prisma/client -w @sam-mvp/api`
+* controle via:
+  * `npm ls prisma -w @sam-mvp/api`
+  * `npm ls @prisma/client -w @sam-mvp/api`
+  * `npm run check`
+
+**Codex alleen documentair of analyserend**
+
+* installatiestap voorbereid;
+* secrets-grenzen expliciet vastgelegd;
+* geen npm-installatie door Codex uitgevoerd.
+
+**Ontstane bestanden / artefacten**
+
+* bijgewerkt `sam-mvp/apps/api/package.json`
+* bijgewerkt `sam-mvp/package-lock.json`
+
+**Geslaagde validatie**
+
+* `prisma: 7.8.0`
+* `@prisma/client: 7.8.0`
+* `npm run check: GESLAAGD`
+
+**Warnings / aandachtspunten**
+
+* `EBADENGINE` warning op `@prisma/streams-local@0.1.2`
+* required: `node >=22.0.0` of `bun >=1.3.6`
+* current: `node v20.19.0`, `npm 10.8.2`
+* `3 moderate severity vulnerabilities`
+
+**Bewust niet gedaan**
+
+* geen `npx prisma init`
+* geen `schema.prisma`
+* geen database
+* geen migraties
+* geen `prisma generate`
+* geen `.env`
+* geen WooCommerce connector
+
+## Fase 5 - Lokale Prisma CLI-check
+
+**Datum:** Controle nodig
+
+**Doel**
+
+Controleren of de Prisma CLI werkte binnen de gekozen Node/npm-omgeving ondanks de installatiewarnings.
+
+**Ricardo handmatig uitgevoerd**
+
+* `npx prisma -v`
+* `npm run check`
+
+**Codex alleen documentair of analyserend**
+
+* CLI-check voorbereid;
+* bewaakt dat er geen schema, database of `.env` door deze stap mocht ontstaan.
+
+**Ontstane bestanden / artefacten**
+
+* geen nieuwe bronartefacten
+
+**Geslaagde validatie**
+
+* `npx prisma -v` werkte succesvol
+* `npm run check` bleef succesvol
+
+**Warnings / aandachtspunten**
+
+* installatiewarnings uit de vorige fase bleven relevant
+
+**Bewust niet gedaan**
+
+* geen `prisma init`
+* geen `prisma generate`
+* geen `prisma migrate`
+* geen `prisma db push`
+* geen `.env`
+
+## Fase 6 - Prisma schema v0 lokale syntaxischeck
+
+**Datum:** Controle nodig
+
+**Doel**
+
+Valideren dat `schema.prisma v0` syntactisch correct was vóór verdere database- of generate-stappen.
+
+**Ricardo handmatig uitgevoerd**
+
+* `npx prisma format --schema apps/api/prisma/schema.prisma`
+* `npx prisma validate --schema apps/api/prisma/schema.prisma`
+* `npm run check`
+
+**Codex alleen documentair of analyserend**
+
+* schema-check stap voorbereid;
+* regels vastgelegd voor wat niet mocht gebeuren bij errors.
+
+**Ontstane bestanden / artefacten**
+
+* bestaand `apps/api/prisma/schema.prisma` geformatteerd
+
+**Geslaagde validatie**
+
+* `prisma format: GESLAAGD`
+* `prisma validate: GESLAAGD`
+* `npm run check: GESLAAGD`
+
+**Warnings / aandachtspunten**
+
+* geen nieuwe functionele warning vastgelegd in deze stap
+
+**Bewust niet gedaan**
+
+* geen database
+* geen migraties
+* geen `prisma generate`
+* geen `.env`
+
+## Fase 7 - Prisma schema-validatie met extern beheerde `DATABASE_URL`
+
+**Datum:** Controle nodig
+
+**Doel**
+
+Valideren dat het Prisma schema ook correct was in combinatie met een tijdelijk extern beheerde `DATABASE_URL`.
+
+**Ricardo handmatig uitgevoerd**
+
+* tijdelijke lokale PowerShell-sessievariabele voor `DATABASE_URL` gezet
+* `npx prisma validate --schema apps/api/prisma/schema.prisma`
+
+**Codex alleen documentair of analyserend**
+
+* runbook en grenzen vastgelegd;
+* geen `.env` gelezen of aangemaakt;
+* geen `DATABASE_URL` gezien of opgeslagen.
+
+**Ontstane bestanden / artefacten**
+
+* geen nieuwe bronartefacten
+
+**Geslaagde validatie**
+
+* `Prisma schema loaded from apps\api\prisma\schema.prisma.`
+* `The schema at apps\api\prisma\schema.prisma is valid.`
+
+**Warnings / aandachtspunten**
+
+* geen nieuwe warning in deze stap
+
+**Bewust niet gedaan**
+
+* geen `prisma migrate`
+* geen `prisma generate`
+* geen `prisma db push`
+* geen database-tabellen aangemaakt in deze stap
+* geen `.env`
+
+## Fase 8 - Lokale PostgreSQL-runtime validatie
+
+**Datum:** Controle nodig
+
+**Doel**
+
+Bevestigen dat de lokale Docker/PostgreSQL-runtime operationeel was vóór migratie- en databasegebruik.
+
+**Ricardo handmatig uitgevoerd**
+
+* benodigde PowerShell-sessievariabelen gezet
+* Docker handmatig gestart
+* databaseverbinding met `psql` gecontroleerd
+
+**Codex alleen documentair of analyserend**
+
+* compose- en configuratiestrategie voorbereid;
+* geen Docker uitgevoerd;
+* geen secrets gelezen.
+
+**Ontstane bestanden / artefacten**
+
+* lokaal draaiende container `sam-mvp-postgres`
+
+**Geslaagde validatie**
+
+* container: `sam-mvp-postgres`
+* image: `postgres:16-alpine`
+* status: `healthy`
+* hostpoort: `5433`
+* containerpoort: `5432`
+* `current_database: sam_mvp_dev`
+* `current_user: sam_mvp_local`
+
+**Warnings / aandachtspunten**
+
+* in deze fase waren Prisma-migratie, generate en db push nog niet uitgevoerd
+
+**Bewust niet gedaan**
+
+* geen Prisma-migratie in deze stap
+* geen `prisma generate` in deze stap
+* geen `prisma db push`
+* geen `.env`
+
+## Fase 9 - Create-only migratie aangemaakt en statisch gevalideerd
+
+**Datum:** Controle nodig
+
+**Doel**
+
+Een eerste Prisma-migratie als create-only artefact voorbereiden en statisch inspecteren voordat deze op de database werd toegepast.
+
+**Ricardo handmatig uitgevoerd**
+
+* create-only migratie aangemaakt
+
+**Codex alleen documentair of analyserend**
+
+* statische inspectie en veiligheidscontrole gedocumenteerd;
+* geen migratie toegepast;
+* geen Prisma-commando uitgevoerd in de inspectiestap.
+
+**Ontstane bestanden / artefacten**
+
+* `apps/api/prisma/migrations/migration_lock.toml`
+* `apps/api/prisma/migrations/20260612213620_init/migration.sql`
+
+**Geslaagde validatie**
+
+* migration-map staat op de juiste plek
+* `migration.sql` bestaat
+* `migration_lock.toml` bestaat
+* geen destructieve statements aangetroffen
+* geen secrets of `DATABASE_URL` aangetroffen
+* geen oude `SAM V2`-verwijzingen aangetroffen
+
+**Warnings / aandachtspunten**
+
+* migratie was op dat moment nog niet toegepast
+* `prisma generate` was op dat moment nog niet uitgevoerd
+
+**Bewust niet gedaan**
+
+* geen databasewijziging in deze validatiestap
+* geen `prisma db push`
+* geen `.env`
+
+## Fase 10 - Eerste Prisma migratie toegepast
+
+**Datum:** Controle nodig
+
+**Doel**
+
+De eerder gevalideerde create-only migratie gecontroleerd toepassen op de lokale PostgreSQL-database.
+
+**Ricardo handmatig uitgevoerd**
+
+* `npx prisma migrate deploy --config prisma.config.ts`
+* `npx prisma migrate status --config prisma.config.ts`
+
+**Codex alleen documentair of analyserend**
+
+* migratieplan en validatiekaders voorbereid;
+* geen migratiecommando uitgevoerd.
+
+**Ontstane bestanden / artefacten**
+
+* lokale database kreeg Prisma-schema op basis van migratie `20260612213620_init`
+
+**Geslaagde validatie**
+
+* toegepaste migratie: `20260612213620_init`
+* Prisma meldde:
+  * `All migrations have been successfully applied.`
+  * `Database schema is up to date.`
+
+**Warnings / aandachtspunten**
+
+* `prisma generate` was volgens dit moment nog niet uitgevoerd
+* `prisma db push` bleef ongebruikt
+
+**Bewust niet gedaan**
+
+* geen nieuwe migratie aangemaakt
+* geen `prisma db push`
+* geen `.env`
+
+## Fase 11 - Lokale PostgreSQL-tabellen gecontroleerd
+
+**Datum:** Controle nodig
+
+**Doel**
+
+Bevestigen dat de verwachte tabellen en migratieregistratie daadwerkelijk in de lokale database aanwezig waren.
+
+**Ricardo handmatig uitgevoerd**
+
+* database-tabellen handmatig gecontroleerd met `psql`
+
+**Codex alleen documentair of analyserend**
+
+* validatiedocument opgesteld;
+* geen database gewijzigd.
+
+**Ontstane bestanden / artefacten**
+
+* geen nieuwe bronartefacten
+
+**Geslaagde validatie**
+
+* aangetroffen tabellen:
+  * `Action`
+  * `Execution`
+  * `HistoryItem`
+  * `Issue`
+  * `Operator`
+  * `Product`
+  * `Proposal`
+  * `ScanRun`
+  * `SourceData`
+  * `UserDecision`
+  * `_prisma_migrations`
+* geregistreerde migratie:
+  * `20260612213620_init`
+
+**Warnings / aandachtspunten**
+
+* volgens dit moment was `prisma generate` nog niet uitgevoerd
+
+**Bewust niet gedaan**
+
+* geen `prisma db push`
+* geen nieuwe migratie
+* geen `.env`
+
+## Fase 12 - Prisma Client generate uitgevoerd
+
+**Datum:** Controle nodig
+
+**Doel**
+
+Prisma Client genereren op basis van het bestaande schema en de toegepaste migratiestatus.
+
+**Ricardo handmatig uitgevoerd**
+
+* `npx prisma generate --config prisma.config.ts`
+
+**Codex alleen documentair of analyserend**
+
+* generate-runbook en grenzen voorbereid;
+* geen Prisma-commando uitgevoerd.
+
+**Ontstane bestanden / artefacten**
+
+* gegenereerde client-output onder `apps/api/src/generated/prisma`
+
+**Geslaagde validatie**
+
+* `Generated Prisma Client (7.8.0) to .\apps\api\src\generated\prisma`
+
+**Warnings / aandachtspunten**
+
+* generate wijzigde de database niet
+
+**Bewust niet gedaan**
+
+* geen nieuwe migratie
+* geen `prisma migrate`
+* geen `prisma db push`
+* geen `.env`
+
+## Fase 13 - Statische controle van gegenereerde Prisma Client-output
+
+**Datum:** Controle nodig
+
+**Doel**
+
+Controleren of de gegenereerde client-output logisch, veilig en bronconsistent was.
+
+**Ricardo handmatig uitgevoerd**
+
+* geen runtime-actie; deze stap was een statische inspectie
+
+**Codex alleen documentair of analyserend**
+
+* outputmap en afgeleide structuur statisch gecontroleerd;
+* geen Prisma-commando uitgevoerd.
+
+**Ontstane bestanden / artefacten**
+
+* bestaand outputpad: `apps/api/src/generated/prisma`
+
+**Geslaagde validatie**
+
+* `apps/api/src/generated/prisma` bestaat
+* output sluit aan op generator-output in `schema.prisma`
+* bestanden ogen als gegenereerde Prisma Client-output
+* geen echte secrets of echte `DATABASE_URL`-waarden aangetroffen
+* geen oude `SAM V2`-verwijzingen aangetroffen
+
+**Warnings / aandachtspunten**
+
+* voorbeeldverwijzingen naar `process.env.DATABASE_URL` zijn aangetroffen in gegenereerde output; dit zijn geen secrets
+* documenteerde destijds dat expliciet `.gitignore`-beleid voor generated output nog aandachtspunt was
+
+**Bewust niet gedaan**
+
+* geen databaseactie
+* geen nieuwe migratie
+* geen `prisma db push`
+* geen applicatiecode aangepast in deze validatiestap
+
+## Fase 14 - Centrale Prisma client module statisch gevalideerd
+
+**Datum:** Controle nodig
+
+**Doel**
+
+Een centrale Prisma-toegangslaag als persistence-bouwsteen controleren zonder al routes, services of connectoren toe te voegen.
+
+**Ricardo handmatig uitgevoerd**
+
+* geen handmatige runtime-actie vastgelegd; dit is een statische controle op bestaand bestand
+
+**Codex alleen documentair of analyserend**
+
+* `apps/api/src/persistence/prismaClient.ts` statisch beoordeeld;
+* geen Prisma-commando uitgevoerd;
+* geen databaseactie uitgevoerd.
+
+**Ontstane bestanden / artefacten**
+
+* bestaand bestand: `apps/api/src/persistence/prismaClient.ts`
+
+**Geslaagde validatie**
+
+* `PrismaClient` wordt geimporteerd uit generated output
+* importpad is logisch ten opzichte van `apps/api/src/persistence/prismaClient.ts`
+* er is een centrale `prisma` instance
+* `globalThis` singleton-patroon wordt gebruikt
+* geen databasequeries
+* geen logging van `DATABASE_URL` of secrets
+
+**Warnings / aandachtspunten**
+
+* TypeScript/build-validatie na deze stap bleef nog aparte vervolgstap
+
+**Bewust niet gedaan**
+
+* geen route toegevoegd
+* geen service toegevoegd
+* geen connector toegevoegd
+* geen databaseactie
+
+## Fase 15 - API TypeScript-validatieplan en Prisma 7 adaptergrens
+
+**Datum:** Controle nodig
+
+**Doel**
+
+Bepalen hoe de API TypeScript-validatie veilig kon plaatsvinden na toevoeging van de centrale Prisma client module.
+
+**Ricardo handmatig uitgevoerd**
+
+* geen nieuwe uitvoering in deze planstap
+
+**Codex alleen documentair of analyserend**
+
+* package-configuratie en `tsconfig` geinspecteerd;
+* foutgrens rond Prisma 7 constructor/adaptor boundary gedocumenteerd;
+* geen code gewijzigd in deze planstap.
+
+**Ontstane bestanden / artefacten**
+
+* geen nieuwe technische artefacten; alleen plandocumentatie
+
+**Geslaagde validatie**
+
+* relevante scripts en `tsconfig`-richting zijn vastgesteld
+
+**Warnings / aandachtspunten**
+
+* handmatige TypeScript-check faalde op:
+  * `PrismaClient constructor vereist opties in Prisma 7`
+  * `process is niet bekend in TypeScript`
+* destijds waren `@prisma/adapter-pg`, `pg` en expliciete Node typings volgens inspectie nog niet beschikbaar
+
+**Bewust niet gedaan**
+
+* geen npm
+* geen npx
+* geen codewijziging
+* geen Prisma-commando
+
+## Fase 16 - Aparte dependencybeslissing voor Prisma 7 PostgreSQL runtime
+
+**Datum:** Controle nodig
+
+**Doel**
+
+Vastleggen dat veilige Prisma 7 PostgreSQL-runtime-integratie pas mogelijk was na een aparte dependency-stap.
+
+**Ricardo handmatig uitgevoerd**
+
+* geen uitvoering in deze beslis-/planstap
+
+**Codex alleen documentair of analyserend**
+
+* dependencygrens vastgelegd;
+* benoemd welke runtime- en type-dependencies nodig waren.
+
+**Ontstane bestanden / artefacten**
+
+* geen nieuwe technische artefacten; alleen beslisdocumentatie
+
+**Geslaagde validatie**
+
+* dependencybehoefte is expliciet gemaakt:
+  * `@prisma/adapter-pg`
+  * `pg`
+  * `@types/node`
+  * mogelijk `@types/pg`
+
+**Warnings / aandachtspunten**
+
+* planstap baseerde zich op toenmalige package-inspectie; latere dependency-installatie valt buiten de bronset van dit build-log
+
+**Bewust niet gedaan**
+
+* geen installatie in deze stap
+* geen codewijziging
+* geen TypeScript-check
+* geen Prisma-commando
+
+## Fase 17 - Lokale validatie van API health- en diagnostics-routes
+
+**Datum:** Controle nodig
+
+**Doel**
+
+Bevestigen dat de minimale Fastify API lokaal draaide en dat de bestaande read-only statusroutes veilig antwoord gaven op poort `3001`.
+
+**Ricardo handmatig uitgevoerd**
+
+* `Invoke-RestMethod http://localhost:3001/health`
+* `Invoke-RestMethod http://localhost:3001/diagnostics`
+
+**Codex alleen documentair of analyserend**
+
+* geen runtime-commando uitgevoerd;
+* alleen de lokaal gerapporteerde validatieresultaten vastgelegd.
+
+**Ontstane bestanden / artefacten**
+
+* geen nieuwe code- of database-artefacten
+
+**Geslaagde validatie**
+
+* de minimale API draaide lokaal op poort `3001`
+* `GET /health` gaf succesvol terug:
+  * `status: ok`
+  * `service: sam-mvp-api`
+  * `version: 0.1.0`
+* `GET /diagnostics` gaf succesvol terug:
+  * `service: sam-mvp-api`
+  * `status: ok`
+  * `mode: local-dev`
+  * `database: not_checked`
+  * `prisma: not_checked`
+  * `woocommerce: not_built`
+  * `secrets: not_exposed`
+  * `timestamp` aanwezig
+
+**Warnings / aandachtspunten**
+
+* `/diagnostics` valideert bewust geen Prisma- of database-runtime
+* `/diagnostics` blijft bewust read-only/statisch
+
+**Bewust niet gedaan**
+
+* geen databaseverbinding via deze endpoints
+* geen Prisma-query via deze endpoints
+* geen WooCommerce-integratie
+* geen secrets tonen
+* geen aanvullende businesslogica of extra domeinroutes valideren
+
+## Bewust niet uitgevoerd tijdens deze stappen
+
+* geen echte secrets in repo geplaatst
+* geen `.env` door Codex gelezen of aangepast
+* geen `prisma db push`
+* geen productie-deployment
+* geen WooCommerce connector
+* geen businesslogica
+* geen extra API-endpoints buiten aantoonbare basis/health-route
+* geen automatische npm-fix of globale configuratiewijziging door Codex
+* geen oude `SAM V2`-code of database overgenomen
+
+## Open aandachtspunten uit bouwgeschiedenis
+
+* `EBADENGINE` warning op `@prisma/streams-local@0.1.2` bleef open aandachtspunt
+* vereiste volgens warning:
+  * `node >=22.0.0` of `bun >=1.3.6`
+* gebruikte omgeving in de bouwgeschiedenis:
+  * Node `v20.19.0`
+  * npm `10.8.2`
+* `3 moderate severity vulnerabilities` bleven genoteerd zonder automatische fix
+* de eerdere npm-fout binnen Codex:
+  * `EPERM: operation not permitted, lstat 'C:\Users\Admin'`
+  bleef historisch relevant als uitvoercontextissue
+* documentstatus rond Prisma runtime en TypeScript-validatie kende tussenstappen en tijdelijke grenzen; latere consolidatie moet blijven onderscheiden tussen:
+  * wat slechts gepland was;
+  * wat statisch gevalideerd was;
+  * wat lokaal echt door Ricardo is uitgevoerd
+* sommige bronbestanden gebruiken tussentijdse formuleringen zoals "nog niet uitgevoerd" die in latere stappen zijn ingehaald; die zinnen hebben auditwaarde maar zijn niet automatisch de actuele toestand
+
+## Bronstatus
+
+Dit bestand is opgebouwd uit de documenten die in `docs/DOCS-MIGRATION-MATRIX.md` voor `docs/BUILD-LOG.md` zijn aangewezen, waaronder:
+
+* `docs/ENVIRONMENT-BLOCKERS.md`
+* `docs/LOCAL-INSTALL-STEPS.md`
+* `docs/LOCAL-FASTIFY-INSTALL-STEPS.md`
+* `docs/LOCAL-TSX-INSTALL-STEPS.md`
+* `docs/LOCAL-PRISMA-INSTALL-STEPS.md`
+* `docs/LOCAL-PRISMA-CLI-CHECK-STEPS.md`
+* `docs/LOCAL-PRISMA-SCHEMA-CHECK-STEPS.md`
+* `docs/LOCAL-PRISMA-SCHEMA-VALIDATION-WITH-DATABASE-URL.md`
+* `docs/LOCAL-PRISMA-MIGRATION-CREATE-ONLY-VALIDATION.md`
+* `docs/LOCAL-PRISMA-MIGRATION-APPLIED-VALIDATION.md`
+* `docs/LOCAL-POSTGRES-RUNTIME-VALIDATION.md`
+* `docs/LOCAL-POSTGRES-TABLES-VALIDATION.md`
+* `docs/LOCAL-PRISMA-GENERATE-VALIDATION.md`
+* `docs/LOCAL-PRISMA-GENERATED-CLIENT-OUTPUT-VALIDATION.md`
+* `docs/LOCAL-PRISMA-CLIENT-MODULE-VALIDATION.md`
+* `docs/LOCAL-API-TYPESCRIPT-VALIDATION-PLAN.md`
+* `docs/LOCAL-PRISMA-ADAPTER-DEPENDENCY-DECISION.md`
+
+Daarnaast is `docs/CURRENT-STATUS.md` meegelezen om te bewaken dat actuele status en bouwgeschiedenis gescheiden blijven.

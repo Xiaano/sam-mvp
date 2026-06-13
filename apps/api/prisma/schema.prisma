@@ -1,0 +1,224 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum IssueStatus {
+  NEW
+  REVIEWED
+  PARKED
+  SENT_TO_WEBSHOPBEHEER
+  RESOLVED
+}
+
+enum ProposalStatus {
+  PREVIEW_READY
+  APPROVED
+  REJECTED
+  PARKED
+  MANUAL_REVIEW_REQUIRED
+  EXECUTING
+  COMPLETED
+  FAILED
+}
+
+enum ExecutionStatus {
+  PENDING
+  EXECUTING
+  COMPLETED
+  FAILED
+  MANUAL_REVIEW_REQUIRED
+}
+
+enum Priority {
+  HIGH
+  MEDIUM
+  LOW
+}
+
+enum SourceConfidence {
+  HIGH
+  MEDIUM
+  LOW
+  AI_CONCEPT
+}
+
+enum UserDecisionType {
+  APPROVE
+  REJECT
+  PARK
+  MANUAL_REVIEW
+}
+
+model Product {
+  id          String       @id @default(cuid())
+  platform    String?
+  externalId  String?
+  externalRef String?
+  name        String
+  sku         String?
+  issues      Issue[]
+  sourceData  SourceData[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@index([platform, externalId])
+  @@index([sku])
+}
+
+model ScanRun {
+  id           String        @id @default(cuid())
+  runLabel     String?
+  scope        String?
+  issues       Issue[]
+  historyItems HistoryItem[]
+  startedAt    DateTime      @default(now())
+  completedAt  DateTime?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model Issue {
+  id           String        @id @default(cuid())
+  productId    String
+  scanRunId    String?
+  category     String
+  title        String
+  detail       String?
+  priority     Priority
+  status       IssueStatus
+  product      Product       @relation(fields: [productId], references: [id])
+  scanRun      ScanRun?      @relation(fields: [scanRunId], references: [id])
+  proposals    Proposal[]
+  historyItems HistoryItem[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  @@index([productId])
+  @@index([scanRunId])
+  @@index([status])
+  @@index([priority])
+}
+
+model Proposal {
+  id               String           @id @default(cuid())
+  productId        String?
+  issueId          String
+  title            String
+  rationale        String?
+  status           ProposalStatus
+  sourceConfidence SourceConfidence
+  issue            Issue            @relation(fields: [issueId], references: [id])
+  actions          Action[]
+  userDecision     UserDecision?
+  executions       Execution[]
+  historyItems     HistoryItem[]
+  sourceData       SourceData[]
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+
+  @@index([issueId])
+  @@index([status])
+}
+
+model Action {
+  id         String      @id @default(cuid())
+  proposalId String
+  productId  String?
+  actionType String
+  summary    String?
+  proposal   Proposal    @relation(fields: [proposalId], references: [id])
+  executions Execution[]
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+
+  @@index([proposalId])
+}
+
+model UserDecision {
+  id           String           @id @default(cuid())
+  proposalId   String           @unique
+  operatorId   String
+  decisionType UserDecisionType
+  note         String?
+  proposal     Proposal         @relation(fields: [proposalId], references: [id])
+  operator     Operator         @relation(fields: [operatorId], references: [id])
+  createdAt    DateTime         @default(now())
+
+  @@index([operatorId])
+}
+
+model Execution {
+  id            String          @id @default(cuid())
+  proposalId    String
+  actionId      String?
+  operatorId    String?
+  status        ExecutionStatus
+  resultSummary String?
+  proposal      Proposal        @relation(fields: [proposalId], references: [id])
+  action        Action?         @relation(fields: [actionId], references: [id])
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+
+  @@index([proposalId])
+  @@index([actionId])
+  @@index([status])
+}
+
+model HistoryItem {
+  id         String    @id @default(cuid())
+  entityType String
+  entityId   String
+  eventType  String
+  message    String?
+  operatorId String?
+  scanRunId  String?
+  issueId    String?
+  proposalId String?
+  operator   Operator? @relation(fields: [operatorId], references: [id])
+  scanRun    ScanRun?  @relation(fields: [scanRunId], references: [id])
+  issue      Issue?    @relation(fields: [issueId], references: [id])
+  proposal   Proposal? @relation(fields: [proposalId], references: [id])
+  createdAt  DateTime  @default(now())
+
+  @@index([entityType, entityId])
+  @@index([operatorId])
+  @@index([scanRunId])
+  @@index([issueId])
+  @@index([proposalId])
+}
+
+model SourceData {
+  id               String           @id @default(cuid())
+  productId        String?
+  proposalId       String?
+  sourceType       String
+  sourceLabel      String?
+  contentSummary   String?
+  sourceConfidence SourceConfidence
+  product          Product?         @relation(fields: [productId], references: [id])
+  proposal         Proposal?        @relation(fields: [proposalId], references: [id])
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+
+  @@index([productId])
+  @@index([proposalId])
+  @@index([sourceConfidence])
+}
+
+model Operator {
+  id            String         @id @default(cuid())
+  displayName   String
+  email         String?
+  active        Boolean        @default(true)
+  userDecisions UserDecision[]
+  historyItems  HistoryItem[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  @@index([email])
+}

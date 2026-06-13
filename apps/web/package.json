@@ -1,0 +1,10 @@
+{
+  "name": "@sam-mvp/web",
+  "version": "0.1.0",
+  "private": true,
+  "description": "SAM MVP operator cockpit",
+  "scripts": {
+    "check": "tsc -p tsconfig.json --noEmit",
+    "test": "echo \"No web tests configured yet\""
+  }
+}

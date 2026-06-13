@@ -1,0 +1,24 @@
+{
+  "name": "@sam-mvp/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "SAM MVP API service",
+  "scripts": {
+    "dev": "tsx src/start.ts",
+    "check": "tsc -p tsconfig.json --noEmit",
+    "test": "echo \"No api tests configured yet\""
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.8.0",
+    "@prisma/client": "^7.8.0",
+    "fastify": "^5.8.5",
+    "pg": "^8.21.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.3",
+    "@types/pg": "^8.20.0",
+    "prisma": "^7.8.0",
+    "tsx": "^4.22.4"
+  }
+}

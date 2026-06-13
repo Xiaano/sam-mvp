@@ -1,0 +1,172 @@
+# Current Status
+
+## Repo en projectstart
+
+* Repo-context: frisse lokale opzet voor `SAM MVP Release 1`.
+* Basisuitgangspunt blijft geldig: "Dit is een nieuwe start."
+* Oude `SAM V2` blijft alleen testcontext; oude code wordt niet overgenomen.
+* Secrets-status:
+  * er is geen `.env` in `sam-mvp`;
+  * echte secrets blijven buiten `sam-mvp`;
+  * `DATABASE_URL` blijft buiten `sam-mvp`;
+  * Codex mag geen `.env`, `DATABASE_URL` of secrets lezen.
+
+## Actuele technische toestand
+
+### API-stack
+
+* Bouwrichting uit bronset: API-first.
+* Aantoonbaar bestaande minimale API-basis volgens bronset:
+  * minimale Fastify API draait lokaal op poort `3001`;
+  * `GET /health` is lokaal succesvol gevalideerd;
+  * `GET /diagnostics` is lokaal succesvol gevalideerd;
+  * `GET /diagnostics` blijft bewust read-only en statisch;
+  * `GET /diagnostics` maakt geen databaseverbinding, voert geen Prisma-query uit, gebruikt geen WooCommerce en toont geen secrets;
+* Aantoonbaar genoemd pad voor Prisma app-integratie:
+  * `apps/api/src/persistence/prismaClient.ts`
+* Via de lokaal gevalideerde API-routes is Prisma/database-runtime nog niet gevalideerd.
+
+### TypeScript
+
+* TypeScript is lokaal geïnstalleerd door Ricardo.
+* TypeScript-configuratie is geldig volgens bronset.
+* `npm run check` is lokaal succesvol uitgevoerd door Ricardo.
+* Vastgelegde versie in bronset:
+  * TypeScript `6.0.3`
+
+### Fastify
+
+* Fastify is lokaal geïnstalleerd door Ricardo.
+* Vastgelegde versie in bronset:
+  * Fastify `5.8.5`
+* De minimale Fastify API runtime is lokaal getest via de bestaande health route.
+
+### Prisma
+
+* Prisma is lokaal geïnstalleerd door Ricardo.
+* Auditwaardige versies:
+  * `prisma 7.8.0`
+  * `@prisma/client 7.8.0`
+* Prisma schema-validatie met extern beheerde `DATABASE_URL` is succesvol uitgevoerd.
+* Prisma Client is lokaal gegenereerd.
+* Auditwaardig outputpad:
+  * `apps/api/src/generated/prisma`
+* Prisma runtime compatibility gate-status:
+  * `PASSED_WITH_WARNINGS`
+
+### PostgreSQL
+
+* Lokale PostgreSQL-richting is actief gebruikt voor ontwikkeling/test.
+* Auditwaardige databasefeiten:
+  * container: `sam-mvp-postgres`
+  * hostpoort: `5433`
+  * containerpoort: `5432`
+  * database: `sam_mvp_dev`
+  * user: `sam_mvp_local`
+
+### Docker/Postgres runtime
+
+* Docker/Postgres runtime is lokaal gevalideerd.
+* De container `sam-mvp-postgres` draaide lokaal met status `healthy`.
+* Databaseverbinding is handmatig gecontroleerd met `psql`.
+
+### Migratie-status
+
+* De eerste Prisma migratie is succesvol toegepast.
+* Auditwaardige migratie:
+  * `20260612213620_init`
+* Prisma meldde bij de toegepaste migratie:
+  * "All migrations have been successfully applied."
+  * "Database schema is up to date."
+* De volgende tabellen zijn lokaal gevalideerd in schema `public`:
+  * `Action`
+  * `Execution`
+  * `HistoryItem`
+  * `Issue`
+  * `Operator`
+  * `Product`
+  * `Proposal`
+  * `ScanRun`
+  * `SourceData`
+  * `UserDecision`
+  * `_prisma_migrations`
+
+### Generated Prisma client
+
+* Prisma Client is lokaal gegenereerd.
+* Gerapporteerde output:
+  * `Generated Prisma Client (7.8.0) to .\apps\api\src\generated\prisma`
+* Huidige bron van waarheid blijft:
+  * `schema.prisma`
+  * migrations
+
+## Bekende warnings en blockers
+
+### Huidige warnings
+
+* Prisma runtime compatibility gate blijft `PASSED_WITH_WARNINGS`.
+* Auditwaardige warning:
+  * `EBADENGINE` warning op `@prisma/streams-local@0.1.2`
+* Bijbehorende vereiste uit bronset:
+  * required: `node >=22.0.0` of `bun >=1.3.6`
+  * current: `node v20.19.0`, `npm 10.8.2`
+* Extra auditpunt:
+  * `3 moderate severity vulnerabilities`
+
+### Eerdere blockerstatus
+
+* Eerdere npm-uitvoercontextfout in Codex:
+  * `EPERM: operation not permitted, lstat 'C:\Users\Admin'`
+* Status in bronset:
+  * blocker zelf staat als `RESOLVED`
+  * Prisma install warnings staan als `MONITORED`
+* Betekenis nu:
+  * npm werkte buiten Codex in normale PowerShell;
+  * de eerdere blokkade lijkt een uitvoercontextprobleem en geen `sam-mvp`-projectfout.
+
+## Controle nodig
+
+De volgende statusregels komen uit oudere of bredere documenten en zijn mogelijk verouderd of intern tegenstrijdig. Ze mogen daarom niet zonder controle als definitieve actuele status worden hergebruikt:
+
+* `README.md` noemt `Projectstatus: PRISMA_SCHEMA_V0_VALIDATED`, terwijl latere bronbestanden ook lokale PostgreSQL-runtime, migratie-apply en Prisma generate als voltooid vastleggen.
+* `README.md` bevat zowel:
+  * "Er is nog geen database."
+  * als later ook:
+    * lokale PostgreSQL-runtime is succesvol gevalideerd;
+    * eerste Prisma migratie is succesvol toegepast;
+    * lokale PostgreSQL-tabellen zijn gevalideerd.
+* `README.md` bevat zowel:
+  * "De eerste lokale Prisma migratie is succesvol toegepast via `migrate deploy`, maar Prisma `generate` is nog niet uitgevoerd."
+  * als later ook:
+    * "Prisma Client `generate` is succesvol uitgevoerd naar `apps/api/src/generated/prisma`."
+* `README.md` bevat:
+  * "Prisma compatibility gate is `OPEN`."
+  * terwijl `docs/PRISMA-RUNTIME-COMPATIBILITY-GATE.md` als latere bronstatus `PASSED_WITH_WARNINGS` vastlegt.
+* `README.md` noemt:
+  * "Er zijn nog geen API-endpoints."
+  * terwijl hetzelfde document ook bevestigt dat de health route aanwezig en succesvol getest is.
+
+## Bewust nog niet gebouwd
+
+* geen businesslogica
+* geen WooCommerce connector
+* geen extra API-endpoints buiten wat aantoonbaar bestaat
+* geen productie-deployment
+* geen echte secrets in repo
+* geen `Prisma db push` uitgevoerd
+* geen bevestigde Prisma runtime/database-integratie in applicatielogica buiten de voorbereidende bouwstenen
+
+## Bronstatus
+
+Dit bestand is opgebouwd uit de documenten die in `docs/DOCS-MIGRATION-MATRIX.md` expliciet als bronmateriaal voor `docs/CURRENT-STATUS.md` zijn aangewezen:
+
+* `README.md`
+* `docs/ENVIRONMENT-BLOCKERS.md`
+* `docs/LOCAL-POSTGRES-RUNTIME-VALIDATION.md`
+* `docs/LOCAL-POSTGRES-TABLES-VALIDATION.md`
+* `docs/LOCAL-PRISMA-GENERATE-VALIDATION.md`
+* `docs/LOCAL-PRISMA-MIGRATION-APPLIED-VALIDATION.md`
+* `docs/LOCAL-PRISMA-SCHEMA-VALIDATION-WITH-DATABASE-URL.md`
+* `docs/PRISMA-RUNTIME-COMPATIBILITY-GATE.md`
+
+Waar bronbestanden elkaar in tijd of status lijken te overlappen, is dat hierboven gemarkeerd als `Controle nodig`.

@@ -1,0 +1,21 @@
+{
+  "name": "sam-mvp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "SAM MVP Release 1 monorepo",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "check": "npm run check --workspaces --if-present",
+    "check:ts": "tsc -p tsconfig.base.json --noEmit",
+    "test": "echo \"No tests configured yet\""
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.3"
+  }
+}
