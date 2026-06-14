@@ -3,6 +3,7 @@ import Fastify from "fastify";
 import { registerDiagnosticsRoute } from "./routes/diagnostics.js";
 import { registerHealthRoute } from "./routes/health.js";
 import { registerHealthCheckerApprovalFlowContractRoute } from "./routes/healthCheckerApprovalFlowContract.js";
+import { registerHealthCheckerAuditLogContractRoute } from "./routes/healthCheckerAuditLogContract.js";
 import { registerHealthCheckerIssueClassificationRoute } from "./routes/healthCheckerIssueClassification.js";
 import { registerHealthCheckerIssueProposalMappingRoute } from "./routes/healthCheckerIssueProposalMapping.js";
 import { registerHealthCheckerMockProposalPreviewRoute } from "./routes/healthCheckerMockProposalPreview.js";
@@ -19,6 +20,7 @@ export function createApiServer() {
 
   registerHealthRoute(app);
   registerDiagnosticsRoute(app);
+  registerHealthCheckerAuditLogContractRoute(app);
   registerHealthCheckerApprovalFlowContractRoute(app);
   registerHealthCheckerReadinessRoute(app);
   registerHealthCheckerMockScanRoute(app);
