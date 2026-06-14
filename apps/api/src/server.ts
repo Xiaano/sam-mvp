@@ -4,6 +4,7 @@ import { registerDiagnosticsRoute } from "./routes/diagnostics.js";
 import { registerHealthRoute } from "./routes/health.js";
 import { registerHealthCheckerIssueClassificationRoute } from "./routes/healthCheckerIssueClassification.js";
 import { registerHealthCheckerIssueProposalMappingRoute } from "./routes/healthCheckerIssueProposalMapping.js";
+import { registerHealthCheckerMockProposalPreviewRoute } from "./routes/healthCheckerMockProposalPreview.js";
 import { registerHealthCheckerMockScanRoute } from "./routes/healthCheckerMockScan.js";
 import { registerHealthCheckerProposalContractRoute } from "./routes/healthCheckerProposalContract.js";
 import { registerHealthCheckerReadinessRoute } from "./routes/healthCheckerReadiness.js";
@@ -20,6 +21,7 @@ export function createApiServer() {
   registerHealthCheckerIssueClassificationRoute(app);
   registerHealthCheckerProposalContractRoute(app);
   registerHealthCheckerIssueProposalMappingRoute(app);
+  registerHealthCheckerMockProposalPreviewRoute(app);
 
   return app;
 }

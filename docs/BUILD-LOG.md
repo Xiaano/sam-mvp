@@ -1132,6 +1132,77 @@ Een kleine, veilige read-only issue-to-proposal mapping contractroute toevoegen 
 * geen businesslogica
 * geen brede refactor
 
+## Fase 24 - Health Checker mock proposal preview-route toegevoegd
+
+**Datum:** 2026-06-14
+
+**Doel**
+
+Een kleine, veilige read-only mock proposal preview-route toevoegen voor `SAM Health Checker`, zodat toekomstige voorstellen al als statische preview via een stabiel API-contract bekeken kunnen worden zonder echte proposal-engine.
+
+**Ricardo handmatig uitgevoerd**
+
+* geen aparte handmatige Ricardo-validatie vastgelegd in deze stap
+
+**Codex alleen documentair of analyserend**
+
+* bestaande Fastify-structuur gecontroleerd;
+* een nieuwe read-only route toegevoegd onder:
+  * `GET /api/health-checker/mock-proposal-preview`
+* route geregistreerd naast de bestaande `/health`, `/diagnostics`, `/api/health-checker/readiness`, `/api/health-checker/mock-scan`, `/api/health-checker/issue-classification`, `/api/health-checker/proposal-contract` en `/api/health-checker/issue-proposal-mapping`;
+* geen database-, Prisma-, WooCommerce- of secretsintegratie toegevoegd.
+
+**Ontstane bestanden / artefacten**
+
+* nieuw routebestand:
+  * `apps/api/src/routes/healthCheckerMockProposalPreview.ts`
+* bijgewerkt serverbestand:
+  * `apps/api/src/server.ts`
+
+**Geslaagde validatie**
+
+* inline TypeScript-validatie slaagde opnieuw
+* runtime-validatie via inline Node/`tsx`-workaround slaagde voor:
+  * `GET /health`
+  * `GET /diagnostics`
+  * `GET /api/health-checker/readiness`
+  * `GET /api/health-checker/mock-scan`
+  * `GET /api/health-checker/issue-classification`
+  * `GET /api/health-checker/proposal-contract`
+  * `GET /api/health-checker/issue-proposal-mapping`
+  * `GET /api/health-checker/mock-proposal-preview`
+* de nieuwe preview-route gaf veilig een statische response terug met onder andere:
+  * `service: sam-health-checker`
+  * `mode: mock_preview`
+  * `status: completed`
+  * `source_scan_id: mock_scan_001`
+  * `preview_count: 4`
+  * `human_approval_required: true`
+  * `auto_execute_allowed: false`
+  * `database: not_used`
+  * `prisma: not_used`
+  * `write_actions: disabled`
+  * `auto_execute: disabled`
+
+**Warnings / aandachtspunten**
+
+* normale `npm run check -w @sam-mvp/api` faalt in deze Codex-sessie nog steeds door de bekende omgevingfout:
+  * `EPERM: operation not permitted, lstat 'C:\\Users\\Admin'`
+* de inline Node/`tsx`-workaround bleef daardoor nodig voor validatie binnen Codex
+* via `/diagnostics`, `/api/health-checker/readiness`, `/api/health-checker/mock-scan`, `/api/health-checker/issue-classification`, `/api/health-checker/proposal-contract`, `/api/health-checker/issue-proposal-mapping` en `/api/health-checker/mock-proposal-preview` zijn database en Prisma bewust niet actief gevalideerd
+
+**Bewust niet gedaan**
+
+* geen databaseverbinding
+* geen Prisma-query
+* geen WooCommerce-koppeling
+* geen `.env` of secrets gelezen
+* geen AI/OpenAI-koppeling
+* geen frontend/cockpit
+* geen proposal-engine
+* geen businesslogica
+* geen brede refactor
+
 ## Bewust niet uitgevoerd tijdens deze stappen
 
 * geen echte secrets in repo geplaatst
