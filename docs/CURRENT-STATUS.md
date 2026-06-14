@@ -32,6 +32,7 @@
   * `GET /api/health-checker/mock-proposal-preview` is lokaal succesvol gevalideerd;
   * `GET /api/health-checker/operator-review-contract` is lokaal succesvol gevalideerd;
   * `GET /api/health-checker/operator-review-preview` is lokaal succesvol gevalideerd;
+  * `GET /api/health-checker/approval-flow-contract` is lokaal succesvol gevalideerd;
   * `GET /diagnostics` blijft bewust read-only en statisch;
   * `GET /diagnostics` maakt geen databaseverbinding, voert geen Prisma-query uit, gebruikt geen WooCommerce en toont geen secrets;
   * `GET /api/health-checker/readiness` blijft bewust read-only en statisch;
@@ -49,6 +50,8 @@
   * `GET /api/health-checker/operator-review-contract` levert alleen statische reviewafspraken voor menselijke beoordeling en gebruikt geen database, Prisma of WooCommerce;
   * `GET /api/health-checker/operator-review-preview` blijft bewust read-only en statisch;
   * `GET /api/health-checker/operator-review-preview` levert alleen statische reviewpreview-items en gebruikt geen database, Prisma of WooCommerce;
+  * `GET /api/health-checker/approval-flow-contract` blijft bewust read-only en statisch;
+  * `GET /api/health-checker/approval-flow-contract` levert alleen statische goedkeuringsafspraken en gebruikt geen database, Prisma of WooCommerce;
 * Aantoonbaar genoemd pad voor Prisma app-integratie:
   * `apps/api/src/persistence/prismaClient.ts`
 * Via de lokaal gevalideerde API-routes is Prisma/database-runtime nog niet gevalideerd; `database` en `prisma` blijven daar bewust `not_checked`.
@@ -177,7 +180,7 @@ De volgende statusregels komen uit oudere of bredere documenten en zijn mogelijk
 
 * geen businesslogica
 * geen WooCommerce connector
-* geen extra API-endpoints buiten wat aantoonbaar bestaat, inclusief de huidige read-only health/status/mock/classification/proposal/mapping/preview/review/review-preview-routes
+* geen extra API-endpoints buiten wat aantoonbaar bestaat, inclusief de huidige read-only health/status/mock/classification/proposal/mapping/preview/review/review-preview/approval-routes
 * geen productie-deployment
 * geen echte secrets in repo
 * geen `Prisma db push` uitgevoerd

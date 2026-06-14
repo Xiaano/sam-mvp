@@ -1,0 +1,101 @@
+import type { FastifyInstance } from "fastify";
+
+export function registerHealthCheckerApprovalFlowContractRoute(
+  app: FastifyInstance,
+) {
+  app.get("/api/health-checker/approval-flow-contract", async () => ({
+    service: "sam-health-checker",
+    mode: "contract",
+    status: "available",
+    version: "0.1.0",
+    approval_model: {
+      source: "operator-review-preview",
+      human_approval_required: true,
+      auto_approval_allowed: false,
+      auto_execute_allowed: false,
+      bulk_approval_allowed: false,
+    },
+    allowed_transitions: [
+      {
+        from_status: "ready_for_review",
+        action: "approve",
+        to_status: "approved",
+        requires_reason: false,
+        requires_human_actor: true,
+        allows_execution: false,
+        risk_note: "Approval still requires a separate execution step.",
+      },
+      {
+        from_status: "ready_for_review",
+        action: "reject",
+        to_status: "rejected",
+        requires_reason: true,
+        requires_human_actor: true,
+        allows_execution: false,
+        risk_note: "Rejected proposals must stay out of any execution path.",
+      },
+      {
+        from_status: "ready_for_review",
+        action: "hold",
+        to_status: "on_hold",
+        requires_reason: true,
+        requires_human_actor: true,
+        allows_execution: false,
+        risk_note: "On-hold items are paused until manually resumed.",
+      },
+      {
+        from_status: "ready_for_review",
+        action: "request_changes",
+        to_status: "changes_requested",
+        requires_reason: true,
+        requires_human_actor: true,
+        allows_execution: false,
+        risk_note: "Change requests block approval until the proposal is revised.",
+      },
+      {
+        from_status: "on_hold",
+        action: "resume_review",
+        to_status: "ready_for_review",
+        requires_reason: false,
+        requires_human_actor: true,
+        allows_execution: false,
+        risk_note: "Resumed items return to manual review first.",
+      },
+      {
+        from_status: "changes_requested",
+        action: "resubmit",
+        to_status: "ready_for_review",
+        requires_reason: false,
+        requires_human_actor: true,
+        allows_execution: false,
+        risk_note: "Resubmitted items require another review pass.",
+      },
+    ],
+    approval_rules: {
+      human_actor_required: true,
+      reason_required_for_reject: true,
+      reason_required_for_hold: true,
+      auto_execute_after_approval: false,
+      execution_requires_separate_step: true,
+    },
+    example_approval_decision: {
+      review_id: "review_002",
+      proposal_id: "preview_002",
+      current_status: "ready_for_review",
+      selected_action: "request_changes",
+      next_status: "changes_requested",
+      reason_required: true,
+      execution_enabled: false,
+    },
+    safety: {
+      database: "not_used",
+      woocommerce: "not_connected",
+      prisma: "not_used",
+      secrets: "not_required",
+      write_actions: "disabled",
+      auto_execute: "disabled",
+    },
+    next_step:
+      "Next step can be approval decision mock or audit-log contract.",
+  }));
+}
