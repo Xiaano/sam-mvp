@@ -928,6 +928,72 @@ Een kleine, veilige read-only mock scan contractroute toevoegen voor `SAM Health
 * geen businesslogica
 * geen brede refactor
 
+## Fase 21 - Health Checker issue classification contractroute toegevoegd
+
+**Datum:** 2026-06-14
+
+**Doel**
+
+Een kleine, veilige read-only issue classification contractroute toevoegen voor `SAM Health Checker`, zodat issue-taxonomie en vervolgcontracten al stabiel beschreven kunnen worden zonder echte classifier-engine.
+
+**Ricardo handmatig uitgevoerd**
+
+* geen aparte handmatige Ricardo-validatie vastgelegd in deze stap
+
+**Codex alleen documentair of analyserend**
+
+* bestaande Fastify-structuur gecontroleerd;
+* een nieuwe read-only route toegevoegd onder:
+  * `GET /api/health-checker/issue-classification`
+* route geregistreerd naast de bestaande `/health`, `/diagnostics`, `/api/health-checker/readiness` en `/api/health-checker/mock-scan`;
+* geen database-, Prisma-, WooCommerce- of secretsintegratie toegevoegd.
+
+**Ontstane bestanden / artefacten**
+
+* nieuw routebestand:
+  * `apps/api/src/routes/healthCheckerIssueClassification.ts`
+* bijgewerkt serverbestand:
+  * `apps/api/src/server.ts`
+
+**Geslaagde validatie**
+
+* inline TypeScript-validatie slaagde opnieuw
+* runtime-validatie via inline Node/`tsx`-workaround slaagde voor:
+  * `GET /health`
+  * `GET /diagnostics`
+  * `GET /api/health-checker/readiness`
+  * `GET /api/health-checker/mock-scan`
+  * `GET /api/health-checker/issue-classification`
+* de nieuwe classification-route gaf veilig een statische response terug met onder andere:
+  * `service: sam-health-checker`
+  * `mode: contract`
+  * `status: available`
+  * `issue_type_count: 8`
+  * `severity_levels: low, medium, high, critical`
+  * `confidence_levels: low, medium, high`
+  * `database: not_used`
+  * `prisma: not_used`
+  * `write_actions: disabled`
+
+**Warnings / aandachtspunten**
+
+* normale `npm run check -w @sam-mvp/api` faalt in deze Codex-sessie nog steeds door de bekende omgevingfout:
+  * `EPERM: operation not permitted, lstat 'C:\\Users\\Admin'`
+* de inline Node/`tsx`-workaround bleef daardoor nodig voor validatie binnen Codex
+* via `/diagnostics`, `/api/health-checker/readiness`, `/api/health-checker/mock-scan` en `/api/health-checker/issue-classification` zijn database en Prisma bewust niet actief gevalideerd
+
+**Bewust niet gedaan**
+
+* geen databaseverbinding
+* geen Prisma-query
+* geen WooCommerce-koppeling
+* geen `.env` of secrets gelezen
+* geen AI/OpenAI-koppeling
+* geen frontend/cockpit
+* geen classifier-engine
+* geen businesslogica
+* geen brede refactor
+
 ## Bewust niet uitgevoerd tijdens deze stappen
 
 * geen echte secrets in repo geplaatst
