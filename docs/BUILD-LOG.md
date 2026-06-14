@@ -867,6 +867,67 @@ Een kleine, veilige read-only API-stap toevoegen voor `SAM Health Checker`, zoda
 * geen cockpit/frontend
 * geen brede refactor
 
+## Fase 20 - Health Checker mock-scan contractroute toegevoegd
+
+**Datum:** 2026-06-14
+
+**Doel**
+
+Een kleine, veilige read-only mock scan contractroute toevoegen voor `SAM Health Checker`, zodat toekomstige scan-output al via een stabiel API-contract kan worden besproken zonder echte scan-engine.
+
+**Ricardo handmatig uitgevoerd**
+
+* geen aparte handmatige Ricardo-validatie vastgelegd in deze stap
+
+**Codex alleen documentair of analyserend**
+
+* bestaande Fastify-structuur gecontroleerd;
+* een nieuwe read-only route toegevoegd onder:
+  * `GET /api/health-checker/mock-scan`
+* route geregistreerd naast de bestaande `/health`, `/diagnostics` en `/api/health-checker/readiness`;
+* geen database-, Prisma-, WooCommerce- of secretsintegratie toegevoegd.
+
+**Ontstane bestanden / artefacten**
+
+* nieuw routebestand:
+  * `apps/api/src/routes/healthCheckerMockScan.ts`
+* bijgewerkt serverbestand:
+  * `apps/api/src/server.ts`
+
+**Geslaagde validatie**
+
+* inline TypeScript-validatie slaagde opnieuw
+* runtime-validatie via inline Node/`tsx`-workaround slaagde voor:
+  * `GET /health`
+  * `GET /diagnostics`
+  * `GET /api/health-checker/readiness`
+  * `GET /api/health-checker/mock-scan`
+* de nieuwe mock-route gaf veilig een statische response terug met onder andere:
+  * `service: sam-health-checker`
+  * `mode: mock`
+  * `status: completed`
+  * `database: not_used`
+  * `prisma: not_used`
+  * `write_actions: disabled`
+
+**Warnings / aandachtspunten**
+
+* normale `npm run check -w @sam-mvp/api` faalt in deze Codex-sessie nog steeds door de bekende omgevingfout:
+  * `EPERM: operation not permitted, lstat 'C:\\Users\\Admin'`
+* de inline Node/`tsx`-workaround bleef daardoor nodig voor validatie binnen Codex
+* via `/diagnostics`, `/api/health-checker/readiness` en `/api/health-checker/mock-scan` zijn database en Prisma bewust niet actief gevalideerd
+
+**Bewust niet gedaan**
+
+* geen databaseverbinding
+* geen Prisma-query
+* geen WooCommerce-koppeling
+* geen `.env` of secrets gelezen
+* geen AI/OpenAI-koppeling
+* geen frontend/cockpit
+* geen businesslogica
+* geen brede refactor
+
 ## Bewust niet uitgevoerd tijdens deze stappen
 
 * geen echte secrets in repo geplaatst

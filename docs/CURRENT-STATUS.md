@@ -25,9 +25,12 @@
   * `GET /health` is lokaal succesvol gevalideerd;
   * `GET /diagnostics` is lokaal succesvol gevalideerd;
   * `GET /api/health-checker/readiness` is lokaal succesvol gevalideerd;
+  * `GET /api/health-checker/mock-scan` is lokaal succesvol gevalideerd;
   * `GET /diagnostics` blijft bewust read-only en statisch;
   * `GET /diagnostics` maakt geen databaseverbinding, voert geen Prisma-query uit, gebruikt geen WooCommerce en toont geen secrets;
   * `GET /api/health-checker/readiness` blijft bewust read-only en statisch;
+  * `GET /api/health-checker/mock-scan` blijft bewust read-only en statisch;
+  * `GET /api/health-checker/mock-scan` gebruikt geen database, voert geen Prisma-query uit, maakt geen WooCommerce-verbinding en laat write actions uitgeschakeld;
 * Aantoonbaar genoemd pad voor Prisma app-integratie:
   * `apps/api/src/persistence/prismaClient.ts`
 * Via de lokaal gevalideerde API-routes is Prisma/database-runtime nog niet gevalideerd; `database` en `prisma` blijven daar bewust `not_checked`.
@@ -156,7 +159,7 @@ De volgende statusregels komen uit oudere of bredere documenten en zijn mogelijk
 
 * geen businesslogica
 * geen WooCommerce connector
-* geen extra API-endpoints buiten wat aantoonbaar bestaat
+* geen extra API-endpoints buiten wat aantoonbaar bestaat, inclusief de huidige read-only health/status/mock-routes
 * geen productie-deployment
 * geen echte secrets in repo
 * geen `Prisma db push` uitgevoerd

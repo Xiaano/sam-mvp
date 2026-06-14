@@ -2,6 +2,7 @@ import Fastify from "fastify";
 
 import { registerDiagnosticsRoute } from "./routes/diagnostics.js";
 import { registerHealthRoute } from "./routes/health.js";
+import { registerHealthCheckerMockScanRoute } from "./routes/healthCheckerMockScan.js";
 import { registerHealthCheckerReadinessRoute } from "./routes/healthCheckerReadiness.js";
 
 export function createApiServer() {
@@ -12,6 +13,7 @@ export function createApiServer() {
   registerHealthRoute(app);
   registerDiagnosticsRoute(app);
   registerHealthCheckerReadinessRoute(app);
+  registerHealthCheckerMockScanRoute(app);
 
   return app;
 }
