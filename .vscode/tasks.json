@@ -1,0 +1,37 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "api:check",
+      "type": "shell",
+      "command": "npm run check -w @sam-mvp/api",
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "HOME": "${workspaceFolder}",
+          "USERPROFILE": "${workspaceFolder}",
+          "NPM_CONFIG_CACHE": "${workspaceFolder}\\.npm-cache",
+          "NPM_CONFIG_PREFIX": "${workspaceFolder}\\.npm-prefix",
+          "NPM_CONFIG_USERCONFIG": "${workspaceFolder}\\.npmrc"
+        }
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "api:dev",
+      "type": "shell",
+      "command": "npm run dev -w @sam-mvp/api",
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "HOME": "${workspaceFolder}",
+          "USERPROFILE": "${workspaceFolder}",
+          "NPM_CONFIG_CACHE": "${workspaceFolder}\\.npm-cache",
+          "NPM_CONFIG_PREFIX": "${workspaceFolder}\\.npm-prefix",
+          "NPM_CONFIG_USERCONFIG": "${workspaceFolder}\\.npmrc"
+        }
+      },
+      "problemMatcher": []
+    }
+  ]
+}

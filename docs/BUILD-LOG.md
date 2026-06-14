@@ -748,6 +748,125 @@ Bevestigen dat de minimale Fastify API lokaal draaide en dat de bestaande read-o
 * geen secrets tonen
 * geen aanvullende businesslogica of extra domeinroutes valideren
 
+## Fase 18 - Eerste GitHub-mijlpaal afgerond
+
+**Datum:** Controle nodig
+
+**Doel**
+
+De lokale `sam-mvp`-repository als eerste gecontroleerde Git-basis afronden en succesvol naar GitHub publiceren.
+
+**Ricardo handmatig uitgevoerd**
+
+* lokale Git-initialisatie op branch `main`
+* remote koppeling naar:
+  * `https://github.com/Xiaano/sam-mvp.git`
+* eerste commit gemaakt:
+  * `cd1b89f`
+  * `chore: initialize SAM MVP foundation`
+* eerste push uitgevoerd:
+  * `main -> origin/main`
+* bevestigd dat lokale branch `main` `origin/main` trackt
+* bevestigd dat `git status` clean was
+
+**Codex alleen documentair of analyserend**
+
+* eerdere GitHub-ready controle opgesteld;
+* geen Git-commando uitgevoerd;
+* geen commit, push of remote-wijziging uitgevoerd.
+
+**Ontstane bestanden / artefacten**
+
+* lokale Git-repository voor `sam-mvp`
+* gekoppelde remote `origin`
+* eerste gepushte branch `main`
+
+**Geslaagde validatie**
+
+* eerste commit: `cd1b89f`
+* commit message: `chore: initialize SAM MVP foundation`
+* `88 files` zaten in de initiële commit
+* eerste push naar GitHub is gelukt
+* `main` is gepusht naar `origin/main`
+* lokale branch `main` trackt `origin/main`
+* `git status` was clean bevestigd
+
+**Warnings / aandachtspunten**
+
+* PowerShell-foutmeldingen na de push waren onschuldig
+* oorzaak: Git-outputregels zijn per ongeluk als losse commando’s ingevoerd
+
+**Bewust niet gedaan**
+
+* geen secrets toegevoegd aan de repo
+* geen echte `.env` meegecommit
+* geen keys of certificaten meegecommit
+* geen extra technische wijzigingen als onderdeel van deze GitHub-mijlpaal
+
+## Fase 19 - Health Checker readiness-route voorbereid
+
+**Datum:** Controle nodig
+
+**Doel**
+
+Een kleine, veilige read-only API-stap toevoegen voor `SAM Health Checker`, zodat de API expliciet kan aangeven welke mock-scanrichting later ondersteund wordt.
+
+**Ricardo handmatig uitgevoerd**
+
+* geen aparte handmatige Ricardo-validatie vastgelegd in deze stap
+
+**Codex alleen documentair of analyserend**
+
+* bestaande Fastify-routeopbouw gecontroleerd;
+* een nieuwe read-only route voorbereid onder:
+  * `GET /api/health-checker/readiness`
+* project-lokale werkbankbestanden toegevoegd voor stabielere root-gebaseerde npm/VS Code-werking:
+  * `.npmrc`
+  * `.vscode/settings.json`
+  * `.vscode/tasks.json`
+* geen database-, Prisma-, WooCommerce- of secretsintegratie toegevoegd.
+
+**Ontstane bestanden / artefacten**
+
+* nieuw routebestand voor Health Checker readiness
+* bijgewerkte route-registratie in de bestaande Fastify server
+* lokale `.npmrc` met project-lokale cache/prefix
+* veilige VS Code-workspace-instellingen en tasks
+
+**Geslaagde validatie**
+
+* statisch bevestigd dat de nieuwe route in dezelfde Fastify-structuur is geregistreerd als `/health` en `/diagnostics`
+* inline TypeScript-validatie slaagde
+* runtime-validatie via inline Node/`tsx`-workaround slaagde voor:
+  * `GET /health`
+  * `GET /diagnostics`
+  * `GET /api/health-checker/readiness`
+* de routepayload bevat alleen read-only/statische readiness-informatie:
+  * `service: sam-health-checker`
+  * `status: ready_for_mock_scan_contract`
+  * `version: 0.1.0`
+  * `database: not_checked`
+  * `woocommerce: not_connected`
+  * `secrets: not_required`
+  * capabilities voor toekomstige scanchecks
+
+**Warnings / aandachtspunten**
+
+* normale `npm run check -w @sam-mvp/api` faalt in deze Codex-sessie nog steeds door de bekende omgevingfout:
+  * `EPERM: operation not permitted, lstat 'C:\\Users\\Admin'`
+* de inline Node/`tsx`-workaround bleef daardoor nodig voor lokale validatie binnen Codex
+* via `/diagnostics` en `/api/health-checker/readiness` zijn database en Prisma bewust niet actief gevalideerd
+
+**Bewust niet gedaan**
+
+* geen databaseverbinding
+* geen Prisma-query
+* geen WooCommerce-koppeling
+* geen `.env` of secrets gelezen
+* geen AI/OpenAI-koppeling
+* geen cockpit/frontend
+* geen brede refactor
+
 ## Bewust niet uitgevoerd tijdens deze stappen
 
 * geen echte secrets in repo geplaatst

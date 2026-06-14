@@ -5,6 +5,10 @@
 * Repo-context: frisse lokale opzet voor `SAM MVP Release 1`.
 * Basisuitgangspunt blijft geldig: "Dit is een nieuwe start."
 * Oude `SAM V2` blijft alleen testcontext; oude code wordt niet overgenomen.
+* De repo is lokaal Git-geïnitialiseerd op branch `main`.
+* Remote `origin` wijst naar `https://github.com/Xiaano/sam-mvp.git`.
+* De eerste commit en push naar `main` zijn succesvol afgerond.
+* GitHub-status: `initialized and pushed`.
 * Secrets-status:
   * er is geen `.env` in `sam-mvp`;
   * echte secrets blijven buiten `sam-mvp`;
@@ -20,11 +24,13 @@
   * minimale Fastify API draait lokaal op poort `3001`;
   * `GET /health` is lokaal succesvol gevalideerd;
   * `GET /diagnostics` is lokaal succesvol gevalideerd;
+  * `GET /api/health-checker/readiness` is lokaal succesvol gevalideerd;
   * `GET /diagnostics` blijft bewust read-only en statisch;
   * `GET /diagnostics` maakt geen databaseverbinding, voert geen Prisma-query uit, gebruikt geen WooCommerce en toont geen secrets;
+  * `GET /api/health-checker/readiness` blijft bewust read-only en statisch;
 * Aantoonbaar genoemd pad voor Prisma app-integratie:
   * `apps/api/src/persistence/prismaClient.ts`
-* Via de lokaal gevalideerde API-routes is Prisma/database-runtime nog niet gevalideerd.
+* Via de lokaal gevalideerde API-routes is Prisma/database-runtime nog niet gevalideerd; `database` en `prisma` blijven daar bewust `not_checked`.
 
 ### TypeScript
 
