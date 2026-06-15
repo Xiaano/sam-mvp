@@ -44,6 +44,13 @@ De minimale mock endpoint checks zijn ook toegevoegd en gereviewd:
 * het workspace npm-script bleef in deze Codex-context geblokkeerd door de bekende EPERM-fout;
 * de directe tsx-entrypoint voerde de checks wel succesvol uit.
 
+De minimale contract-shape checks zijn ook toegevoegd en gereviewd:
+
+* de checkimplementatie bewaakt de statische contract-/mappingroutes;
+* het workspace npm-script bleef in deze Codex-context geblokkeerd door de bekende EPERM-fout;
+* de directe tsx-entrypoint voerde de checks wel succesvol uit;
+* contractroutes bleven statisch en gescheiden van mock/runtime.
+
 ## Afgeronde lagen
 
 De volgende lagen zijn nu afgerond:
