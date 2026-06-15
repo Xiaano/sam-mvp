@@ -1,10 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
   const marker = document.getElementById("loaded-marker");
+
   const healthState = document.getElementById("health-state");
   const healthService = document.getElementById("health-service");
   const healthStatus = document.getElementById("health-status");
   const healthMode = document.getElementById("health-mode");
   const healthTimestamp = document.getElementById("health-timestamp");
+
   const diagnosticsState = document.getElementById("diagnostics-state");
   const diagnosticsService = document.getElementById("diagnostics-service");
   const diagnosticsStatus = document.getElementById("diagnostics-status");
@@ -14,6 +16,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const diagnosticsWoocommerce = document.getElementById("diagnostics-woocommerce");
   const diagnosticsSecrets = document.getElementById("diagnostics-secrets");
   const diagnosticsTimestamp = document.getElementById("diagnostics-timestamp");
+
+  const readinessState = document.getElementById("readiness-state");
+  const readinessService = document.getElementById("readiness-service");
+  const readinessStatus = document.getElementById("readiness-status");
+  const readinessMode = document.getElementById("readiness-mode");
+  const readinessTimestamp = document.getElementById("readiness-timestamp");
+
   const apiBaseUrl = "http://localhost:3000";
 
   document.body.setAttribute("data-shell-state", "loaded");
@@ -36,8 +45,13 @@ document.addEventListener("DOMContentLoaded", () => {
     diagnosticsState.textContent = "loading";
   }
 
+  if (readinessState) {
+    readinessState.textContent = "loading";
+  }
+
   void loadHealth();
   void loadDiagnostics();
+  void loadReadiness();
 
   async function loadHealth() {
     try {
@@ -97,9 +111,34 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  async function loadReadiness() {
+    try {
+      const response = await fetch(new URL("/api/health-checker/readiness", apiBaseUrl));
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      const payload = await response.json();
+      renderReadiness({
+        service: payload.service ?? "not loaded yet",
+        status: payload.status ?? "not loaded yet",
+        mode: payload.mode ?? "not loaded yet",
+        timestamp: payload.timestamp ?? "not loaded yet",
+      });
+    } catch {
+      renderReadiness({
+        service: "unavailable",
+        status: "error",
+        mode: "read-only",
+        timestamp: "not loaded yet",
+      });
+    }
+  }
+
   function renderHealth({ service, status, mode, timestamp }) {
     if (healthState) {
-      healthState.textContent = `${status}`;
+      healthState.textContent = status;
     }
 
     if (healthService) {
@@ -130,7 +169,7 @@ document.addEventListener("DOMContentLoaded", () => {
     timestamp,
   }) {
     if (diagnosticsState) {
-      diagnosticsState.textContent = `${status}`;
+      diagnosticsState.textContent = status;
     }
 
     if (diagnosticsService) {
@@ -163,6 +202,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (diagnosticsTimestamp) {
       diagnosticsTimestamp.textContent = timestamp;
+    }
+  }
+
+  function renderReadiness({ service, status, mode, timestamp }) {
+    if (readinessState) {
+      readinessState.textContent = status;
+    }
+
+    if (readinessService) {
+      readinessService.textContent = service;
+    }
+
+    if (readinessStatus) {
+      readinessStatus.textContent = status;
+    }
+
+    if (readinessMode) {
+      readinessMode.textContent = mode;
+    }
+
+    if (readinessTimestamp) {
+      readinessTimestamp.textContent = timestamp;
     }
   }
 });
