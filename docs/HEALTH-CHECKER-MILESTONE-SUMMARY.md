@@ -60,6 +60,8 @@ De minimale lifecycle/state semantic-guard checks zijn ook toegevoegd en gerevie
 
 De lifecycle/state contract + checks fase is daarmee afgesloten.
 
+De role/permission/access-control voorbereidingsfase is daarmee afgesloten.
+
 ## Afgeronde lagen
 
 De volgende lagen zijn nu afgerond:
