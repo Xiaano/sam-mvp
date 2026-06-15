@@ -58,7 +58,7 @@ De minimale lifecycle/state semantic-guard checks zijn ook toegevoegd en gerevie
 * de directe tsx-entrypoint voerde de checks wel succesvol uit;
 * `completed`, `approved` en `executed` blijven gescheiden en execution/write blijft geblokkeerd.
 
-De huidige contract + mock readiness fase is daarmee afgesloten.
+De lifecycle/state contract + checks fase is daarmee afgesloten.
 
 ## Afgeronde lagen
 
