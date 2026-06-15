@@ -2055,6 +2055,48 @@ Een minimale check toevoegen voor de statische Health Checker contract-/mappingr
 * geen service-adoptie;
 * geen extra testframeworks toegevoegd.
 
+## Minimale lifecycle/state semantic-guard checks
+
+**Datum:** 2026-06-15
+
+**Doel**
+
+Een minimale check toevoegen voor de huidige Health Checker lifecycle/state-semantiek, zonder nieuwe testframeworks of write-flows.
+
+**Uitgevoerd**
+
+* een kleine checkscript toegevoegd via `apps/api/package.json`;
+* checks richten zich op de read-only GET-endpoints voor mock/runtime, contract en diagnostics, waaronder:
+  * `GET /api/health-checker/mock-scan`
+  * `GET /api/health-checker/mock-proposal-preview`
+  * `GET /api/health-checker/operator-review-preview`
+  * `GET /api/health-checker/mock-scan-to-review-flow`
+  * `GET /api/health-checker/operator-overview-mock`
+  * `GET /api/health-checker/audit-log-preview`
+  * `GET /api/health-checker/approval-flow-contract`
+  * `GET /api/health-checker/audit-log-contract`
+  * `GET /diagnostics`
+* de check bewaakt semantische grenzen zoals:
+  * `completed` betekent geen execution;
+  * `approved` betekent geen execution;
+  * `execution_allowed`, `executed` en `execution_failed` blijven niet actief of conceptueel;
+  * `blocked` en `disabled` blokkeren write/execution;
+  * `review_required` en `approval_required` blijven gescheiden.
+* de check is lokaal succesvol uitgevoerd via `node node_modules/tsx/dist/cli.mjs apps/api/src/checks/healthCheckerLifecycleStateChecks.ts`.
+
+**Niet gedaan**
+
+* geen database;
+* geen Prisma;
+* geen WooCommerce;
+* geen AI/OpenAI;
+* geen POST/write/execution;
+* geen secrets;
+* geen routewijzigingen;
+* geen nieuwe state-implementatie;
+* geen adapter/servicegrens;
+* geen extra testframeworks toegevoegd.
+
 **Niet gedaan**
 
 * geen database;

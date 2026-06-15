@@ -37,6 +37,7 @@
   * `GET /api/health-checker/audit-log-preview` is lokaal succesvol gevalideerd;
   * `GET /api/health-checker/mock-scan-to-review-flow` is lokaal succesvol gevalideerd;
   * `GET /api/health-checker/operator-overview-mock` is lokaal succesvol gevalideerd;
+  * de minimale lifecycle/state semantic-guard checks zijn lokaal succesvol uitgevoerd via `node node_modules/tsx/dist/cli.mjs apps/api/src/checks/healthCheckerLifecycleStateChecks.ts`;
   * `GET /diagnostics` blijft bewust read-only en statisch;
   * `GET /diagnostics` maakt geen databaseverbinding, voert geen Prisma-query uit, gebruikt geen WooCommerce en toont geen secrets;
   * `GET /api/health-checker/readiness` blijft bewust read-only en statisch;
@@ -220,6 +221,18 @@ De volgende statusregels komen uit oudere of bredere documenten en zijn mogelijk
 * De check controleert alleen `statusCode=200`, contractvorm, metadata, verplichte secties en disabled/blocked execution-semantiek waar aanwezig.
 * De check raakt geen database, Prisma, WooCommerce, AI/OpenAI, POST/write/execution of secrets.
 * De check is lokaal succesvol uitgevoerd via de workspace `tsx`-entrypoint.
+
+## Minimale lifecycle/state semantic-guard checks
+
+* Er is een minimale check toegevoegd voor de huidige Health Checker lifecycle/state-semantiek.
+* De check controleert read-only GET-endpoints op basale semantische guards zoals:
+  * `completed` betekent geen execution;
+  * `approved` betekent niet automatisch execution;
+  * `execution_allowed`, `executed` en `execution_failed` blijven conceptueel of niet actief;
+  * `blocked` en `disabled` blokkeren write/execution;
+  * `review_required` en `approval_required` blijven gescheiden.
+* De check raakt geen database, Prisma, WooCommerce, AI/OpenAI, POST/write/execution of secrets.
+* De check is lokaal succesvol uitgevoerd via `node node_modules/tsx/dist/cli.mjs apps/api/src/checks/healthCheckerLifecycleStateChecks.ts`.
 
 ## Bronstatus
 

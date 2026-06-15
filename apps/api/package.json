@@ -9,6 +9,7 @@
     "check": "tsc -p tsconfig.json --noEmit",
     "check:mock-endpoints": "tsx src/checks/healthCheckerMockEndpointChecks.ts",
     "check:contract-shapes": "tsx src/checks/healthCheckerContractShapeChecks.ts",
+    "check:lifecycle-states": "tsx src/checks/healthCheckerLifecycleStateChecks.ts",
     "test": "echo \"No api tests configured yet\""
   },
   "dependencies": {
