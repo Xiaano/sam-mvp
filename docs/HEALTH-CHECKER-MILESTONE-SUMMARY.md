@@ -38,6 +38,12 @@ De mock runtime service en de route-adoptie zijn nu ook afgerond:
 * `GET /diagnostics` blijft `database: "not_checked"` en `prisma: "not_checked"` tonen;
 * route-adoptie is gereviewd en vastgelegd.
 
+De minimale mock endpoint checks zijn ook toegevoegd en gereviewd:
+
+* de checkimplementatie bewaakt de huidige mock/read-only endpoints;
+* het workspace npm-script bleef in deze Codex-context geblokkeerd door de bekende EPERM-fout;
+* de directe tsx-entrypoint voerde de checks wel succesvol uit.
+
 ## Afgeronde lagen
 
 De volgende lagen zijn nu afgerond:
