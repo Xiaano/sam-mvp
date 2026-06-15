@@ -62,6 +62,7 @@ De volgende lagen zijn nu afgerond:
 * operator overview mock
 * mock runtime service
 * route-adoptie van de twee mock routes
+* governance/persistence-boundary chain
 * reviewdocumentatie
 * consolidatieplan
 
