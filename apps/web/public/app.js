@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const readinessMode = document.getElementById("readiness-mode");
   const readinessTimestamp = document.getElementById("readiness-timestamp");
 
-  const apiBaseUrl = "http://localhost:3000";
+  const apiBaseUrl = "http://localhost:3001";
 
   document.body.setAttribute("data-shell-state", "loaded");
   document.body.classList.add("loaded");
