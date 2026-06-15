@@ -64,6 +64,8 @@ De role/permission/access-control voorbereidingsfase is daarmee afgesloten.
 
 De operator cockpit voorbereidingsfase is daarmee afgesloten.
 
+De frontend/backend contractfase voor een read-only cockpit is daarmee voorbereid.
+
 ## Afgeronde lagen
 
 De volgende lagen zijn nu afgerond:
