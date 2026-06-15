@@ -66,6 +66,8 @@
   * `GET /api/health-checker/mock-proposal-preview` gebruikt nu `apps/api/src/services/healthChecker/mockRuntimeService.ts` terwijl de response read-only/mock blijft;
   * `GET /api/health-checker/operator-overview-mock` blijft bewust read-only en statisch;
   * `GET /api/health-checker/operator-overview-mock` geeft alleen een mock operator-overzicht terug met scan summary, issues, proposal previews, review queue, approval policy, audit trail preview, safety/status panel en future extension hooks;
+  * `GET /api/health-checker/operator-review-preview` blijft bewust read-only en statisch;
+  * `GET /api/health-checker/operator-review-preview` gebruikt nu `apps/api/src/services/healthChecker/mockRuntimeService.ts` terwijl de response read-only/mock blijft en de bronwaarde daar logisch `mock-operator-review-preview` is;
   * de mock routes worden nu gevoed door `apps/api/src/services/healthChecker/mockRuntimeService.ts` terwijl de responsevorm read-only/mock blijft;
   * de mock proposal preview-route is nu ook service-driven en blijft endpoint-path compatibel;
 * Aantoonbaar genoemd pad voor Prisma app-integratie:

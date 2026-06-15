@@ -1788,6 +1788,65 @@ De bestaande read-only mock proposal preview-route aansluiten op `mockRuntimeSer
 * geen secrets
 * geen oude `SAM V2`-bestanden gebruikt
 
+## Fase 33 - Health Checker operator review preview-route aangesloten op mock runtime service
+
+**Datum:** 2026-06-15
+
+**Doel**
+
+De bestaande read-only operator review preview-route aansluiten op `mockRuntimeService` zonder endpoint-path, serverregistratie of responsevorm te veranderen.
+
+**Ricardo handmatig uitgevoerd**
+
+* geen aparte handmatige Ricardo-validatie vastgelegd in deze stap
+
+**Codex alleen documentair of analyserend**
+
+* bestaande Fastify-structuur gecontroleerd;
+* de route `GET /api/health-checker/operator-review-preview` gebruikt nu `apps/api/src/services/healthChecker/mockRuntimeService.ts` voor de mock payload;
+* geen andere routes aangepast;
+* geen serverregistratie aangepast.
+
+**Ontstane bestanden / artefacten**
+
+* bijgewerkt routebestand:
+  * `apps/api/src/routes/healthCheckerOperatorReviewPreview.ts`
+* bijgewerkt servicebestand:
+  * `apps/api/src/services/healthChecker/mockRuntimeService.ts`
+
+**Geslaagde validatie**
+
+* inline TypeScript-validatie bleef uitvoerbaar via de bestaande veilige workflow
+* runtime-validatie via lokale API bleef mogelijk voor:
+  * `GET /api/health-checker/mock-proposal-preview`
+  * `GET /api/health-checker/mock-scan-to-review-flow`
+  * `GET /api/health-checker/operator-overview-mock`
+  * `GET /api/health-checker/operator-review-preview`
+  * `GET /diagnostics`
+* de operator-review-preview-route bleef read-only/mock
+* de route kreeg als bronwaarde logisch `mock-operator-review-preview`
+* de response bleef functioneel compatibel
+* de safety bleef expliciet
+
+**Warnings / aandachtspunten**
+
+* de bekende Codex/npm EPERM-context blijft historisch relevant:
+  * `EPERM: operation not permitted, lstat 'C:\\Users\\Admin'`
+* `/diagnostics` bleef `database: "not_checked"` en `prisma: "not_checked"` tonen
+
+**Bewust niet gedaan**
+
+* geen database
+* geen Prisma
+* geen WooCommerce
+* geen AI/OpenAI
+* geen frontend/cockpit
+* geen POST-endpoints
+* geen write actions
+* geen execution
+* geen secrets
+* geen oude `SAM V2`-bestanden gebruikt
+
 
 ## Bewust niet uitgevoerd tijdens deze stappen
 
