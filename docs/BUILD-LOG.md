@@ -1731,6 +1731,64 @@ Een read-only mock operator-overzicht toevoegen dat de bestaande Health Checker-
 * geen businesslogica
 * geen brede refactor
 
+## Fase 32 - Health Checker mock proposal preview-route aangesloten op mock runtime service
+
+**Datum:** 2026-06-15
+
+**Doel**
+
+De bestaande read-only mock proposal preview-route aansluiten op `mockRuntimeService` zonder endpoint-path, serverregistratie of responsevorm te veranderen.
+
+**Ricardo handmatig uitgevoerd**
+
+* geen aparte handmatige Ricardo-validatie vastgelegd in deze stap
+
+**Codex alleen documentair of analyserend**
+
+* bestaande Fastify-structuur gecontroleerd;
+* de route `GET /api/health-checker/mock-proposal-preview` gebruikt nu `apps/api/src/services/healthChecker/mockRuntimeService.ts`;
+* geen andere routes aangepast;
+* geen serverregistratie aangepast.
+
+**Ontstane bestanden / artefacten**
+
+* bijgewerkt routebestand:
+  * `apps/api/src/routes/healthCheckerMockProposalPreview.ts`
+* bijgewerkt servicebestand:
+  * `apps/api/src/services/healthChecker/mockRuntimeService.ts`
+
+**Geslaagde validatie**
+
+* inline TypeScript-validatie bleef uitvoerbaar via de bestaande veilige workflow
+* runtime-validatie via lokale API bleef mogelijk voor:
+  * `GET /api/health-checker/mock-proposal-preview`
+  * `GET /api/health-checker/mock-scan-to-review-flow`
+  * `GET /api/health-checker/operator-overview-mock`
+  * `GET /diagnostics`
+* de mock proposal preview-route bleef read-only/mock
+* de response bleef functioneel compatibel
+* de safety bleef expliciet
+
+**Warnings / aandachtspunten**
+
+* de bekende Codex/npm EPERM-context blijft historisch relevant:
+  * `EPERM: operation not permitted, lstat 'C:\Users\Admin'`
+* `/diagnostics` bleef `database: "not_checked"` en `prisma: "not_checked"` tonen
+
+**Bewust niet gedaan**
+
+* geen database
+* geen Prisma
+* geen WooCommerce
+* geen AI/OpenAI
+* geen frontend/cockpit
+* geen POST-endpoints
+* geen write actions
+* geen execution
+* geen secrets
+* geen oude `SAM V2`-bestanden gebruikt
+
+
 ## Bewust niet uitgevoerd tijdens deze stappen
 
 * geen echte secrets in repo geplaatst

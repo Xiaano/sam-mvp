@@ -130,6 +130,30 @@ type MockOperatorOverview = {
   next_step: string;
 };
 
+type MockProposalPreview = {
+  service: "sam-health-checker";
+  mode: "mock_preview";
+  status: "completed";
+  version: "0.1.0";
+  source_scan_id: string;
+  summary: {
+    issues_found: number;
+    proposals_previewed: number;
+    requires_human_approval: true;
+    auto_execute_allowed: false;
+    write_actions: "disabled";
+  };
+  proposal_previews: ProposalPreview[];
+  approval_flow: {
+    human_approval_required: true;
+    bulk_approval_allowed: false;
+    auto_execute_allowed: false;
+    default_status: "ready_for_review";
+  };
+  safety: Safety;
+  next_step: string;
+};
+
 const mockScan: ScanSummary = {
   scan_id: "mock_scan_001",
   checked_at: "2026-06-14T10:00:00.000Z",
@@ -492,3 +516,29 @@ export function createMockOperatorOverview(): MockOperatorOverview {
   };
 }
 
+export function createMockProposalPreview(): MockProposalPreview {
+  return {
+    service: "sam-health-checker",
+    mode: "mock_preview",
+    status: "completed",
+    version: "0.1.0",
+    source_scan_id: mockScan.scan_id,
+    summary: {
+      issues_found: issues.length,
+      proposals_previewed: proposalPreviews.length,
+      requires_human_approval: true,
+      auto_execute_allowed: false,
+      write_actions: "disabled",
+    },
+    proposal_previews: clone(proposalPreviews),
+    approval_flow: {
+      human_approval_required: true,
+      bulk_approval_allowed: false,
+      auto_execute_allowed: false,
+      default_status: "ready_for_review",
+    },
+    safety: clone(safetyPolicy),
+    next_step:
+      "Next step can be proposal preview detail or operator review contract.",
+  };
+}
