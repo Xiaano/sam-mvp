@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "tsx src/start.ts",
     "check": "tsc -p tsconfig.json --noEmit",
+    "check:mock-endpoints": "tsx src/checks/healthCheckerMockEndpointChecks.ts",
     "test": "echo \"No api tests configured yet\""
   },
   "dependencies": {

@@ -2011,3 +2011,30 @@ Dit bestand is opgebouwd uit de documenten die in `docs/DOCS-MIGRATION-MATRIX.md
 * `docs/LOCAL-PRISMA-ADAPTER-DEPENDENCY-DECISION.md`
 
 Daarnaast is `docs/CURRENT-STATUS.md` meegelezen om te bewaken dat actuele status en bouwgeschiedenis gescheiden blijven.
+
+## Minimale mock endpoint checks
+
+**Datum:** 2026-06-15
+
+**Doel**
+
+Een minimale check toevoegen voor de huidige mock/read-only Health Checker endpoints, zonder testcode voor bredere businesslogica.
+
+**Uitgevoerd**
+
+* een kleine checkscript toegevoegd via `apps/api/package.json`;
+* checks richten zich op `GET /api/health-checker/mock-scan`, `GET /api/health-checker/mock-proposal-preview`, `GET /api/health-checker/operator-review-preview`, `GET /api/health-checker/mock-scan-to-review-flow`, `GET /api/health-checker/operator-overview-mock`, `GET /api/health-checker/audit-log-preview` en `GET /diagnostics`;
+* de check bewaakt alleen `statusCode=200`, relevante metadata en `/diagnostics` met `database=not_checked` en `prisma=not_checked`.
+* de check is lokaal succesvol uitgevoerd via `node node_modules/tsx/dist/cli.mjs apps/api/src/checks/healthCheckerMockEndpointChecks.ts`.
+
+**Niet gedaan**
+
+* geen database;
+* geen Prisma;
+* geen WooCommerce;
+* geen AI/OpenAI;
+* geen POST/write/execution;
+* geen secrets;
+* geen contractroutes aangepast;
+* geen brede refactor;
+* geen extra testframeworks toegevoegd.

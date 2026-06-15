@@ -207,6 +207,13 @@ De volgende statusregels komen uit oudere of bredere documenten en zijn mogelijk
 * geen `Prisma db push` uitgevoerd
 * geen bevestigde Prisma runtime/database-integratie in applicatielogica buiten de voorbereidende bouwstenen
 
+## Minimale mock endpoint checks
+
+* Er is een minimale check toegevoegd voor de huidige mock/read-only endpoints.
+* De check controleert alleen `statusCode=200`, relevante `source`/`mode`/`status`-metadata, endpoint-relevante aantallen waar aanwezig, en `/diagnostics` met `database=not_checked` en `prisma=not_checked`.
+* De check raakt geen database, Prisma, WooCommerce, AI/OpenAI, POST/write/execution of secrets.
+* De check is lokaal succesvol uitgevoerd via de workspace `tsx`-entrypoint.
+
 ## Bronstatus
 
 Dit bestand is opgebouwd uit de documenten die in `docs/DOCS-MIGRATION-MATRIX.md` expliciet als bronmateriaal voor `docs/CURRENT-STATUS.md` zijn aangewezen:
