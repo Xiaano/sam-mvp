@@ -51,6 +51,13 @@ De minimale contract-shape checks zijn ook toegevoegd en gereviewd:
 * de directe tsx-entrypoint voerde de checks wel succesvol uit;
 * contractroutes bleven statisch en gescheiden van mock/runtime.
 
+De minimale lifecycle/state semantic-guard checks zijn ook toegevoegd en gereviewd:
+
+* de checkimplementatie bewaakt de read-only mock/runtime- en contractbasis op lifecycle/state-semantiek;
+* het workspace npm-script bleef in deze Codex-context geblokkeerd door de bekende EPERM-fout;
+* de directe tsx-entrypoint voerde de checks wel succesvol uit;
+* `completed`, `approved` en `executed` blijven gescheiden en execution/write blijft geblokkeerd.
+
 De huidige contract + mock readiness fase is daarmee afgesloten.
 
 ## Afgeronde lagen
