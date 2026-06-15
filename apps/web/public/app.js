@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     timeStyle: "medium",
   });
 
+  document.body.setAttribute("data-shell-state", "loaded");
   document.body.classList.add("loaded");
 
   if (marker) {

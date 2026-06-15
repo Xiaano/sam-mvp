@@ -77,6 +77,26 @@ h1 {
   font-weight: 600;
 }
 
+.api-base {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin: 8px 0 0;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: rgba(23, 38, 63, 0.95);
+  border: 1px solid var(--panel-border);
+  color: var(--muted);
+}
+
+.api-base-label {
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -95,6 +115,12 @@ h1 {
 .grid h2 {
   margin-bottom: 8px;
   font-size: 1.05rem;
+}
+
+.slot-state {
+  margin-bottom: 0;
+  color: var(--text);
+  line-height: 1.55;
 }
 
 .grid p,
