@@ -68,6 +68,8 @@ De frontend/backend contractfase voor een read-only cockpit is daarmee voorberei
 
 De frontend foundation shell en no-dependency dev server zijn daarmee toegevoegd en gereviewd.
 
+De read-only cockpit kan nu lokaal statusdata van de API laden via gecontroleerde local-dev CORS.
+
 ## Afgeronde lagen
 
 De volgende lagen zijn nu afgerond:
