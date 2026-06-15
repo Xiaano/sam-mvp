@@ -1,0 +1,494 @@
+type ScanSummary = {
+  scan_id: string;
+  checked_at: string;
+  shop: {
+    platform: string;
+    name: string;
+    url: string;
+  };
+  risk_level: string;
+};
+
+type Issue = {
+  issue_id: string;
+  product_sku: string;
+  type: string;
+  message: string;
+  severity?: string;
+  status?: string;
+};
+
+type ProposalPreview = {
+  proposal_id: string;
+  issue_id?: string;
+  source_issue_type?: string;
+  proposal_type: string;
+  title?: string;
+  current_state: string;
+  proposed_change: string;
+  reason: string;
+  risk_level: string;
+  confidence: string;
+  requires_human_approval: true;
+  auto_execute_allowed: false;
+  default_status: string;
+};
+
+type ReviewItem = {
+  review_id: string;
+  proposal_id: string;
+  source_issue_type: string;
+  proposal_type: string;
+  current_status: string;
+  recommended_action: string;
+  available_actions: string[];
+  requires_human_review: true;
+  requires_human_approval: true;
+  auto_execute_allowed: false;
+  operator_note?: string;
+};
+
+type ApprovalPolicy = {
+  human_approval_required: true;
+  auto_approval_allowed: false;
+  auto_execute_allowed: false;
+  bulk_approval_allowed: false;
+  write_actions: "disabled";
+  default_next_status?: string;
+};
+
+type AuditTrailPreviewEvent = {
+  event_type: string;
+  source_endpoint: string;
+  reason: string;
+};
+
+type Safety = {
+  database: "not_used";
+  woocommerce: "not_connected";
+  prisma: "not_used";
+  secrets: "not_required";
+  write_actions: "disabled";
+  auto_execute: "disabled";
+  runtime_logging?: "disabled";
+};
+
+type FutureExtensionHook = {
+  hook: string;
+  status: "metadata_only";
+  note: string;
+};
+
+type MockScanToReviewFlow = {
+  service: "sam-health-checker";
+  mode: "mock_flow";
+  status: "completed";
+  version: "0.1.0";
+  flow_id: string;
+  summary: {
+    scan_status: "completed";
+    issues_found: number;
+    proposals_previewed: number;
+    review_items: number;
+    approval_required: true;
+  };
+  scan: ScanSummary;
+  issues: Issue[];
+  proposal_previews: ProposalPreview[];
+  review_queue: ReviewItem[];
+  approval_policy: ApprovalPolicy;
+  audit_trail_preview: AuditTrailPreviewEvent[];
+  safety: Safety;
+  next_step: string;
+};
+
+type MockOperatorOverview = {
+  service: "sam-health-checker";
+  mode: "mock_overview";
+  status: "completed";
+  version: "0.1.0";
+  overview_id: string;
+  scan_summary: {
+    source_scan_id: string;
+    source_flow_id: string;
+    source_route: string;
+    status: "completed";
+    checked_at: string;
+    products_checked: number;
+    issues_found: number;
+    proposals_previewed: number;
+    review_items: number;
+    risk_level: string;
+  };
+  issues: Issue[];
+  proposal_previews: ProposalPreview[];
+  review_queue: ReviewItem[];
+  approval_policy: ApprovalPolicy;
+  audit_trail_preview: AuditTrailPreviewEvent[];
+  safety: Safety;
+  future_extension_hooks: FutureExtensionHook[];
+  next_step: string;
+};
+
+const mockScan: ScanSummary = {
+  scan_id: "mock_scan_001",
+  checked_at: "2026-06-14T10:00:00.000Z",
+  shop: {
+    platform: "woocommerce",
+    name: "Demo Webshop",
+    url: "https://example.test",
+  },
+  risk_level: "medium",
+};
+
+const issues: Issue[] = [
+  {
+    issue_id: "issue_001",
+    product_sku: "DEMO-001",
+    type: "product_image_check",
+    message: "Primary product image is missing.",
+    severity: "high",
+    status: "open",
+  },
+  {
+    issue_id: "issue_002",
+    product_sku: "DEMO-002",
+    type: "short_description_check",
+    message: "Short description is missing.",
+    severity: "medium",
+    status: "open",
+  },
+  {
+    issue_id: "issue_003",
+    product_sku: "DEMO-003",
+    type: "tag_check",
+    message: "Product tags are missing.",
+    severity: "medium",
+    status: "open",
+  },
+  {
+    issue_id: "issue_004",
+    product_sku: "DEMO-004",
+    type: "long_description_check",
+    message: "Long description is too short.",
+    severity: "medium",
+    status: "open",
+  },
+];
+
+const proposalPreviews: ProposalPreview[] = [
+  {
+    proposal_id: "preview_001",
+    issue_id: "issue_001",
+    source_issue_type: "missing_product_image",
+    proposal_type: "add_product_image",
+    title: "Add missing primary product image",
+    current_state: "No primary image is available for the product.",
+    proposed_change: "Request a primary product image and attach it after manual approval.",
+    reason: "Products without a main image reduce clarity and conversion quality.",
+    risk_level: "high",
+    confidence: "high",
+    requires_human_approval: true,
+    auto_execute_allowed: false,
+    default_status: "ready_for_review",
+  },
+  {
+    proposal_id: "preview_002",
+    issue_id: "issue_002",
+    source_issue_type: "missing_short_description",
+    proposal_type: "generate_short_description",
+    title: "Generate short product description",
+    current_state: "Short description is empty.",
+    proposed_change: "Prepare a short commercial description draft for operator review.",
+    reason: "A short description improves product scannability and merchandising.",
+    risk_level: "medium",
+    confidence: "medium",
+    requires_human_approval: true,
+    auto_execute_allowed: false,
+    default_status: "ready_for_review",
+  },
+  {
+    proposal_id: "preview_003",
+    issue_id: "issue_003",
+    source_issue_type: "missing_product_tags",
+    proposal_type: "add_product_tags",
+    title: "Add starter tag set",
+    current_state: "No product tags are assigned.",
+    proposed_change: "Prepare a small tag set for manual approval before publication.",
+    reason: "Tags support filtering, search and internal product grouping.",
+    risk_level: "medium",
+    confidence: "medium",
+    requires_human_approval: true,
+    auto_execute_allowed: false,
+    default_status: "ready_for_review",
+  },
+  {
+    proposal_id: "preview_004",
+    issue_id: "issue_004",
+    source_issue_type: "seo_basic_gap",
+    proposal_type: "improve_basic_seo",
+    title: "Improve basic SEO metadata",
+    current_state: "Basic SEO metadata is incomplete.",
+    proposed_change: "Prepare a metadata improvement suggestion for operator review.",
+    reason: "Basic SEO gaps reduce discoverability and consistency across products.",
+    risk_level: "medium",
+    confidence: "medium",
+    requires_human_approval: true,
+    auto_execute_allowed: false,
+    default_status: "ready_for_review",
+  },
+];
+
+const reviewQueue: ReviewItem[] = [
+  {
+    review_id: "review_001",
+    proposal_id: "preview_001",
+    source_issue_type: "missing_product_image",
+    proposal_type: "add_product_image",
+    current_status: "ready_for_review",
+    recommended_action: "approve",
+    available_actions: ["approve", "reject", "hold", "needs_more_context"],
+    requires_human_review: true,
+    requires_human_approval: true,
+    auto_execute_allowed: false,
+    operator_note: "Image request can proceed after manual confirmation.",
+  },
+  {
+    review_id: "review_002",
+    proposal_id: "preview_002",
+    source_issue_type: "missing_short_description",
+    proposal_type: "generate_short_description",
+    current_status: "ready_for_review",
+    recommended_action: "request_changes",
+    available_actions: [
+      "approve",
+      "reject",
+      "hold",
+      "request_changes",
+      "needs_more_context",
+    ],
+    requires_human_review: true,
+    requires_human_approval: true,
+    auto_execute_allowed: false,
+    operator_note: "Description draft needs more commercial tone before approval.",
+  },
+  {
+    review_id: "review_003",
+    proposal_id: "preview_003",
+    source_issue_type: "missing_product_tags",
+    proposal_type: "add_product_tags",
+    current_status: "ready_for_review",
+    recommended_action: "approve",
+    available_actions: ["approve", "reject", "hold", "request_changes"],
+    requires_human_review: true,
+    requires_human_approval: true,
+    auto_execute_allowed: false,
+    operator_note: "Starter tags look acceptable for manual approval.",
+  },
+  {
+    review_id: "review_004",
+    proposal_id: "preview_004",
+    source_issue_type: "seo_basic_gap",
+    proposal_type: "improve_basic_seo",
+    current_status: "ready_for_review",
+    recommended_action: "needs_more_context",
+    available_actions: [
+      "approve",
+      "reject",
+      "hold",
+      "request_changes",
+      "needs_more_context",
+    ],
+    requires_human_review: true,
+    requires_human_approval: true,
+    auto_execute_allowed: false,
+    operator_note: "More brand-specific context is needed before approval.",
+  },
+];
+
+const approvalPolicy: ApprovalPolicy = {
+  human_approval_required: true,
+  auto_approval_allowed: false,
+  auto_execute_allowed: false,
+  bulk_approval_allowed: false,
+  write_actions: "disabled",
+  default_next_status: "ready_for_review",
+};
+
+const auditTrailPreview: AuditTrailPreviewEvent[] = [
+  {
+    event_type: "scan_started",
+    source_endpoint: "/api/health-checker/mock-scan",
+    reason: "A mock scan begins the review flow preview.",
+  },
+  {
+    event_type: "issue_detected",
+    source_endpoint: "/api/health-checker/mock-scan",
+    reason: "The mock scan identifies the product issues in scope.",
+  },
+  {
+    event_type: "proposal_previewed",
+    source_endpoint: "/api/health-checker/mock-proposal-preview",
+    reason: "Proposal previews are prepared for operator review.",
+  },
+  {
+    event_type: "operator_review_opened",
+    source_endpoint: "/api/health-checker/operator-review-preview",
+    reason: "The operator overview presents the review queue.",
+  },
+  {
+    event_type: "proposal_approved",
+    source_endpoint: "/api/health-checker/approval-flow-contract",
+    reason: "Approval remains human-led and non-executing.",
+  },
+  {
+    event_type: "audit_log_recorded",
+    source_endpoint: "/api/health-checker/audit-log-preview",
+    reason: "Audit preview shows the decision trace without runtime writes.",
+  },
+];
+
+const safetyPolicy: Safety = {
+  database: "not_used",
+  woocommerce: "not_connected",
+  prisma: "not_used",
+  secrets: "not_required",
+  write_actions: "disabled",
+  auto_execute: "disabled",
+  runtime_logging: "disabled",
+};
+
+const futureExtensionHooks: FutureExtensionHook[] = [
+  {
+    hook: "customer_shop_segmentation",
+    status: "metadata_only",
+    note: "Future grouping by customer or shop segment.",
+  },
+  {
+    hook: "issue_priority",
+    status: "metadata_only",
+    note: "Future priority ordering for operator focus.",
+  },
+  {
+    hook: "impact_score",
+    status: "metadata_only",
+    note: "Future estimate of business impact per issue or proposal.",
+  },
+  {
+    hook: "risk_insight",
+    status: "metadata_only",
+    note: "Future risk framing for review and approval decisions.",
+  },
+  {
+    hook: "support_status",
+    status: "metadata_only",
+    note: "Future signal for support or escalation handling.",
+  },
+  {
+    hook: "customer_value",
+    status: "metadata_only",
+    note: "Future value context for prioritizing review work.",
+  },
+  {
+    hook: "operator_roles",
+    status: "metadata_only",
+    note: "Future role-based review visibility or filtering.",
+  },
+  {
+    hook: "audit_retention",
+    status: "metadata_only",
+    note: "Future retention policy metadata for audit traces.",
+  },
+  {
+    hook: "approval_history",
+    status: "metadata_only",
+    note: "Future historical approval context for repeat reviews.",
+  },
+  {
+    hook: "rollback_undo_preparation",
+    status: "metadata_only",
+    note: "Future metadata for safe undo preparation.",
+  },
+  {
+    hook: "woocommerce_execution_later",
+    status: "metadata_only",
+    note: "Future execution routing can stay separate from this mock.",
+  },
+  {
+    hook: "ai_proposal_text_later",
+    status: "metadata_only",
+    note: "Future AI text generation stays outside this read-only mock.",
+  },
+  {
+    hook: "nautilus_cockpit_view_later",
+    status: "metadata_only",
+    note: "Future cockpit presentation can consume the same overview shape.",
+  },
+  {
+    hook: "nemo_commerce_positioning_later",
+    status: "metadata_only",
+    note: "Future positioning metadata can be added without changing runtime behavior.",
+  },
+];
+
+function clone<T>(value: T): T {
+  return structuredClone(value);
+}
+
+export function createMockScanToReviewFlow(): MockScanToReviewFlow {
+  return {
+    service: "sam-health-checker",
+    mode: "mock_flow",
+    status: "completed",
+    version: "0.1.0",
+    flow_id: "mock_flow_001",
+    summary: {
+      scan_status: "completed",
+      issues_found: issues.length,
+      proposals_previewed: proposalPreviews.length,
+      review_items: reviewQueue.length,
+      approval_required: true,
+    },
+    scan: clone(mockScan),
+    issues: clone(issues),
+    proposal_previews: clone(proposalPreviews),
+    review_queue: clone(reviewQueue),
+    approval_policy: clone(approvalPolicy),
+    audit_trail_preview: clone(auditTrailPreview),
+    safety: clone(safetyPolicy),
+    next_step:
+      "Next step can be a read-only operator review contract or a scan-to-review mock preview detail.",
+  };
+}
+
+export function createMockOperatorOverview(): MockOperatorOverview {
+  return {
+    service: "sam-health-checker",
+    mode: "mock_overview",
+    status: "completed",
+    version: "0.1.0",
+    overview_id: "overview_001",
+    scan_summary: {
+      source_scan_id: mockScan.scan_id,
+      source_flow_id: "mock_flow_001",
+      source_route: "/api/health-checker/mock-scan-to-review-flow",
+      status: "completed",
+      checked_at: mockScan.checked_at,
+      products_checked: 4,
+      issues_found: issues.length,
+      proposals_previewed: proposalPreviews.length,
+      review_items: reviewQueue.length,
+      risk_level: mockScan.risk_level,
+    },
+    issues: clone(issues),
+    proposal_previews: clone(proposalPreviews),
+    review_queue: clone(reviewQueue),
+    approval_policy: clone(approvalPolicy),
+    audit_trail_preview: clone(auditTrailPreview),
+    safety: clone(safetyPolicy),
+    future_extension_hooks: clone(futureExtensionHooks),
+    next_step:
+      "Next step can be a read-only operator overview panel mapping or a cockpit wireframe.",
+  };
+}
+
