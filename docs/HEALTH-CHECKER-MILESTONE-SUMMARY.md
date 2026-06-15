@@ -66,6 +66,8 @@ De operator cockpit voorbereidingsfase is daarmee afgesloten.
 
 De frontend/backend contractfase voor een read-only cockpit is daarmee voorbereid.
 
+De frontend foundation shell en no-dependency dev server zijn daarmee toegevoegd en gereviewd.
+
 ## Afgeronde lagen
 
 De volgende lagen zijn nu afgerond:
