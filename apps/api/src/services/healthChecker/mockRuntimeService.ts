@@ -102,6 +102,39 @@ type MockScanToReviewFlow = {
   next_step: string;
 };
 
+type MockScan = {
+  service: "sam-health-checker";
+  mode: "mock";
+  status: "completed";
+  source: "mock-scan";
+  scan_id: string;
+  shop: ScanSummary["shop"];
+  checked_at: string;
+  summary: {
+    products_checked: number;
+    issues_found: number;
+    proposals_created: number;
+    risk_level: string;
+  };
+  issues: Issue[];
+  proposals: {
+    proposal_id: string;
+    issue_id: string;
+    action: string;
+    summary: string;
+  }[];
+  safety: {
+    database: "not_used";
+    woocommerce: "not_connected";
+    prisma: "not_used";
+    secrets: "not_required";
+    write_actions: "disabled";
+  };
+  next_step: string;
+};
+
+type MockScanResponse = MockScan;
+
 type MockOperatorOverview = {
   service: "sam-health-checker";
   mode: "mock_overview";
@@ -547,6 +580,59 @@ export function createMockScanToReviewFlow(): MockScanToReviewFlow {
     safety: clone(safetyPolicy),
     next_step:
       "Next step can be a read-only operator review contract or a scan-to-review mock preview detail.",
+  };
+}
+
+export function createMockScan(): MockScanResponse {
+  return {
+    service: "sam-health-checker",
+    mode: "mock",
+    status: "completed",
+    source: "mock-scan",
+    scan_id: mockScan.scan_id,
+    shop: clone(mockScan.shop),
+    checked_at: mockScan.checked_at,
+    summary: {
+      products_checked: 12,
+      issues_found: issues.length,
+      proposals_created: proposalPreviews.length,
+      risk_level: mockScan.risk_level,
+    },
+    issues: clone(issues),
+    proposals: [
+      {
+        proposal_id: "proposal_001",
+        issue_id: "issue_001",
+        action: "request_product_image",
+        summary: "Add a primary product image before publication review.",
+      },
+      {
+        proposal_id: "proposal_002",
+        issue_id: "issue_002",
+        action: "draft_short_description",
+        summary: "Prepare a short commercial description for manual review.",
+      },
+      {
+        proposal_id: "proposal_003",
+        issue_id: "issue_003",
+        action: "suggest_product_tags",
+        summary: "Prepare a starter tag set for operator approval.",
+      },
+      {
+        proposal_id: "proposal_004",
+        issue_id: "issue_004",
+        action: "expand_long_description",
+        summary: "Propose a richer long description structure for review.",
+      },
+    ],
+    safety: {
+      database: "not_used",
+      woocommerce: "not_connected",
+      prisma: "not_used",
+      secrets: "not_required",
+      write_actions: "disabled",
+    },
+    next_step: "Next step can be a proposal contract or issue classification route.",
   };
 }
 

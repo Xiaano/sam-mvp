@@ -41,6 +41,7 @@
   * `GET /diagnostics` maakt geen databaseverbinding, voert geen Prisma-query uit, gebruikt geen WooCommerce en toont geen secrets;
   * `GET /api/health-checker/readiness` blijft bewust read-only en statisch;
   * `GET /api/health-checker/mock-scan` blijft bewust read-only en statisch;
+  * `GET /api/health-checker/mock-scan` gebruikt nu `apps/api/src/services/healthChecker/mockRuntimeService.ts` terwijl de response read-only/mock blijft en de bronwaarde daar logisch `mock-scan` is;
   * `GET /api/health-checker/mock-scan` gebruikt geen database, voert geen Prisma-query uit, maakt geen WooCommerce-verbinding en laat write actions uitgeschakeld;
   * `GET /api/health-checker/issue-classification` blijft bewust read-only en statisch;
   * `GET /api/health-checker/issue-classification` levert alleen contract- en taxonomiegegevens en gebruikt geen database, Prisma of WooCommerce;
