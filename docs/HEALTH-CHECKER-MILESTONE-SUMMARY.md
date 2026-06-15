@@ -2,7 +2,7 @@
 
 ## Huidige mijlpaal
 
-SAM MVP staat nu op een compacte, read-only Health Checker-contractlaag met mock flow, review, approval, audit en operator-overzicht als statische bouwstenen. De keten is documentair afgerond, lokaal gevalideerd en naar `origin/main` gepusht.
+SAM MVP staat nu op een compacte, read-only Health Checker-contractlaag met mock flow, review, approval, audit en operator-overzicht als statische bouwstenen. Daarbovenop bestaat nu ook een in-memory/mock runtime service die door de twee read-only mock routes wordt gebruikt. De keten is documentair afgerond, lokaal gevalideerd en naar `origin/main` gepusht.
 
 ## Huidige endpoints
 
@@ -24,6 +24,16 @@ De volgende Health Checker endpoints bestaan nu:
 * `GET /api/health-checker/mock-scan-to-review-flow`
 * `GET /api/health-checker/operator-overview-mock`
 
+De mock runtime service en de route-adoptie zijn nu ook afgerond:
+
+* `apps/api/src/services/healthChecker/mockRuntimeService.ts` bestaat;
+* de service is in-memory/mock;
+* `GET /api/health-checker/mock-scan-to-review-flow` gebruikt nu de service;
+* `GET /api/health-checker/operator-overview-mock` gebruikt nu de service;
+* endpoint paths zijn ongewijzigd gebleven;
+* `GET /diagnostics` blijft `database: "not_checked"` en `prisma: "not_checked"` tonen;
+* route-adoptie is gereviewd en vastgelegd.
+
 ## Afgeronde lagen
 
 De volgende lagen zijn nu afgerond:
@@ -31,6 +41,8 @@ De volgende lagen zijn nu afgerond:
 * contractlaag
 * mock scan-to-review flow
 * operator overview mock
+* mock runtime service
+* route-adoptie van de twee mock routes
 * reviewdocumentatie
 * consolidatieplan
 
