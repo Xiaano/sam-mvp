@@ -214,6 +214,13 @@ De volgende statusregels komen uit oudere of bredere documenten en zijn mogelijk
 * De check raakt geen database, Prisma, WooCommerce, AI/OpenAI, POST/write/execution of secrets.
 * De check is lokaal succesvol uitgevoerd via de workspace `tsx`-entrypoint.
 
+## Minimale contract-shape checks
+
+* Er is een minimale check toegevoegd voor de statische Health Checker contract-/mappingroutes.
+* De check controleert alleen `statusCode=200`, contractvorm, metadata, verplichte secties en disabled/blocked execution-semantiek waar aanwezig.
+* De check raakt geen database, Prisma, WooCommerce, AI/OpenAI, POST/write/execution of secrets.
+* De check is lokaal succesvol uitgevoerd via de workspace `tsx`-entrypoint.
+
 ## Bronstatus
 
 Dit bestand is opgebouwd uit de documenten die in `docs/DOCS-MIGRATION-MATRIX.md` expliciet als bronmateriaal voor `docs/CURRENT-STATUS.md` zijn aangewezen:

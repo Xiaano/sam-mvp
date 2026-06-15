@@ -2027,6 +2027,34 @@ Een minimale check toevoegen voor de huidige mock/read-only Health Checker endpo
 * de check bewaakt alleen `statusCode=200`, relevante metadata en `/diagnostics` met `database=not_checked` en `prisma=not_checked`.
 * de check is lokaal succesvol uitgevoerd via `node node_modules/tsx/dist/cli.mjs apps/api/src/checks/healthCheckerMockEndpointChecks.ts`.
 
+## Minimale contract-shape checks
+
+**Datum:** 2026-06-15
+
+**Doel**
+
+Een minimale check toevoegen voor de statische Health Checker contract-/mappingroutes, zonder testcode voor mock/runtime-endpoints.
+
+**Uitgevoerd**
+
+* een kleine checkscript toegevoegd via `apps/api/package.json`;
+* checks richten zich op `GET /api/health-checker/proposal-contract`, `GET /api/health-checker/operator-review-contract`, `GET /api/health-checker/approval-flow-contract`, `GET /api/health-checker/audit-log-contract`, `GET /api/health-checker/issue-proposal-mapping` en `GET /api/health-checker/issue-classification`;
+* de check bewaakt alleen contractvorm, metadata, verplichte secties en disabled/blocked execution-semantiek waar aanwezig.
+* de check is lokaal succesvol uitgevoerd via `node node_modules/tsx/dist/cli.mjs apps/api/src/checks/healthCheckerContractShapeChecks.ts`.
+
+**Niet gedaan**
+
+* geen database;
+* geen Prisma;
+* geen WooCommerce;
+* geen AI/OpenAI;
+* geen POST/write/execution;
+* geen secrets;
+* geen mock/runtime-data als contractbron;
+* geen contractroutes gewijzigd;
+* geen service-adoptie;
+* geen extra testframeworks toegevoegd.
+
 **Niet gedaan**
 
 * geen database;
