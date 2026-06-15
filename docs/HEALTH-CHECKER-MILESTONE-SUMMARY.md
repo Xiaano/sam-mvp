@@ -31,6 +31,7 @@ De mock runtime service en de route-adoptie zijn nu ook afgerond:
 * `GET /api/health-checker/mock-proposal-preview` gebruikt nu ook de service;
 * `GET /api/health-checker/mock-scan-to-review-flow` gebruikt nu de service;
 * `GET /api/health-checker/operator-overview-mock` gebruikt nu de service;
+* `GET /api/health-checker/operator-review-preview` gebruikt nu ook de service;
 * endpoint paths zijn ongewijzigd gebleven;
 * `GET /diagnostics` blijft `database: "not_checked"` en `prisma: "not_checked"` tonen;
 * route-adoptie is gereviewd en vastgelegd.
