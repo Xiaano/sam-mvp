@@ -1,0 +1,130 @@
+:root {
+  color-scheme: dark;
+  --bg: #0f172a;
+  --panel: #111c33;
+  --panel-border: #22304f;
+  --text: #e5eefb;
+  --muted: #9fb0cc;
+  --accent: #7dd3fc;
+  --badge: #17263f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background:
+    radial-gradient(circle at top, #1d355d 0, transparent 28%),
+    linear-gradient(180deg, #0f172a 0%, #0b1220 100%);
+  color: var(--text);
+}
+
+.shell {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 40px 24px 32px;
+}
+
+.hero {
+  background: rgba(17, 28, 51, 0.88);
+  border: 1px solid var(--panel-border);
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: 0 24px 72px rgba(0, 0, 0, 0.22);
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--accent);
+  font-size: 0.9rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 12px;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+}
+
+.labels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 18px 0 16px;
+}
+
+.labels span {
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: var(--badge);
+  border: 1px solid var(--panel-border);
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.notice {
+  margin-bottom: 0;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.grid article,
+.footer {
+  background: rgba(17, 28, 51, 0.72);
+  border: 1px solid var(--panel-border);
+  border-radius: 18px;
+  padding: 18px;
+}
+
+.grid h2 {
+  margin-bottom: 8px;
+  font-size: 1.05rem;
+}
+
+.grid p,
+.footer {
+  color: var(--muted);
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 20px;
+  align-items: center;
+}
+
+body.loaded #loaded-marker {
+  color: var(--accent);
+}
+
+@media (max-width: 640px) {
+  .shell {
+    padding: 20px 14px 24px;
+  }
+
+  .hero {
+    padding: 20px;
+  }
+
+  .footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
