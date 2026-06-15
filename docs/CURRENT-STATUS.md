@@ -64,6 +64,7 @@
   * `GET /api/health-checker/mock-scan-to-review-flow` combineert de bestaande mock scan, proposal preview, review queue, approval policy en audit preview zonder database, Prisma of WooCommerce;
   * `GET /api/health-checker/operator-overview-mock` blijft bewust read-only en statisch;
   * `GET /api/health-checker/operator-overview-mock` geeft alleen een mock operator-overzicht terug met scan summary, issues, proposal previews, review queue, approval policy, audit trail preview, safety/status panel en future extension hooks;
+  * beide routes worden nu gevoed door `apps/api/src/services/healthChecker/mockRuntimeService.ts` terwijl de responsevorm read-only/mock blijft;
 * Aantoonbaar genoemd pad voor Prisma app-integratie:
   * `apps/api/src/persistence/prismaClient.ts`
 * Via de lokaal gevalideerde API-routes is Prisma/database-runtime nog niet gevalideerd; `database` en `prisma` blijven daar bewust `not_checked`.

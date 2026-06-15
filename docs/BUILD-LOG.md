@@ -1594,6 +1594,7 @@ Een read-only mock scan-to-review flow toevoegen die de bestaande Health Checker
 * bestaande Fastify-structuur gecontroleerd;
 * een nieuwe read-only route toegevoegd onder:
   * `GET /api/health-checker/mock-scan-to-review-flow`
+* de route gebruikt nu `apps/api/src/services/healthChecker/mockRuntimeService.ts` voor de mock payload terwijl de response read-only/mock blijft;
 * route geregistreerd naast de bestaande `/health`, `/diagnostics`, `/api/health-checker/readiness`, `/api/health-checker/mock-scan`, `/api/health-checker/issue-classification`, `/api/health-checker/proposal-contract`, `/api/health-checker/issue-proposal-mapping`, `/api/health-checker/mock-proposal-preview`, `/api/health-checker/operator-review-contract`, `/api/health-checker/operator-review-preview`, `/api/health-checker/approval-flow-contract`, `/api/health-checker/audit-log-contract` en `/api/health-checker/audit-log-preview`;
 * geen database-, Prisma-, WooCommerce- of secretsintegratie toegevoegd.
 
@@ -1624,9 +1625,10 @@ Een read-only mock scan-to-review flow toevoegen die de bestaande Health Checker
   * `GET /api/health-checker/mock-scan-to-review-flow`
 * de nieuwe flowroute gaf veilig een statische response terug met onder andere:
   * `service: sam-health-checker`
-  * `mode: mock_flow`
-  * `status: completed`
-  * `flow_id: mock_flow_001`
+* de statische payload is daarna naar `apps/api/src/services/healthChecker/mockRuntimeService.ts` verplaatst zonder de read-only vorm te wijzigen;
+* `mode: mock_flow`
+* `status: completed`
+* `flow_id: mock_flow_001`
   * `database: not_used`
   * `prisma: not_used`
   * `write_actions: disabled`
@@ -1668,6 +1670,7 @@ Een read-only mock operator-overzicht toevoegen dat de bestaande Health Checker-
 * bestaande Fastify-structuur gecontroleerd;
 * een nieuwe read-only route toegevoegd onder:
   * `GET /api/health-checker/operator-overview-mock`
+* de route gebruikt nu `apps/api/src/services/healthChecker/mockRuntimeService.ts` voor de mock payload terwijl de response read-only/mock blijft;
 * route geregistreerd naast de bestaande `/health`, `/diagnostics`, `/api/health-checker/readiness`, `/api/health-checker/mock-scan`, `/api/health-checker/issue-classification`, `/api/health-checker/proposal-contract`, `/api/health-checker/issue-proposal-mapping`, `/api/health-checker/mock-proposal-preview`, `/api/health-checker/operator-review-contract`, `/api/health-checker/operator-review-preview`, `/api/health-checker/approval-flow-contract`, `/api/health-checker/audit-log-contract`, `/api/health-checker/audit-log-preview` en `/api/health-checker/mock-scan-to-review-flow`;
 * geen database-, Prisma-, WooCommerce- of secretsintegratie toegevoegd.
 
@@ -1699,9 +1702,10 @@ Een read-only mock operator-overzicht toevoegen dat de bestaande Health Checker-
   * `GET /api/health-checker/operator-overview-mock`
 * de nieuwe operator-overview-route gaf veilig een statische response terug met onder andere:
   * `service: sam-health-checker`
-  * `mode: mock_overview`
-  * `status: completed`
-  * `overview_id: overview_001`
+* de statische payload is daarna naar `apps/api/src/services/healthChecker/mockRuntimeService.ts` verplaatst zonder de read-only vorm te wijzigen;
+* `mode: mock_overview`
+* `status: completed`
+* `overview_id: overview_001`
   * `database: not_used`
   * `prisma: not_used`
   * `woocommerce: not_connected`
