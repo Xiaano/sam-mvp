@@ -5,6 +5,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const healthStatus = document.getElementById("health-status");
   const healthMode = document.getElementById("health-mode");
   const healthTimestamp = document.getElementById("health-timestamp");
+  const diagnosticsState = document.getElementById("diagnostics-state");
+  const diagnosticsService = document.getElementById("diagnostics-service");
+  const diagnosticsStatus = document.getElementById("diagnostics-status");
+  const diagnosticsMode = document.getElementById("diagnostics-mode");
+  const diagnosticsDatabase = document.getElementById("diagnostics-database");
+  const diagnosticsPrisma = document.getElementById("diagnostics-prisma");
+  const diagnosticsWoocommerce = document.getElementById("diagnostics-woocommerce");
+  const diagnosticsSecrets = document.getElementById("diagnostics-secrets");
+  const diagnosticsTimestamp = document.getElementById("diagnostics-timestamp");
   const apiBaseUrl = "http://localhost:3000";
 
   document.body.setAttribute("data-shell-state", "loaded");
@@ -23,7 +32,12 @@ document.addEventListener("DOMContentLoaded", () => {
     healthState.textContent = "loading";
   }
 
+  if (diagnosticsState) {
+    diagnosticsState.textContent = "loading";
+  }
+
   void loadHealth();
+  void loadDiagnostics();
 
   async function loadHealth() {
     try {
@@ -50,6 +64,39 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  async function loadDiagnostics() {
+    try {
+      const response = await fetch(new URL("/diagnostics", apiBaseUrl));
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      const payload = await response.json();
+      renderDiagnostics({
+        service: payload.service ?? "not loaded yet",
+        status: payload.status ?? "not loaded yet",
+        mode: payload.mode ?? "not loaded yet",
+        database: payload.database ?? "not loaded yet",
+        prisma: payload.prisma ?? "not loaded yet",
+        woocommerce: payload.woocommerce ?? "not loaded yet",
+        secrets: payload.secrets ?? "not loaded yet",
+        timestamp: payload.timestamp ?? "not loaded yet",
+      });
+    } catch {
+      renderDiagnostics({
+        service: "unavailable",
+        status: "error",
+        mode: "read-only",
+        database: "not loaded yet",
+        prisma: "not loaded yet",
+        woocommerce: "not loaded yet",
+        secrets: "not loaded yet",
+        timestamp: "not loaded yet",
+      });
+    }
+  }
+
   function renderHealth({ service, status, mode, timestamp }) {
     if (healthState) {
       healthState.textContent = `${status}`;
@@ -69,6 +116,53 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (healthTimestamp) {
       healthTimestamp.textContent = timestamp;
+    }
+  }
+
+  function renderDiagnostics({
+    service,
+    status,
+    mode,
+    database,
+    prisma,
+    woocommerce,
+    secrets,
+    timestamp,
+  }) {
+    if (diagnosticsState) {
+      diagnosticsState.textContent = `${status}`;
+    }
+
+    if (diagnosticsService) {
+      diagnosticsService.textContent = service;
+    }
+
+    if (diagnosticsStatus) {
+      diagnosticsStatus.textContent = status;
+    }
+
+    if (diagnosticsMode) {
+      diagnosticsMode.textContent = mode;
+    }
+
+    if (diagnosticsDatabase) {
+      diagnosticsDatabase.textContent = database;
+    }
+
+    if (diagnosticsPrisma) {
+      diagnosticsPrisma.textContent = prisma;
+    }
+
+    if (diagnosticsWoocommerce) {
+      diagnosticsWoocommerce.textContent = woocommerce;
+    }
+
+    if (diagnosticsSecrets) {
+      diagnosticsSecrets.textContent = secrets;
+    }
+
+    if (diagnosticsTimestamp) {
+      diagnosticsTimestamp.textContent = timestamp;
     }
   }
 });
