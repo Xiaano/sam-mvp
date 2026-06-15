@@ -55,6 +55,26 @@ h1 {
   font-size: clamp(2rem, 5vw, 3.5rem);
 }
 
+.api-base {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin: 8px 0 0;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: rgba(23, 38, 63, 0.95);
+  border: 1px solid var(--panel-border);
+  color: var(--muted);
+}
+
+.api-base-label {
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+}
+
 .labels {
   display: flex;
   flex-wrap: wrap;
@@ -77,26 +97,6 @@ h1 {
   font-weight: 600;
 }
 
-.api-base {
-  display: inline-flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: center;
-  margin: 8px 0 0;
-  padding: 10px 14px;
-  border-radius: 14px;
-  background: rgba(23, 38, 63, 0.95);
-  border: 1px solid var(--panel-border);
-  color: var(--muted);
-}
-
-.api-base-label {
-  color: var(--accent);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 0.8rem;
-}
-
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -117,10 +117,38 @@ h1 {
   font-size: 1.05rem;
 }
 
+.primary {
+  grid-column: 1 / -1;
+}
+
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin: 16px 0 0;
+}
+
+.status-grid div {
+  padding: 14px;
+  border-radius: 14px;
+  background: rgba(23, 38, 63, 0.9);
+  border: 1px solid var(--panel-border);
+}
+
+.status-grid dt {
+  margin-bottom: 8px;
+  color: var(--accent);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.status-grid dd,
 .slot-state {
-  margin-bottom: 0;
+  margin: 0;
   color: var(--text);
   line-height: 1.55;
+  word-break: break-word;
 }
 
 .grid p,
