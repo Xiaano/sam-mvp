@@ -62,6 +62,8 @@ De lifecycle/state contract + checks fase is daarmee afgesloten.
 
 De role/permission/access-control voorbereidingsfase is daarmee afgesloten.
 
+De operator cockpit voorbereidingsfase is daarmee afgesloten.
+
 ## Afgeronde lagen
 
 De volgende lagen zijn nu afgerond:
