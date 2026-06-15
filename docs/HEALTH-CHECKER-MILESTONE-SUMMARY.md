@@ -51,6 +51,8 @@ De minimale contract-shape checks zijn ook toegevoegd en gereviewd:
 * de directe tsx-entrypoint voerde de checks wel succesvol uit;
 * contractroutes bleven statisch en gescheiden van mock/runtime.
 
+De huidige contract + mock readiness fase is daarmee afgesloten.
+
 ## Afgeronde lagen
 
 De volgende lagen zijn nu afgerond:
