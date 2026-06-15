@@ -1577,6 +1577,80 @@ Een kleine, veilige read-only audit-log previewroute toevoegen voor `SAM Health 
 * geen businesslogica
 * geen brede refactor
 
+## Fase 30 - Health Checker mock scan-to-review flow toegevoegd
+
+**Datum:** 2026-06-15
+
+**Doel**
+
+Een read-only mock scan-to-review flow toevoegen die de bestaande Health Checker-contractlaag in één statische keten samenbrengt zonder nieuwe engine, database of execution.
+
+**Ricardo handmatig uitgevoerd**
+
+* geen aparte handmatige Ricardo-validatie vastgelegd in deze stap
+
+**Codex alleen documentair of analyserend**
+
+* bestaande Fastify-structuur gecontroleerd;
+* een nieuwe read-only route toegevoegd onder:
+  * `GET /api/health-checker/mock-scan-to-review-flow`
+* route geregistreerd naast de bestaande `/health`, `/diagnostics`, `/api/health-checker/readiness`, `/api/health-checker/mock-scan`, `/api/health-checker/issue-classification`, `/api/health-checker/proposal-contract`, `/api/health-checker/issue-proposal-mapping`, `/api/health-checker/mock-proposal-preview`, `/api/health-checker/operator-review-contract`, `/api/health-checker/operator-review-preview`, `/api/health-checker/approval-flow-contract`, `/api/health-checker/audit-log-contract` en `/api/health-checker/audit-log-preview`;
+* geen database-, Prisma-, WooCommerce- of secretsintegratie toegevoegd.
+
+**Ontstane bestanden / artefacten**
+
+* nieuw routebestand:
+  * `apps/api/src/routes/healthCheckerMockScanToReviewFlow.ts`
+* bijgewerkt serverbestand:
+  * `apps/api/src/server.ts`
+
+**Geslaagde validatie**
+
+* inline TypeScript-validatie slaagde opnieuw
+* runtime-validatie via inline Node/`tsx`-workaround slaagde voor:
+  * `GET /health`
+  * `GET /diagnostics`
+  * `GET /api/health-checker/readiness`
+  * `GET /api/health-checker/mock-scan`
+  * `GET /api/health-checker/issue-classification`
+  * `GET /api/health-checker/proposal-contract`
+  * `GET /api/health-checker/issue-proposal-mapping`
+  * `GET /api/health-checker/mock-proposal-preview`
+  * `GET /api/health-checker/operator-review-contract`
+  * `GET /api/health-checker/operator-review-preview`
+  * `GET /api/health-checker/approval-flow-contract`
+  * `GET /api/health-checker/audit-log-contract`
+  * `GET /api/health-checker/audit-log-preview`
+  * `GET /api/health-checker/mock-scan-to-review-flow`
+* de nieuwe flowroute gaf veilig een statische response terug met onder andere:
+  * `service: sam-health-checker`
+  * `mode: mock_flow`
+  * `status: completed`
+  * `flow_id: mock_flow_001`
+  * `database: not_used`
+  * `prisma: not_used`
+  * `write_actions: disabled`
+  * `auto_execute: disabled`
+
+**Warnings / aandachtspunten**
+
+* normale `npm run check -w @sam-mvp/api` faalt in deze Codex-sessie nog steeds door de bekende omgevingfout:
+  * `EPERM: operation not permitted, lstat 'C:\\Users\\Admin'`
+* de inline Node/`tsx`-workaround bleef daardoor nodig voor validatie binnen Codex
+* via de bestaande Health Checker endpoints en de nieuwe flowroute zijn database en Prisma bewust niet actief gevalideerd
+
+**Bewust niet gedaan**
+
+* geen databaseverbinding
+* geen Prisma-query
+* geen WooCommerce-koppeling
+* geen `.env` of secrets gelezen
+* geen AI/OpenAI-koppeling
+* geen frontend/cockpit
+* geen execution
+* geen businesslogica
+* geen brede refactor
+
 ## Bewust niet uitgevoerd tijdens deze stappen
 
 * geen echte secrets in repo geplaatst

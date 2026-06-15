@@ -35,6 +35,7 @@
   * `GET /api/health-checker/approval-flow-contract` is lokaal succesvol gevalideerd;
   * `GET /api/health-checker/audit-log-contract` is lokaal succesvol gevalideerd;
   * `GET /api/health-checker/audit-log-preview` is lokaal succesvol gevalideerd;
+  * `GET /api/health-checker/mock-scan-to-review-flow` is lokaal succesvol gevalideerd;
   * `GET /diagnostics` blijft bewust read-only en statisch;
   * `GET /diagnostics` maakt geen databaseverbinding, voert geen Prisma-query uit, gebruikt geen WooCommerce en toont geen secrets;
   * `GET /api/health-checker/readiness` blijft bewust read-only en statisch;
@@ -58,6 +59,8 @@
   * `GET /api/health-checker/audit-log-contract` levert alleen statische auditlog-afspraken en gebruikt geen database, Prisma of WooCommerce;
   * `GET /api/health-checker/audit-log-preview` blijft bewust read-only en statisch;
   * `GET /api/health-checker/audit-log-preview` levert alleen statische auditlog-preview-events en gebruikt geen database, Prisma of WooCommerce;
+  * `GET /api/health-checker/mock-scan-to-review-flow` blijft bewust read-only en statisch;
+  * `GET /api/health-checker/mock-scan-to-review-flow` combineert de bestaande mock scan, proposal preview, review queue, approval policy en audit preview zonder database, Prisma of WooCommerce;
 * Aantoonbaar genoemd pad voor Prisma app-integratie:
   * `apps/api/src/persistence/prismaClient.ts`
 * Via de lokaal gevalideerde API-routes is Prisma/database-runtime nog niet gevalideerd; `database` en `prisma` blijven daar bewust `not_checked`.

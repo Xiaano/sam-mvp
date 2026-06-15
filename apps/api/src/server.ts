@@ -8,6 +8,7 @@ import { registerHealthCheckerAuditLogContractRoute } from "./routes/healthCheck
 import { registerHealthCheckerIssueClassificationRoute } from "./routes/healthCheckerIssueClassification.js";
 import { registerHealthCheckerIssueProposalMappingRoute } from "./routes/healthCheckerIssueProposalMapping.js";
 import { registerHealthCheckerMockProposalPreviewRoute } from "./routes/healthCheckerMockProposalPreview.js";
+import { registerHealthCheckerMockScanToReviewFlowRoute } from "./routes/healthCheckerMockScanToReviewFlow.js";
 import { registerHealthCheckerMockScanRoute } from "./routes/healthCheckerMockScan.js";
 import { registerHealthCheckerOperatorReviewContractRoute } from "./routes/healthCheckerOperatorReviewContract.js";
 import { registerHealthCheckerOperatorReviewPreviewRoute } from "./routes/healthCheckerOperatorReviewPreview.js";
@@ -26,6 +27,7 @@ export function createApiServer() {
   registerHealthCheckerApprovalFlowContractRoute(app);
   registerHealthCheckerReadinessRoute(app);
   registerHealthCheckerMockScanRoute(app);
+  registerHealthCheckerMockScanToReviewFlowRoute(app);
   registerHealthCheckerIssueClassificationRoute(app);
   registerHealthCheckerProposalContractRoute(app);
   registerHealthCheckerIssueProposalMappingRoute(app);
