@@ -21,6 +21,27 @@ export function createApiServer() {
     logger: false,
   });
 
+  const allowedLocalDevOrigin = "http://localhost:5174";
+
+  app.addHook("onRequest", (request, reply, done) => {
+    if (request.headers.origin !== allowedLocalDevOrigin) {
+      done();
+      return;
+    }
+
+    reply.header("Access-Control-Allow-Origin", allowedLocalDevOrigin);
+    reply.header("Vary", "Origin");
+    reply.header("Access-Control-Allow-Methods", "GET, OPTIONS");
+    reply.header("Access-Control-Allow-Headers", "Content-Type");
+
+    if (request.method === "OPTIONS") {
+      reply.code(204).send();
+      return;
+    }
+
+    done();
+  });
+
   registerHealthRoute(app);
   registerDiagnosticsRoute(app);
   registerHealthCheckerAuditLogContractRoute(app);
