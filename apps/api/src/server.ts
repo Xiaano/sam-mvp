@@ -10,6 +10,7 @@ import { registerHealthCheckerIssueProposalMappingRoute } from "./routes/healthC
 import { registerHealthCheckerMockProposalPreviewRoute } from "./routes/healthCheckerMockProposalPreview.js";
 import { registerHealthCheckerMockScanToReviewFlowRoute } from "./routes/healthCheckerMockScanToReviewFlow.js";
 import { registerHealthCheckerMockScanRoute } from "./routes/healthCheckerMockScan.js";
+import { registerHealthCheckerOperatorOverviewMockRoute } from "./routes/healthCheckerOperatorOverviewMock.js";
 import { registerHealthCheckerOperatorReviewContractRoute } from "./routes/healthCheckerOperatorReviewContract.js";
 import { registerHealthCheckerOperatorReviewPreviewRoute } from "./routes/healthCheckerOperatorReviewPreview.js";
 import { registerHealthCheckerProposalContractRoute } from "./routes/healthCheckerProposalContract.js";
@@ -28,6 +29,7 @@ export function createApiServer() {
   registerHealthCheckerReadinessRoute(app);
   registerHealthCheckerMockScanRoute(app);
   registerHealthCheckerMockScanToReviewFlowRoute(app);
+  registerHealthCheckerOperatorOverviewMockRoute(app);
   registerHealthCheckerIssueClassificationRoute(app);
   registerHealthCheckerProposalContractRoute(app);
   registerHealthCheckerIssueProposalMappingRoute(app);

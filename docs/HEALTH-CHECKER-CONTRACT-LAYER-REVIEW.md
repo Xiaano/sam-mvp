@@ -8,7 +8,7 @@
 
 ## Route-inventory
 
-De huidige API-contractlaag bevat 14 runtime handlers:
+De huidige API-contractlaag bevat 15 runtime handlers:
 
 * `/health`
 * `/diagnostics`
@@ -24,10 +24,11 @@ De huidige API-contractlaag bevat 14 runtime handlers:
 * `/api/health-checker/audit-log-contract`
 * `/api/health-checker/audit-log-preview`
 * `/api/health-checker/mock-scan-to-review-flow`
+* `/api/health-checker/operator-overview-mock`
 
 ## Contractketen
 
-De contractketen loopt logisch van readiness naar scan, classificatie, proposalvorming, review, approval en audit:
+De contractketen loopt logisch van readiness naar scan, classificatie, proposalvorming, review, approval, audit en operator overview:
 
 * readiness
 * mock scan
@@ -41,6 +42,7 @@ De contractketen loopt logisch van readiness naar scan, classificatie, proposalv
 * audit-log contract
 * audit-log preview
 * mock scan-to-review flow
+* operator overview mock
 
 ## Veiligheidsstatus
 
@@ -69,6 +71,7 @@ De contractketen loopt logisch van readiness naar scan, classificatie, proposalv
 * normale `npm run check -w @sam-mvp/api` faalt binnen Codex nog steeds op `EPERM: operation not permitted, lstat 'C:\Users\Admin'`
 * inline Node/tsx-workaround is eerder gebruikt voor runtimevalidatie
 * de nieuwe route `GET /api/health-checker/mock-scan-to-review-flow` is read-only, statisch/mock en gebruikt geen database, Prisma, WooCommerce, secrets of write actions
+* de nieuwe route `GET /api/health-checker/operator-overview-mock` is read-only, statisch/mock en gebruikt geen database, Prisma, WooCommerce, secrets, write actions of auto-execute
 
 ## Aanbevolen vervolgstap
 
