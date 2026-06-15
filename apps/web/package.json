@@ -4,7 +4,9 @@
   "private": true,
   "description": "SAM MVP operator cockpit",
   "scripts": {
+    "dev": "node src/devServer.mjs",
     "check": "tsc -p tsconfig.json --noEmit",
+    "check:foundation": "node src/devServer.mjs --check",
     "test": "echo \"No web tests configured yet\""
   }
 }
