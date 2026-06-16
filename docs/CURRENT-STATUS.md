@@ -71,6 +71,7 @@
   * `docs/HEALTH-CHECKER-REVIEW-APPROVAL-BOUNDARY-V1-DECISION.md` legt de volgende read-only stap vast: review en approval blijven aparte fases na proposal preview, zonder execution of write-scope;
   * `docs/HEALTH-CHECKER-REVIEW-STATUS-CONTRACT-V1.md` legt de volgende read-only stap vast: reviewstatussen en reviewbeslissingen blijven contractmatig gescheiden van execution en write;
   * `docs/HEALTH-CHECKER-OPERATOR-REVIEW-QUEUE-CONTRACT-V1.md` legt de volgende read-only stap vast: proposal previews kunnen later als operator review queue items worden getoond zonder execution of write-scope;
+  * `docs/HEALTH-CHECKER-OPERATOR-REVIEW-PREVIEW-CONTRACT-V1.md` legt de volgende read-only stap vast: één proposal item kan later veilig als operator review preview/detailview worden getoond zonder execution of write-scope;
   * `GET /api/health-checker/operator-overview-mock` blijft bewust read-only en statisch;
   * `GET /api/health-checker/operator-overview-mock` geeft alleen een mock operator-overzicht terug met scan summary, issues, proposal previews, review queue, approval policy, audit trail preview, safety/status panel en future extension hooks;
   * `GET /api/health-checker/operator-review-preview` blijft bewust read-only en statisch;

@@ -105,6 +105,7 @@ Dit document is bewust geen statuspagina, build-log, schema-overzicht of API-pla
 * `docs/HEALTH-CHECKER-REVIEW-APPROVAL-BOUNDARY-V1-DECISION.md` - review/approval boundary besluit na proposal preview; document only, geen execution/write-scope.
 * `docs/HEALTH-CHECKER-REVIEW-STATUS-CONTRACT-V1.md` - reviewstatus contract; document only, geen execution/write-scope.
 * `docs/HEALTH-CHECKER-OPERATOR-REVIEW-QUEUE-CONTRACT-V1.md` - operator review queue contract; document only, geen execution/write-scope.
+* `docs/HEALTH-CHECKER-OPERATOR-REVIEW-PREVIEW-CONTRACT-V1.md` - operator review preview contract; document only, geen execution/write-scope.
 * `docs/DEVELOPER-WORKFLOW-HELPERS-V1-DECISION.md` - developer workflow helpers besluit; alleen lokale dev-handelingen, geen SAM-productworkflow automatisering.
 
 ## Verwijzing naar andere kernbestanden
