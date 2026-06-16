@@ -219,14 +219,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const statusLabel = issue?.status ?? "not loaded yet";
         const messageLabel = issue?.message ?? "not loaded yet";
 
-        return [
-          `${index + 1}. ${issueLabel}`,
-          `product/entity: ${productLabel}`,
-          `category: ${categoryLabel}`,
-          `severity/risk: ${severityLabel}`,
-          `status: ${statusLabel}`,
-          `summary: ${messageLabel}`,
-        ].join(" | ");
+        return {
+          index: index + 1,
+          issueLabel,
+          productLabel,
+          categoryLabel,
+          severityLabel,
+          statusLabel,
+          messageLabel,
+        };
       });
 
       renderMockScan({
@@ -304,15 +305,16 @@ document.addEventListener("DOMContentLoaded", () => {
         const riskLabel = proposal?.risk_level ?? "not loaded yet";
         const approvalLabel = proposal?.requires_human_approval ? "yes" : "no";
 
-        return [
-          `${index + 1}. ${proposalLabel}`,
-          `linked issue: ${issueLabel}`,
-          `product/entity: ${entityLabel}`,
-          `proposed action/type: ${actionLabel}`,
-          `proposed value/summary: ${summaryLabel}`,
-          `risk/severity: ${riskLabel}`,
-          `human review required: ${approvalLabel}`,
-        ].join(" | ");
+        return {
+          index: index + 1,
+          proposalLabel,
+          issueLabel,
+          entityLabel,
+          actionLabel,
+          summaryLabel,
+          riskLabel,
+          approvalLabel,
+        };
       });
 
       renderMockProposalPreview({
@@ -659,8 +661,53 @@ document.addEventListener("DOMContentLoaded", () => {
       list.className = "issue-register-list";
 
       rows.forEach((row) => {
+        const normalizedRow =
+          typeof row === "string"
+            ? {
+                index: 1,
+                issueLabel: row,
+                productLabel: "not loaded yet",
+                categoryLabel: "not loaded yet",
+                severityLabel: "not loaded yet",
+                statusLabel: "not loaded yet",
+                messageLabel: "not loaded yet",
+              }
+            : row;
+
         const item = document.createElement("li");
-        item.textContent = row;
+        item.className = "issue-register-row";
+
+        const heading = document.createElement("div");
+        heading.className = "row-heading";
+
+        const indexLabel = document.createElement("strong");
+        indexLabel.textContent = `${normalizedRow.index}. ${normalizedRow.issueLabel}`;
+        heading.appendChild(indexLabel);
+        item.appendChild(heading);
+
+        const fields = [
+          ["product/entity", normalizedRow.productLabel],
+          ["category", normalizedRow.categoryLabel],
+          ["severity/risk", normalizedRow.severityLabel],
+          ["status", normalizedRow.statusLabel],
+          ["summary", normalizedRow.messageLabel],
+        ];
+
+        fields.forEach(([label, value]) => {
+          const field = document.createElement("div");
+          field.className = "row-field";
+
+          const fieldLabel = document.createElement("span");
+          fieldLabel.textContent = label;
+
+          const fieldValue = document.createElement("strong");
+          fieldValue.textContent = value;
+
+          field.appendChild(fieldLabel);
+          field.appendChild(fieldValue);
+          item.appendChild(field);
+        });
+
         list.appendChild(item);
       });
 
@@ -768,8 +815,55 @@ document.addEventListener("DOMContentLoaded", () => {
       list.className = "proposal-register-list";
 
       rows.forEach((row) => {
+        const normalizedRow =
+          typeof row === "string"
+            ? {
+                index: 1,
+                proposalLabel: row,
+                issueLabel: "not loaded yet",
+                entityLabel: "not loaded yet",
+                actionLabel: "not loaded yet",
+                summaryLabel: "not loaded yet",
+                riskLabel: "not loaded yet",
+                approvalLabel: "not loaded yet",
+              }
+            : row;
+
         const item = document.createElement("li");
-        item.textContent = row;
+        item.className = "proposal-register-row";
+
+        const heading = document.createElement("div");
+        heading.className = "row-heading";
+
+        const indexLabel = document.createElement("strong");
+        indexLabel.textContent = `${normalizedRow.index}. ${normalizedRow.proposalLabel}`;
+        heading.appendChild(indexLabel);
+        item.appendChild(heading);
+
+        const fields = [
+          ["linked issue", normalizedRow.issueLabel],
+          ["product/entity", normalizedRow.entityLabel],
+          ["proposed action/type", normalizedRow.actionLabel],
+          ["proposed value/summary", normalizedRow.summaryLabel],
+          ["risk/severity", normalizedRow.riskLabel],
+          ["human review required", normalizedRow.approvalLabel],
+        ];
+
+        fields.forEach(([label, value]) => {
+          const field = document.createElement("div");
+          field.className = "row-field";
+
+          const fieldLabel = document.createElement("span");
+          fieldLabel.textContent = label;
+
+          const fieldValue = document.createElement("strong");
+          fieldValue.textContent = value;
+
+          field.appendChild(fieldLabel);
+          field.appendChild(fieldValue);
+          item.appendChild(field);
+        });
+
         list.appendChild(item);
       });
 
