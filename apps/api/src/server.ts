@@ -15,6 +15,7 @@ import { registerHealthCheckerOperatorReviewContractRoute } from "./routes/healt
 import { registerHealthCheckerOperatorReviewPreviewRoute } from "./routes/healthCheckerOperatorReviewPreview.js";
 import { registerHealthCheckerProposalContractRoute } from "./routes/healthCheckerProposalContract.js";
 import { registerHealthCheckerReadinessRoute } from "./routes/healthCheckerReadiness.js";
+import { registerHealthCheckerWooCommerceConnectionReadinessRoute } from "./routes/healthCheckerWooCommerceConnectionReadiness.js";
 import { registerHealthCheckerWooCommerceProductScanSkeletonRoute } from "./routes/healthCheckerWooCommerceProductScanSkeleton.js";
 import { registerHealthCheckerWooCommerceConfigReadinessRoute } from "./routes/healthCheckerWooCommerceConfigReadiness.js";
 
@@ -59,6 +60,7 @@ export function createApiServer() {
   registerHealthCheckerMockProposalPreviewRoute(app);
   registerHealthCheckerOperatorReviewContractRoute(app);
   registerHealthCheckerOperatorReviewPreviewRoute(app);
+  registerHealthCheckerWooCommerceConnectionReadinessRoute(app);
   registerHealthCheckerWooCommerceProductScanSkeletonRoute(app);
   registerHealthCheckerWooCommerceConfigReadinessRoute(app);
 
