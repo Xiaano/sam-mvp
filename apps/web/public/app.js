@@ -104,6 +104,33 @@ document.addEventListener("DOMContentLoaded", () => {
   const wcScanProductRegister = document.getElementById("wc-scan-product-register");
   const wcScanIssueRegister = document.getElementById("wc-scan-issue-register");
 
+  const wcProposalPreviewState = document.getElementById("wc-proposal-preview-state");
+  const wcProposalPreviewDescription = document.getElementById("wc-proposal-preview-description");
+  const wcProposalPreviewWarning = document.getElementById("wc-proposal-preview-warning");
+  const wcProposalPreviewButton = document.getElementById("wc-proposal-preview-run-button");
+  const wcProposalPreviewStatus = document.getElementById("wc-proposal-preview-status");
+  const wcProposalPreviewSourceScanStatus = document.getElementById(
+    "wc-proposal-preview-source-scan-status",
+  );
+  const wcProposalPreviewIssuesRead = document.getElementById("wc-proposal-preview-issues-read");
+  const wcProposalPreviewProposalsCreated = document.getElementById(
+    "wc-proposal-preview-proposals-created",
+  );
+  const wcProposalPreviewCalled = document.getElementById("wc-proposal-preview-called");
+  const wcProposalPreviewProductDataReturned = document.getElementById(
+    "wc-proposal-preview-product-data-returned",
+  );
+  const wcProposalPreviewProposalDataReturned = document.getElementById(
+    "wc-proposal-preview-proposal-data-returned",
+  );
+  const wcProposalPreviewWriteScope = document.getElementById("wc-proposal-preview-write-scope");
+  const wcProposalPreviewAiUsed = document.getElementById("wc-proposal-preview-ai-used");
+  const wcProposalPreviewDatabaseWritten = document.getElementById(
+    "wc-proposal-preview-database-written",
+  );
+  const wcProposalPreviewNextStep = document.getElementById("wc-proposal-preview-next-step");
+  const wcProposalPreviewRegister = document.getElementById("wc-proposal-preview-register");
+
   const apiBaseUrl = "http://localhost:3001";
 
   document.body.setAttribute("data-shell-state", "loaded");
@@ -150,10 +177,17 @@ document.addEventListener("DOMContentLoaded", () => {
   void loadProposalContract();
   void loadWooCommerceConfigReadiness();
   renderWooCommerceReadOnlyProductScanIdle();
+  renderWooCommerceReadOnlyProposalPreviewIdle();
 
   if (wcScanButton) {
     wcScanButton.addEventListener("click", () => {
       void loadWooCommerceReadOnlyProductScan();
+    });
+  }
+
+  if (wcProposalPreviewButton) {
+    wcProposalPreviewButton.addEventListener("click", () => {
+      void loadWooCommerceReadOnlyProposalPreview();
     });
   }
 
@@ -964,6 +998,308 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     } finally {
       setWooCommerceReadOnlyProductScanBusy(false);
+    }
+  }
+
+  function renderWooCommerceReadOnlyProposalPreviewIdle() {
+    renderWooCommerceReadOnlyProposalPreviewSummary({
+      state: "not run",
+      status: "not run",
+      sourceScanStatus: "not loaded yet",
+      issuesRead: "not loaded yet",
+      proposalsCreated: "not loaded yet",
+      woocommerceApiCalled: "false",
+      productDataReturned: "false",
+      proposalDataReturned: "false",
+      writeScopeEnabled: "false",
+      aiUsed: "false",
+      databaseWritten: "false",
+      nextStep: "manual operator trigger required",
+    });
+
+    renderWooCommerceReadOnlyProposalPreviewRows({
+      state: "idle",
+      rows: ["No proposal preview has been run yet."],
+    });
+
+    if (wcProposalPreviewDescription) {
+      wcProposalPreviewDescription.textContent =
+        "Operator-controlled / no automatic preview / runs only after button click";
+    }
+
+    if (wcProposalPreviewWarning) {
+      wcProposalPreviewWarning.textContent = "Staging/test only";
+    }
+
+    if (wcProposalPreviewButton) {
+      wcProposalPreviewButton.disabled = false;
+      wcProposalPreviewButton.textContent = "Run read-only proposal preview";
+    }
+  }
+
+  function setWooCommerceReadOnlyProposalPreviewBusy(isBusy) {
+    if (wcProposalPreviewState && isBusy) {
+      wcProposalPreviewState.textContent = "running";
+    }
+
+    if (wcProposalPreviewButton) {
+      wcProposalPreviewButton.disabled = isBusy;
+      wcProposalPreviewButton.textContent = isBusy
+        ? "Running read-only proposal preview"
+        : "Run read-only proposal preview";
+    }
+
+    if (wcProposalPreviewDescription) {
+      wcProposalPreviewDescription.textContent = isBusy
+        ? "Running read-only proposal preview"
+        : "Operator-controlled / no automatic preview / runs only after button click";
+    }
+  }
+
+  function renderWooCommerceReadOnlyProposalPreviewSummary({
+    state,
+    status,
+    sourceScanStatus,
+    issuesRead,
+    proposalsCreated,
+    woocommerceApiCalled,
+    productDataReturned,
+    proposalDataReturned,
+    writeScopeEnabled,
+    aiUsed,
+    databaseWritten,
+    nextStep,
+  }) {
+    if (wcProposalPreviewState) {
+      wcProposalPreviewState.textContent = state;
+    }
+
+    if (wcProposalPreviewStatus) {
+      wcProposalPreviewStatus.textContent = status;
+    }
+
+    if (wcProposalPreviewSourceScanStatus) {
+      wcProposalPreviewSourceScanStatus.textContent = sourceScanStatus;
+    }
+
+    if (wcProposalPreviewIssuesRead) {
+      wcProposalPreviewIssuesRead.textContent = issuesRead;
+    }
+
+    if (wcProposalPreviewProposalsCreated) {
+      wcProposalPreviewProposalsCreated.textContent = proposalsCreated;
+    }
+
+    if (wcProposalPreviewCalled) {
+      wcProposalPreviewCalled.textContent = woocommerceApiCalled;
+    }
+
+    if (wcProposalPreviewProductDataReturned) {
+      wcProposalPreviewProductDataReturned.textContent = productDataReturned;
+    }
+
+    if (wcProposalPreviewProposalDataReturned) {
+      wcProposalPreviewProposalDataReturned.textContent = proposalDataReturned;
+    }
+
+    if (wcProposalPreviewWriteScope) {
+      wcProposalPreviewWriteScope.textContent = writeScopeEnabled;
+    }
+
+    if (wcProposalPreviewAiUsed) {
+      wcProposalPreviewAiUsed.textContent = aiUsed;
+    }
+
+    if (wcProposalPreviewDatabaseWritten) {
+      wcProposalPreviewDatabaseWritten.textContent = databaseWritten;
+    }
+
+    if (wcProposalPreviewNextStep) {
+      wcProposalPreviewNextStep.textContent = nextStep;
+    }
+  }
+
+  function normalizeWooCommerceProposalPreviewRows(rows) {
+    return rows.map((row, index) => {
+      if (typeof row === "string") {
+        return {
+          index: index + 1,
+          proposalId: row,
+          sourceIssueId: "not loaded yet",
+          productId: "not loaded yet",
+          sku: "not loaded yet",
+          issueType: "not loaded yet",
+          proposalType: "not loaded yet",
+          targetField: "not loaded yet",
+          currentState: "not loaded yet",
+          proposalValueStatus: "not loaded yet",
+          requiresHumanReview: "not loaded yet",
+          autoExecuteAllowed: "not loaded yet",
+          writeScopeEnabled: "not loaded yet",
+          summary: "not loaded yet",
+          sourceProvenance: {},
+        };
+      }
+
+      return {
+        index: index + 1,
+        proposalId: row.proposalId ?? `proposal_${String(index + 1).padStart(3, "0")}`,
+        sourceIssueId: row.sourceIssueId ?? "not loaded yet",
+        productId: row.productId ?? "not loaded yet",
+        sku: row.sku ?? "not loaded yet",
+        issueType: row.issueType ?? "not loaded yet",
+        proposalType: row.proposalType ?? "not loaded yet",
+        targetField: row.targetField ?? "not loaded yet",
+        currentState: row.currentState ?? "not loaded yet",
+        proposalValueStatus: row.proposalValueStatus ?? "not loaded yet",
+        requiresHumanReview: row.requiresHumanReview === true ? "true" : "false",
+        autoExecuteAllowed: row.autoExecuteAllowed === true ? "true" : "false",
+        writeScopeEnabled: row.writeScopeEnabled === true ? "true" : "false",
+        summary: row.summary ?? "not loaded yet",
+        sourceProvenance: row.sourceProvenance ?? {},
+      };
+    });
+  }
+
+  function renderWooCommerceReadOnlyProposalPreviewRows({ state, rows }) {
+    if (wcProposalPreviewRegister) {
+      wcProposalPreviewRegister.dataset.state = state;
+      wcProposalPreviewRegister.innerHTML = "";
+
+      const list = document.createElement("ol");
+      list.className = "proposal-register-list";
+
+      const renderMessageOnly = rows.length === 1 && typeof rows[0] === "string";
+
+      if (renderMessageOnly) {
+        const item = document.createElement("li");
+        item.className = "proposal-register-row";
+        item.textContent = rows[0];
+        list.appendChild(item);
+        wcProposalPreviewRegister.appendChild(list);
+        return;
+      }
+
+      normalizeWooCommerceProposalPreviewRows(rows).forEach((row) => {
+        const item = document.createElement("li");
+        item.className = "proposal-register-row";
+
+        const heading = document.createElement("div");
+        heading.className = "row-heading";
+
+        const indexLabel = document.createElement("strong");
+        indexLabel.textContent = `${row.index}. ${row.proposalId}`;
+        heading.appendChild(indexLabel);
+        item.appendChild(heading);
+
+        const provenance = row.sourceProvenance;
+        const fields = [
+          ["source issue", row.sourceIssueId],
+          ["product id", row.productId],
+          ["sku", row.sku],
+          ["issue type", row.issueType],
+          ["proposal type", row.proposalType],
+          ["target field", row.targetField],
+          ["state", row.currentState],
+          ["value status", row.proposalValueStatus],
+          ["human review", row.requiresHumanReview],
+          ["auto execute allowed", row.autoExecuteAllowed],
+          ["write scope enabled", row.writeScopeEnabled],
+          ["summary", row.summary],
+          ["source type", provenance.sourceType ?? "not loaded yet"],
+          ["source name", provenance.sourceName ?? "not loaded yet"],
+          ["source reference", provenance.sourceReference ?? "not loaded yet"],
+          ["source confidence", provenance.sourceConfidence ?? "not loaded yet"],
+          ["AI generated", provenance.aiGenerated === true ? "true" : "false"],
+          ["source unknown", provenance.sourceUnknown === true ? "true" : "false"],
+          ["source human review", provenance.requiresHumanReview === true ? "true" : "false"],
+        ];
+
+        fields.forEach(([label, value]) => {
+          const field = document.createElement("div");
+          field.className = "row-field";
+
+          const fieldLabel = document.createElement("span");
+          fieldLabel.textContent = label;
+
+          const fieldValue = document.createElement("strong");
+          fieldValue.textContent = value;
+
+          field.appendChild(fieldLabel);
+          field.appendChild(fieldValue);
+          item.appendChild(field);
+        });
+
+        list.appendChild(item);
+      });
+
+      wcProposalPreviewRegister.appendChild(list);
+    }
+  }
+
+  async function loadWooCommerceReadOnlyProposalPreview() {
+    setWooCommerceReadOnlyProposalPreviewBusy(true);
+
+    try {
+      const response = await fetch(
+        new URL("/api/health-checker/woocommerce-read-only-proposal-preview", apiBaseUrl),
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      const payload = await response.json();
+      const proposals = Array.isArray(payload.proposals) ? payload.proposals : [];
+      const hasProposals = proposals.length > 0;
+
+      renderWooCommerceReadOnlyProposalPreviewSummary({
+        state: payload.status ?? "success",
+        status: payload.status ?? "success",
+        sourceScanStatus: payload.sourceScanStatus ?? "not loaded yet",
+        issuesRead:
+          payload.issuesRead === 0 || payload.issuesRead
+            ? String(payload.issuesRead)
+            : "not loaded yet",
+        proposalsCreated:
+          payload.proposalsCreated === 0 || payload.proposalsCreated
+            ? String(payload.proposalsCreated)
+            : "not loaded yet",
+        woocommerceApiCalled: payload.woocommerceApiCalled === true ? "true" : "false",
+        productDataReturned: payload.productDataReturned === true ? "true" : "false",
+        proposalDataReturned: payload.proposalDataReturned === true ? "true" : "false",
+        writeScopeEnabled: payload.writeScopeEnabled === false ? "false" : "not loaded yet",
+        aiUsed: payload.aiUsed === true ? "true" : "false",
+        databaseWritten: payload.databaseWritten === true ? "true" : "false",
+        nextStep: payload.nextStep ?? "not loaded yet",
+      });
+
+      renderWooCommerceReadOnlyProposalPreviewRows({
+        state: hasProposals ? "success" : "empty",
+        rows: hasProposals ? proposals : ["No proposal previews returned by the read-only scan."],
+      });
+    } catch {
+      renderWooCommerceReadOnlyProposalPreviewSummary({
+        state: "error",
+        status: "error",
+        sourceScanStatus: "unavailable",
+        issuesRead: "not loaded yet",
+        proposalsCreated: "not loaded yet",
+        woocommerceApiCalled: "false",
+        productDataReturned: "false",
+        proposalDataReturned: "false",
+        writeScopeEnabled: "false",
+        aiUsed: "false",
+        databaseWritten: "false",
+        nextStep: "manual operator trigger required",
+      });
+
+      renderWooCommerceReadOnlyProposalPreviewRows({
+        state: "error",
+        rows: ["unavailable"],
+      });
+    } finally {
+      setWooCommerceReadOnlyProposalPreviewBusy(false);
     }
   }
 
