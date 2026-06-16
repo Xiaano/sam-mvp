@@ -99,6 +99,7 @@ Dit document is bewust geen statuspagina, build-log, schema-overzicht of API-pla
 * `docs/HEALTH-CHECKER-COMMERCE-DEPTH-EXTENSION-GROUPS-REVIEW.md` - future extension review voor Commerce Depth, Source Intake en Extension Groups; document only, geen actieve MVP-scope.
 * `docs/HEALTH-CHECKER-PHASE-CLOSURE-CHECK.md` - phase closure check voor de read-only Health Checker basis; document only, geen scope-uitbreiding.
 * `docs/HEALTH-CHECKER-WOOCOMMERCE-READ-ONLY-CONFIG-CONTRACT.md` - read-only config contract voor toekomstige WooCommerce staging scan; document only, geen actieve MVP-scope.
+* `docs/HEALTH-CHECKER-WOOCOMMERCE-READ-ONLY-PRODUCT-SCAN-CONTRACT.md` - read-only WooCommerce product scan field boundary; document only, geen API-call, geen write/execution-scope.
 
 ## Verwijzing naar andere kernbestanden
 
