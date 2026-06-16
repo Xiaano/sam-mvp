@@ -7,6 +7,7 @@
 ## Huidige status
 
 * `SAM MVP Release 1` draait technisch op een API-first basis met `Fastify`, `TypeScript`, `Prisma 7` en `PostgreSQL`.
+* `SAM Health Checker` is de huidige prioriteit; de bestaande cockpit/API-basis is read-only en analysegericht.
 * De minimale API draait lokaal op poort `3001`.
 * `/health` is lokaal succesvol gevalideerd.
 * `/diagnostics` is lokaal succesvol gevalideerd en blijft bewust read-only/statisch.
@@ -41,8 +42,12 @@
 * geen `WooCommerce` connector
 * geen businesslogica buiten goedgekeurde MVP-stappen
 * geen productie-deployment
-* geen extra API-endpoints buiten aantoonbare basis/health-route
+* geen extra API-endpoints buiten de aantoonbare Health Checker read-only/contract/mock/lifecycle-basis
 * geen autonome `AI`-uitvoering
+
+## Volgende stap
+
+Documentatieconsistentie en kleine cleanup gaan voor nieuwe feature-uitbreiding.
 
 ## Werkwijze voor Codex
 
