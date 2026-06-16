@@ -38,6 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const mockScanIssueCategories = document.getElementById("mock-scan-issue-categories");
   const mockScanTopIssue = document.getElementById("mock-scan-top-issue");
   const mockScanIssueCount = document.getElementById("mock-scan-issue-count");
+  const mockScanIssueRegister = document.getElementById("mock-scan-issue-register");
 
   const apiBaseUrl = "http://localhost:3001";
 
@@ -165,6 +166,23 @@ document.addEventListener("DOMContentLoaded", () => {
       const issues = Array.isArray(payload.issues) ? payload.issues : [];
       const issueCategories = [...new Set(issues.map((issue) => issue?.type).filter(Boolean))];
       const topIssue = issues[0];
+      const issueRegister = issues.map((issue, index) => {
+        const issueLabel = issue?.issue_id ?? `issue_${String(index + 1).padStart(3, "0")}`;
+        const productLabel = issue?.product_sku ?? "not loaded yet";
+        const categoryLabel = issue?.type ?? "not loaded yet";
+        const severityLabel = issue?.severity ?? issue?.risk_level ?? "not loaded yet";
+        const statusLabel = issue?.status ?? "not loaded yet";
+        const messageLabel = issue?.message ?? "not loaded yet";
+
+        return [
+          `${index + 1}. ${issueLabel}`,
+          `product/entity: ${productLabel}`,
+          `category: ${categoryLabel}`,
+          `severity/risk: ${severityLabel}`,
+          `status: ${statusLabel}`,
+          `summary: ${messageLabel}`,
+        ].join(" | ");
+      });
 
       renderMockScan({
         state: "success",
@@ -188,6 +206,11 @@ document.addEventListener("DOMContentLoaded", () => {
         topIssue: topIssue?.message ?? "No issues found",
         issueCount: issues.length,
       });
+
+      renderMockScanIssueRegister({
+        state: issues.length === 0 ? "empty" : "success",
+        rows: issueRegister.length > 0 ? issueRegister : ["No issues found"],
+      });
     } catch {
       renderMockScan({
         state: "error",
@@ -207,6 +230,11 @@ document.addEventListener("DOMContentLoaded", () => {
         issueCategories: "not loaded yet",
         topIssue: "not loaded yet",
         issueCount: "not loaded yet",
+      });
+
+      renderMockScanIssueRegister({
+        state: "error",
+        rows: ["not loaded yet"],
       });
     }
   }
@@ -370,6 +398,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (mockScanIssueCount) {
       mockScanIssueCount.textContent = issueCount;
+    }
+  }
+
+  function renderMockScanIssueRegister({ state, rows }) {
+    if (mockScanIssueRegister) {
+      mockScanIssueRegister.dataset.state = state;
+      mockScanIssueRegister.innerHTML = "";
+
+      const list = document.createElement("ol");
+      list.className = "issue-register-list";
+
+      rows.forEach((row) => {
+        const item = document.createElement("li");
+        item.textContent = row;
+        list.appendChild(item);
+      });
+
+      mockScanIssueRegister.appendChild(list);
     }
   }
 });
