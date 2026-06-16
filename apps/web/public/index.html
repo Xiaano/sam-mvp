@@ -25,428 +25,511 @@
         <p class="notice">No live data is loaded in this static shell yet.</p>
       </header>
 
-      <section class="grid" aria-label="Cockpit sections">
-        <article class="primary">
-          <h2>/health status</h2>
-          <p class="slot-state" id="health-state">loading</p>
-          <dl class="status-grid">
-            <div>
-              <dt>service</dt>
-              <dd id="health-service">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>status</dt>
-              <dd id="health-status">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>mode</dt>
-              <dd id="health-mode">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>timestamp</dt>
-              <dd id="health-timestamp">not loaded yet</dd>
-            </div>
-          </dl>
-        </article>
-
-        <article class="primary">
-          <h2>/diagnostics status</h2>
-          <p class="slot-state" id="diagnostics-state">loading</p>
-          <dl class="status-grid">
-            <div>
-              <dt>service</dt>
-              <dd id="diagnostics-service">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>status</dt>
-              <dd id="diagnostics-status">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>mode</dt>
-              <dd id="diagnostics-mode">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>database</dt>
-              <dd id="diagnostics-database">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>prisma</dt>
-              <dd id="diagnostics-prisma">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>woocommerce</dt>
-              <dd id="diagnostics-woocommerce">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>secrets</dt>
-              <dd id="diagnostics-secrets">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>timestamp</dt>
-              <dd id="diagnostics-timestamp">not loaded yet</dd>
-            </div>
-          </dl>
-        </article>
-
-        <article class="primary">
-          <h2>/api/health-checker/readiness status</h2>
-          <p class="slot-state" id="readiness-state">loading</p>
-          <dl class="status-grid">
-            <div>
-              <dt>service</dt>
-              <dd id="readiness-service">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>status</dt>
-              <dd id="readiness-status">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>mode</dt>
-              <dd id="readiness-mode">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>timestamp</dt>
-              <dd id="readiness-timestamp">not loaded yet</dd>
-            </div>
-          </dl>
-        </article>
-
-        <article>
-          <h2>Readiness status</h2>
-          <p class="slot-state">not loaded yet - read-only - no API request is made in this shell step</p>
-        </article>
-
-        <article class="primary">
-          <h2>Mock scan result</h2>
-          <p class="slot-state" id="mock-scan-state">loading</p>
-          <dl class="status-grid">
-            <div>
-              <dt>service</dt>
-              <dd id="mock-scan-service">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>status</dt>
-              <dd id="mock-scan-status">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>mode</dt>
-              <dd id="mock-scan-mode">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>scan id</dt>
-              <dd id="mock-scan-id">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>shop</dt>
-              <dd id="mock-scan-shop">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>products checked</dt>
-              <dd id="mock-scan-products-checked">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>issues found</dt>
-              <dd id="mock-scan-issues-found">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>risk level</dt>
-              <dd id="mock-scan-risk-level">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>timestamp</dt>
-              <dd id="mock-scan-timestamp">not loaded yet</dd>
-            </div>
-          </dl>
-        </article>
-
-        <article class="primary">
-          <h2>Issue summary</h2>
-          <p class="slot-state" id="mock-scan-issue-state">loading</p>
-          <p class="notice-line">
-            Issue categories:
-            <strong id="mock-scan-issue-categories">not loaded yet</strong>
-          </p>
-          <p class="notice-line">
-            Top issue:
-            <strong id="mock-scan-top-issue">not loaded yet</strong>
-          </p>
-          <p class="notice-line">
-            Issue count:
-            <strong id="mock-scan-issue-count">not loaded yet</strong>
-          </p>
-          <div class="issue-register" id="mock-scan-issue-register" aria-label="Issue register">
-            <ol class="issue-register-list">
-              <li>loading</li>
-            </ol>
-          </div>
-        </article>
-
-        <article class="primary">
-          <h2>Proposal preview</h2>
-          <p class="slot-state" id="proposal-preview-state">loading</p>
-          <dl class="status-grid">
-            <div>
-              <dt>service</dt>
-              <dd id="proposal-preview-service">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>status</dt>
-              <dd id="proposal-preview-status">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>mode</dt>
-              <dd id="proposal-preview-mode">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>source scan id</dt>
-              <dd id="proposal-preview-source-scan-id">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>proposal count</dt>
-              <dd id="proposal-preview-count">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>human approval</dt>
-              <dd id="proposal-preview-approval">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>auto execute</dt>
-              <dd id="proposal-preview-auto-execute">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>timestamp</dt>
-              <dd id="proposal-preview-timestamp">not loaded yet</dd>
-            </div>
-          </dl>
-          <div class="proposal-preview-primary" aria-label="Primary proposal preview">
-            <p class="notice-line">
-              Proposal state:
-              <strong id="proposal-preview-primary-state">not loaded yet</strong>
-            </p>
-            <p class="notice-line">
-              Proposal id:
-              <strong id="proposal-preview-primary-id">not loaded yet</strong>
-            </p>
-            <p class="notice-line">
-              Linked issue:
-              <strong id="proposal-preview-linked-issue">not loaded yet</strong>
-            </p>
-            <p class="notice-line">
-              Product/entity:
-              <strong id="proposal-preview-product-entity">not loaded yet</strong>
-            </p>
-            <p class="notice-line">
-              Proposed action/type:
-              <strong id="proposal-preview-type">not loaded yet</strong>
-            </p>
-            <p class="notice-line">
-              Proposed value/summary:
-              <strong id="proposal-preview-value">not loaded yet</strong>
-            </p>
-            <p class="notice-line">
-              Risk/severity:
-              <strong id="proposal-preview-risk-level">not loaded yet</strong>
-            </p>
-            <p class="notice-line">
-              Human review required:
-              <strong id="proposal-preview-human-review">not loaded yet</strong>
-            </p>
-          </div>
-          <div class="proposal-register" id="proposal-preview-register" aria-label="Proposal register">
-            <ol class="proposal-register-list">
-              <li>loading</li>
-            </ol>
-          </div>
-        </article>
-
-        <article class="primary">
-          <h2>Proposal Source / Provenance Contract</h2>
-          <p class="slot-state" id="proposal-contract-state">loading</p>
-          <dl class="status-grid">
-            <div>
-              <dt>service</dt>
-              <dd id="proposal-contract-service">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>status</dt>
-              <dd id="proposal-contract-status">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>mode</dt>
-              <dd id="proposal-contract-mode">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>source provenance model</dt>
-              <dd id="proposal-contract-model-present">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>required fields</dt>
-              <dd id="proposal-contract-required-fields">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>sourceType taxonomy</dt>
-              <dd id="proposal-contract-source-types">not loaded yet</dd>
-            </div>
-          </dl>
-          <div class="proposal-contract-panel" aria-label="Proposal source provenance contract">
-            <p class="notice-line">Governance rules:</p>
-            <div class="contract-governance" id="proposal-contract-governance">
-              <ul class="contract-governance-list">
-                <li>loading</li>
-              </ul>
-            </div>
-            <p class="notice-line" id="proposal-contract-note">not loaded yet</p>
-          </div>
-        </article>
-
-        <article class="primary">
-          <h2>WooCommerce Config Readiness</h2>
-          <p class="slot-state" id="wc-config-state">loading</p>
-          <p class="notice-line">Read-only config check</p>
-          <p class="notice-line">No WooCommerce API call</p>
-          <p class="notice-line">No secrets exposed</p>
-          <p class="notice-line">No write scope enabled</p>
-          <p class="notice-line">Adapter boundary: read-only adapter skeleton</p>
-          <dl class="status-grid">
-            <div>
-              <dt>service</dt>
-              <dd id="wc-config-service">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>status</dt>
-              <dd id="wc-config-status">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>mode</dt>
-              <dd id="wc-config-mode">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>WooCommerce config</dt>
-              <dd id="wc-config-base-url-configured">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>WooCommerce credentials</dt>
-              <dd id="wc-config-base-url-looks-valid">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>Secrets exposed</dt>
-              <dd id="wc-config-consumer-key-configured">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>WooCommerce API call</dt>
-              <dd id="wc-config-consumer-secret-configured">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>Write scope enabled</dt>
-              <dd id="wc-config-secrets-exposed">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>Adapter name</dt>
-              <dd id="wc-config-called">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>Can read products</dt>
-              <dd id="wc-config-write-scope">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>Can write products</dt>
-              <dd id="wc-config-next-step">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>Adapter status</dt>
-              <dd id="wc-config-adapter-name">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>Adapter next step</dt>
-              <dd id="wc-config-adapter-can-read">not loaded yet</dd>
-            </div>
-          </dl>
-        </article>
-
-        <article class="primary">
-          <h2>WooCommerce Read-only Product Scan V0</h2>
-          <p class="slot-state" id="wc-scan-state">not run</p>
-          <p class="notice-line" id="wc-scan-description">Operator-controlled / no automatic scan</p>
-          <p class="notice-line" id="wc-scan-warning">Staging/test only</p>
-          <button class="action-button" id="wc-scan-run-button" type="button">
-            Run read-only product scan
+      <section class="tab-shell" aria-label="Cockpit tabs">
+        <div class="tab-bar" role="tablist" aria-label="Health Checker cockpit sections">
+          <button
+            class="tab-button is-active"
+            type="button"
+            role="tab"
+            aria-selected="true"
+            data-tab-target="overview"
+          >
+            Overview
           </button>
-          <dl class="status-grid">
-            <div>
-              <dt>service</dt>
-              <dd id="wc-scan-service">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>mode</dt>
-              <dd id="wc-scan-mode">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>source</dt>
-              <dd id="wc-scan-source">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>status</dt>
-              <dd id="wc-scan-status">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>timestamp</dt>
-              <dd id="wc-scan-timestamp">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>products scanned</dt>
-              <dd id="wc-scan-products-scanned">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>issues found</dt>
-              <dd id="wc-scan-issues-found">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>WooCommerce API call</dt>
-              <dd id="wc-scan-called">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>Product data returned</dt>
-              <dd id="wc-scan-product-data-returned">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>Write scope enabled</dt>
-              <dd id="wc-scan-write-scope">not loaded yet</dd>
-            </div>
-            <div>
-              <dt>Next step</dt>
-              <dd id="wc-scan-next-step">not loaded yet</dd>
-            </div>
-          </dl>
-          <div class="scan-register-block" aria-label="Product register">
-            <p class="notice-line">Product register</p>
-            <div class="issue-register" id="wc-scan-product-register" aria-label="Read-only product register">
-              <ol class="issue-register-list">
-                <li>not run</li>
-              </ol>
-            </div>
-          </div>
-          <div class="scan-register-block" aria-label="Issue register">
-            <p class="notice-line">Issue register</p>
-            <div class="issue-register" id="wc-scan-issue-register" aria-label="Read-only issue register">
-              <ol class="issue-register-list">
-                <li>not run</li>
-              </ol>
-            </div>
-          </div>
-        </article>
+          <button
+            class="tab-button"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            data-tab-target="mock-demo"
+          >
+            Mock / Demo
+          </button>
+          <button
+            class="tab-button"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            data-tab-target="staging-read-only"
+          >
+            Staging / Read-only
+          </button>
+          <button
+            class="tab-button"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            data-tab-target="governance-contracts"
+          >
+            Governance / Contracts
+          </button>
+        </div>
 
-        <article>
-          <h2>Operator review status</h2>
-          <p class="slot-state">not loaded yet - read-only - no API request is made in this shell step</p>
-        </article>
-        <article>
-          <h2>Lifecycle/state summary</h2>
-          <p class="slot-state">not loaded yet - read-only - no API request is made in this shell step</p>
-        </article>
-        <article>
-          <h2>Audit trail metadata</h2>
-          <p class="slot-state">not loaded yet · read-only · no API request is made in this shell step</p>
-        </article>
+        <section
+          class="tab-panel is-active"
+          role="tabpanel"
+          aria-label="Overview panels"
+          data-tab-panel="overview"
+        >
+          <div class="grid" aria-label="Overview sections">
+            <article class="primary">
+              <h2>/health status</h2>
+              <p class="slot-state" id="health-state">loading</p>
+              <dl class="status-grid">
+                <div>
+                  <dt>service</dt>
+                  <dd id="health-service">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>status</dt>
+                  <dd id="health-status">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>mode</dt>
+                  <dd id="health-mode">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>timestamp</dt>
+                  <dd id="health-timestamp">not loaded yet</dd>
+                </div>
+              </dl>
+            </article>
+
+            <article class="primary">
+              <h2>/diagnostics status</h2>
+              <p class="slot-state" id="diagnostics-state">loading</p>
+              <dl class="status-grid">
+                <div>
+                  <dt>service</dt>
+                  <dd id="diagnostics-service">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>status</dt>
+                  <dd id="diagnostics-status">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>mode</dt>
+                  <dd id="diagnostics-mode">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>database</dt>
+                  <dd id="diagnostics-database">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>prisma</dt>
+                  <dd id="diagnostics-prisma">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>woocommerce</dt>
+                  <dd id="diagnostics-woocommerce">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>secrets</dt>
+                  <dd id="diagnostics-secrets">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>timestamp</dt>
+                  <dd id="diagnostics-timestamp">not loaded yet</dd>
+                </div>
+              </dl>
+            </article>
+
+            <article class="primary">
+              <h2>/api/health-checker/readiness status</h2>
+              <p class="slot-state" id="readiness-state">loading</p>
+              <dl class="status-grid">
+                <div>
+                  <dt>service</dt>
+                  <dd id="readiness-service">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>status</dt>
+                  <dd id="readiness-status">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>mode</dt>
+                  <dd id="readiness-mode">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>timestamp</dt>
+                  <dd id="readiness-timestamp">not loaded yet</dd>
+                </div>
+              </dl>
+            </article>
+
+            <article>
+              <h2>Overview guardrails</h2>
+              <p class="slot-state">read-only cockpit / execution-write disabled / diagnostics-first</p>
+            </article>
+
+            <article>
+              <h2>Readiness status</h2>
+              <p class="slot-state">not loaded yet - read-only - no API request is made in this shell step</p>
+            </article>
+          </div>
+        </section>
+
+        <section
+          class="tab-panel"
+          role="tabpanel"
+          aria-label="Mock and demo panels"
+          data-tab-panel="mock-demo"
+          hidden
+        >
+          <div class="grid" aria-label="Mock and demo sections">
+            <article class="primary">
+              <h2>Mock scan result</h2>
+              <p class="slot-state" id="mock-scan-state">loading</p>
+              <dl class="status-grid">
+                <div>
+                  <dt>service</dt>
+                  <dd id="mock-scan-service">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>status</dt>
+                  <dd id="mock-scan-status">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>mode</dt>
+                  <dd id="mock-scan-mode">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>scan id</dt>
+                  <dd id="mock-scan-id">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>shop</dt>
+                  <dd id="mock-scan-shop">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>products checked</dt>
+                  <dd id="mock-scan-products-checked">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>issues found</dt>
+                  <dd id="mock-scan-issues-found">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>risk level</dt>
+                  <dd id="mock-scan-risk-level">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>timestamp</dt>
+                  <dd id="mock-scan-timestamp">not loaded yet</dd>
+                </div>
+              </dl>
+            </article>
+
+            <article class="primary">
+              <h2>Issue summary</h2>
+              <p class="slot-state" id="mock-scan-issue-state">loading</p>
+              <p class="notice-line">
+                Issue categories:
+                <strong id="mock-scan-issue-categories">not loaded yet</strong>
+              </p>
+              <p class="notice-line">
+                Top issue:
+                <strong id="mock-scan-top-issue">not loaded yet</strong>
+              </p>
+              <p class="notice-line">
+                Issue count:
+                <strong id="mock-scan-issue-count">not loaded yet</strong>
+              </p>
+              <div class="issue-register" id="mock-scan-issue-register" aria-label="Issue register">
+                <ol class="issue-register-list">
+                  <li>loading</li>
+                </ol>
+              </div>
+            </article>
+
+            <article class="primary">
+              <h2>Proposal preview</h2>
+              <p class="slot-state" id="proposal-preview-state">loading</p>
+              <dl class="status-grid">
+                <div>
+                  <dt>service</dt>
+                  <dd id="proposal-preview-service">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>status</dt>
+                  <dd id="proposal-preview-status">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>mode</dt>
+                  <dd id="proposal-preview-mode">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>source scan id</dt>
+                  <dd id="proposal-preview-source-scan-id">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>proposal count</dt>
+                  <dd id="proposal-preview-count">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>human approval</dt>
+                  <dd id="proposal-preview-approval">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>auto execute</dt>
+                  <dd id="proposal-preview-auto-execute">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>timestamp</dt>
+                  <dd id="proposal-preview-timestamp">not loaded yet</dd>
+                </div>
+              </dl>
+              <div class="proposal-preview-primary" aria-label="Primary proposal preview">
+                <p class="notice-line">
+                  Proposal state:
+                  <strong id="proposal-preview-primary-state">not loaded yet</strong>
+                </p>
+                <p class="notice-line">
+                  Proposal id:
+                  <strong id="proposal-preview-primary-id">not loaded yet</strong>
+                </p>
+                <p class="notice-line">
+                  Linked issue:
+                  <strong id="proposal-preview-linked-issue">not loaded yet</strong>
+                </p>
+                <p class="notice-line">
+                  Product/entity:
+                  <strong id="proposal-preview-product-entity">not loaded yet</strong>
+                </p>
+                <p class="notice-line">
+                  Proposed action/type:
+                  <strong id="proposal-preview-type">not loaded yet</strong>
+                </p>
+                <p class="notice-line">
+                  Proposed value/summary:
+                  <strong id="proposal-preview-value">not loaded yet</strong>
+                </p>
+                <p class="notice-line">
+                  Risk/severity:
+                  <strong id="proposal-preview-risk-level">not loaded yet</strong>
+                </p>
+                <p class="notice-line">
+                  Human review required:
+                  <strong id="proposal-preview-human-review">not loaded yet</strong>
+                </p>
+              </div>
+              <div class="proposal-register" id="proposal-preview-register" aria-label="Proposal register">
+                <ol class="proposal-register-list">
+                  <li>loading</li>
+                </ol>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section
+          class="tab-panel"
+          role="tabpanel"
+          aria-label="Staging read-only panels"
+          data-tab-panel="staging-read-only"
+          hidden
+        >
+          <div class="grid" aria-label="Staging read-only sections">
+            <article class="primary">
+              <h2>WooCommerce Config Readiness</h2>
+              <p class="slot-state" id="wc-config-state">loading</p>
+              <p class="notice-line">Read-only config check</p>
+              <p class="notice-line">No WooCommerce API call</p>
+              <p class="notice-line">No secrets exposed</p>
+              <p class="notice-line">No write scope enabled</p>
+              <p class="notice-line">Adapter boundary: read-only adapter skeleton</p>
+              <dl class="status-grid">
+                <div>
+                  <dt>service</dt>
+                  <dd id="wc-config-service">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>status</dt>
+                  <dd id="wc-config-status">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>mode</dt>
+                  <dd id="wc-config-mode">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>WooCommerce config</dt>
+                  <dd id="wc-config-base-url-configured">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>WooCommerce credentials</dt>
+                  <dd id="wc-config-base-url-looks-valid">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>Secrets exposed</dt>
+                  <dd id="wc-config-consumer-key-configured">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>WooCommerce API call</dt>
+                  <dd id="wc-config-consumer-secret-configured">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>Write scope enabled</dt>
+                  <dd id="wc-config-secrets-exposed">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>Adapter name</dt>
+                  <dd id="wc-config-called">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>Can read products</dt>
+                  <dd id="wc-config-write-scope">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>Can write products</dt>
+                  <dd id="wc-config-next-step">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>Adapter status</dt>
+                  <dd id="wc-config-adapter-name">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>Adapter next step</dt>
+                  <dd id="wc-config-adapter-can-read">not loaded yet</dd>
+                </div>
+              </dl>
+            </article>
+
+            <article class="primary">
+              <h2>WooCommerce Read-only Product Scan V0</h2>
+              <p class="slot-state" id="wc-scan-state">not run</p>
+              <p class="notice-line" id="wc-scan-description">Operator-controlled / no automatic scan</p>
+              <p class="notice-line" id="wc-scan-warning">Staging/test only</p>
+              <button class="action-button" id="wc-scan-run-button" type="button">
+                Run read-only product scan
+              </button>
+              <dl class="status-grid">
+                <div>
+                  <dt>service</dt>
+                  <dd id="wc-scan-service">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>mode</dt>
+                  <dd id="wc-scan-mode">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>source</dt>
+                  <dd id="wc-scan-source">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>status</dt>
+                  <dd id="wc-scan-status">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>timestamp</dt>
+                  <dd id="wc-scan-timestamp">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>products scanned</dt>
+                  <dd id="wc-scan-products-scanned">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>issues found</dt>
+                  <dd id="wc-scan-issues-found">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>WooCommerce API call</dt>
+                  <dd id="wc-scan-called">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>Product data returned</dt>
+                  <dd id="wc-scan-product-data-returned">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>Write scope enabled</dt>
+                  <dd id="wc-scan-write-scope">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>Next step</dt>
+                  <dd id="wc-scan-next-step">not loaded yet</dd>
+                </div>
+              </dl>
+              <div class="scan-register-block" aria-label="Product register">
+                <p class="notice-line">Product register</p>
+                <div class="issue-register" id="wc-scan-product-register" aria-label="Read-only product register">
+                  <ol class="issue-register-list">
+                    <li>not run</li>
+                  </ol>
+                </div>
+              </div>
+              <div class="scan-register-block" aria-label="Issue register">
+                <p class="notice-line">Issue register</p>
+                <div class="issue-register" id="wc-scan-issue-register" aria-label="Read-only issue register">
+                  <ol class="issue-register-list">
+                    <li>not run</li>
+                  </ol>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section
+          class="tab-panel"
+          role="tabpanel"
+          aria-label="Governance and contract panels"
+          data-tab-panel="governance-contracts"
+          hidden
+        >
+          <div class="grid" aria-label="Governance and contract sections">
+            <article class="primary">
+              <h2>Proposal Source / Provenance Contract</h2>
+              <p class="slot-state" id="proposal-contract-state">loading</p>
+              <dl class="status-grid">
+                <div>
+                  <dt>service</dt>
+                  <dd id="proposal-contract-service">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>status</dt>
+                  <dd id="proposal-contract-status">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>mode</dt>
+                  <dd id="proposal-contract-mode">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>source provenance model</dt>
+                  <dd id="proposal-contract-model-present">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>required fields</dt>
+                  <dd id="proposal-contract-required-fields">not loaded yet</dd>
+                </div>
+                <div>
+                  <dt>sourceType taxonomy</dt>
+                  <dd id="proposal-contract-source-types">not loaded yet</dd>
+                </div>
+              </dl>
+              <div class="proposal-contract-panel" aria-label="Proposal source provenance contract">
+                <p class="notice-line">Governance rules:</p>
+                <div class="contract-governance" id="proposal-contract-governance">
+                  <ul class="contract-governance-list">
+                    <li>loading</li>
+                  </ul>
+                </div>
+                <p class="notice-line" id="proposal-contract-note">not loaded yet</p>
+              </div>
+            </article>
+
+            <article>
+              <h2>Operator review status</h2>
+              <p class="slot-state">not loaded yet - read-only - no API request is made in this shell step</p>
+            </article>
+            <article>
+              <h2>Lifecycle/state summary</h2>
+              <p class="slot-state">not loaded yet - read-only - no API request is made in this shell step</p>
+            </article>
+            <article>
+              <h2>Audit trail metadata</h2>
+              <p class="slot-state">not loaded yet - read-only - no API request is made in this shell step</p>
+            </article>
+          </div>
+        </section>
       </section>
 
       <footer class="footer">

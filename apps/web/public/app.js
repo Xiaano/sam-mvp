@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const marker = document.getElementById("loaded-marker");
+  const tabButtons = Array.from(document.querySelectorAll("[data-tab-target]"));
+  const tabPanels = Array.from(document.querySelectorAll("[data-tab-panel]"));
 
   const healthState = document.getElementById("health-state");
   const healthService = document.getElementById("health-service");
@@ -116,6 +118,18 @@ document.addEventListener("DOMContentLoaded", () => {
     marker.textContent = `Static shell loaded ${loadedAt}`;
   }
 
+  activateTab("overview");
+
+  tabButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const targetTab = button.getAttribute("data-tab-target");
+
+      if (targetTab) {
+        activateTab(targetTab);
+      }
+    });
+  });
+
   if (healthState) {
     healthState.textContent = "loading";
   }
@@ -140,6 +154,25 @@ document.addEventListener("DOMContentLoaded", () => {
   if (wcScanButton) {
     wcScanButton.addEventListener("click", () => {
       void loadWooCommerceReadOnlyProductScan();
+    });
+  }
+
+  function activateTab(targetTab) {
+    tabButtons.forEach((button) => {
+      const isActive = button.getAttribute("data-tab-target") === targetTab;
+      button.classList.toggle("is-active", isActive);
+      button.setAttribute("aria-selected", isActive ? "true" : "false");
+    });
+
+    tabPanels.forEach((panel) => {
+      const isActive = panel.getAttribute("data-tab-panel") === targetTab;
+      panel.classList.toggle("is-active", isActive);
+
+      if (isActive) {
+        panel.removeAttribute("hidden");
+      } else {
+        panel.setAttribute("hidden", "");
+      }
     });
   }
 

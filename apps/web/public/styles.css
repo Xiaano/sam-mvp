@@ -97,6 +97,41 @@ h1 {
   font-weight: 600;
 }
 
+.tab-shell {
+  margin-top: 20px;
+}
+
+.tab-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 18px;
+  background: rgba(17, 28, 51, 0.72);
+  border: 1px solid var(--panel-border);
+}
+
+.tab-button {
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(125, 211, 252, 0.2);
+  background: rgba(23, 38, 63, 0.72);
+  color: var(--muted);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.tab-button.is-active {
+  background: linear-gradient(180deg, rgba(29, 78, 216, 0.86), rgba(15, 118, 110, 0.78));
+  border-color: rgba(125, 211, 252, 0.42);
+  color: var(--text);
+}
+
+.tab-panel {
+  margin-top: 16px;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
