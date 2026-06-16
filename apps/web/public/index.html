@@ -113,7 +113,7 @@
 
         <article>
           <h2>Readiness status</h2>
-          <p class="slot-state">not loaded yet · read-only · no API request is made in this shell step</p>
+          <p class="slot-state">not loaded yet - read-only - no API request is made in this shell step</p>
         </article>
 
         <article class="primary">
@@ -181,17 +181,91 @@
           </div>
         </article>
 
-        <article>
+        <article class="primary">
           <h2>Proposal preview</h2>
-          <p class="slot-state">not loaded yet · read-only · no API request is made in this shell step</p>
+          <p class="slot-state" id="proposal-preview-state">loading</p>
+          <dl class="status-grid">
+            <div>
+              <dt>service</dt>
+              <dd id="proposal-preview-service">not loaded yet</dd>
+            </div>
+            <div>
+              <dt>status</dt>
+              <dd id="proposal-preview-status">not loaded yet</dd>
+            </div>
+            <div>
+              <dt>mode</dt>
+              <dd id="proposal-preview-mode">not loaded yet</dd>
+            </div>
+            <div>
+              <dt>source scan id</dt>
+              <dd id="proposal-preview-source-scan-id">not loaded yet</dd>
+            </div>
+            <div>
+              <dt>proposal count</dt>
+              <dd id="proposal-preview-count">not loaded yet</dd>
+            </div>
+            <div>
+              <dt>human approval</dt>
+              <dd id="proposal-preview-approval">not loaded yet</dd>
+            </div>
+            <div>
+              <dt>auto execute</dt>
+              <dd id="proposal-preview-auto-execute">not loaded yet</dd>
+            </div>
+            <div>
+              <dt>timestamp</dt>
+              <dd id="proposal-preview-timestamp">not loaded yet</dd>
+            </div>
+          </dl>
+          <div class="proposal-preview-primary" aria-label="Primary proposal preview">
+            <p class="notice-line">
+              Proposal state:
+              <strong id="proposal-preview-primary-state">not loaded yet</strong>
+            </p>
+            <p class="notice-line">
+              Proposal id:
+              <strong id="proposal-preview-primary-id">not loaded yet</strong>
+            </p>
+            <p class="notice-line">
+              Linked issue:
+              <strong id="proposal-preview-linked-issue">not loaded yet</strong>
+            </p>
+            <p class="notice-line">
+              Product/entity:
+              <strong id="proposal-preview-product-entity">not loaded yet</strong>
+            </p>
+            <p class="notice-line">
+              Proposed action/type:
+              <strong id="proposal-preview-type">not loaded yet</strong>
+            </p>
+            <p class="notice-line">
+              Proposed value/summary:
+              <strong id="proposal-preview-value">not loaded yet</strong>
+            </p>
+            <p class="notice-line">
+              Risk/severity:
+              <strong id="proposal-preview-risk-level">not loaded yet</strong>
+            </p>
+            <p class="notice-line">
+              Human review required:
+              <strong id="proposal-preview-human-review">not loaded yet</strong>
+            </p>
+          </div>
+          <div class="proposal-register" id="proposal-preview-register" aria-label="Proposal register">
+            <ol class="proposal-register-list">
+              <li>loading</li>
+            </ol>
+          </div>
         </article>
+
         <article>
           <h2>Operator review status</h2>
-          <p class="slot-state">not loaded yet · read-only · no API request is made in this shell step</p>
+          <p class="slot-state">not loaded yet - read-only - no API request is made in this shell step</p>
         </article>
         <article>
           <h2>Lifecycle/state summary</h2>
-          <p class="slot-state">not loaded yet · read-only · no API request is made in this shell step</p>
+          <p class="slot-state">not loaded yet - read-only - no API request is made in this shell step</p>
         </article>
         <article>
           <h2>Audit trail metadata</h2>

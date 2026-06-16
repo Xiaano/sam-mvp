@@ -40,6 +40,25 @@ document.addEventListener("DOMContentLoaded", () => {
   const mockScanIssueCount = document.getElementById("mock-scan-issue-count");
   const mockScanIssueRegister = document.getElementById("mock-scan-issue-register");
 
+  const proposalPreviewState = document.getElementById("proposal-preview-state");
+  const proposalPreviewService = document.getElementById("proposal-preview-service");
+  const proposalPreviewStatus = document.getElementById("proposal-preview-status");
+  const proposalPreviewMode = document.getElementById("proposal-preview-mode");
+  const proposalPreviewSourceScanId = document.getElementById("proposal-preview-source-scan-id");
+  const proposalPreviewCount = document.getElementById("proposal-preview-count");
+  const proposalPreviewApproval = document.getElementById("proposal-preview-approval");
+  const proposalPreviewAutoExecute = document.getElementById("proposal-preview-auto-execute");
+  const proposalPreviewTimestamp = document.getElementById("proposal-preview-timestamp");
+  const proposalPreviewPrimaryState = document.getElementById("proposal-preview-primary-state");
+  const proposalPreviewPrimaryId = document.getElementById("proposal-preview-primary-id");
+  const proposalPreviewLinkedIssue = document.getElementById("proposal-preview-linked-issue");
+  const proposalPreviewProductEntity = document.getElementById("proposal-preview-product-entity");
+  const proposalPreviewType = document.getElementById("proposal-preview-type");
+  const proposalPreviewValue = document.getElementById("proposal-preview-value");
+  const proposalPreviewRiskLevel = document.getElementById("proposal-preview-risk-level");
+  const proposalPreviewHumanReview = document.getElementById("proposal-preview-human-review");
+  const proposalPreviewRegister = document.getElementById("proposal-preview-register");
+
   const apiBaseUrl = "http://localhost:3001";
 
   document.body.setAttribute("data-shell-state", "loaded");
@@ -70,6 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
   void loadDiagnostics();
   void loadReadiness();
   void loadMockScan();
+  void loadMockProposalPreview();
 
   async function loadHealth() {
     try {
@@ -233,6 +253,100 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       renderMockScanIssueRegister({
+        state: "error",
+        rows: ["not loaded yet"],
+      });
+    }
+  }
+
+  async function loadMockProposalPreview() {
+    try {
+      const response = await fetch(new URL("/api/health-checker/mock-proposal-preview", apiBaseUrl));
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      const payload = await response.json();
+      const proposalPreviews = Array.isArray(payload.proposal_previews) ? payload.proposal_previews : [];
+      const primaryProposal = proposalPreviews[0];
+      const proposalRows = proposalPreviews.map((proposal, index) => {
+        const proposalLabel = proposal?.proposal_id ?? `proposal_${String(index + 1).padStart(3, "0")}`;
+        const issueLabel = proposal?.issue_id ?? proposal?.source_issue_type ?? "not loaded yet";
+        const entityLabel = proposal?.title ?? proposal?.source_issue_type ?? "not loaded yet";
+        const actionLabel = proposal?.proposal_type ?? "not loaded yet";
+        const summaryLabel = proposal?.proposed_change ?? proposal?.reason ?? "not loaded yet";
+        const riskLabel = proposal?.risk_level ?? "not loaded yet";
+        const approvalLabel = proposal?.requires_human_approval ? "yes" : "no";
+
+        return [
+          `${index + 1}. ${proposalLabel}`,
+          `linked issue: ${issueLabel}`,
+          `product/entity: ${entityLabel}`,
+          `proposed action/type: ${actionLabel}`,
+          `proposed value/summary: ${summaryLabel}`,
+          `risk/severity: ${riskLabel}`,
+          `human review required: ${approvalLabel}`,
+        ].join(" | ");
+      });
+
+      renderMockProposalPreview({
+        state: "success",
+        service: payload.service ?? "not loaded yet",
+        status: payload.status ?? "not loaded yet",
+        mode: payload.mode ?? "not loaded yet",
+        sourceScanId: payload.source_scan_id ?? "not loaded yet",
+        count: proposalPreviews.length,
+        approval:
+          payload.approval_flow?.human_approval_required === true ? "required" : "not loaded yet",
+        autoExecute:
+          payload.approval_flow?.auto_execute_allowed === false ? "disabled" : "not loaded yet",
+        timestamp: payload.timestamp ?? "not loaded yet",
+      });
+
+      renderMockProposalPreviewPrimary({
+        state: proposalPreviews.length === 0 ? "empty" : "success",
+        proposalId: primaryProposal?.proposal_id ?? "not loaded yet",
+        linkedIssue: primaryProposal?.issue_id ?? primaryProposal?.source_issue_type ?? "not loaded yet",
+        productEntity: primaryProposal?.title ?? primaryProposal?.source_issue_type ?? "not loaded yet",
+        proposalType: primaryProposal?.proposal_type ?? "not loaded yet",
+        proposalValue: primaryProposal?.proposed_change ?? primaryProposal?.reason ?? "not loaded yet",
+        riskLevel: primaryProposal?.risk_level ?? "not loaded yet",
+        humanReviewRequired: primaryProposal?.requires_human_approval ? "yes" : "no",
+      });
+
+      renderMockProposalRegister({
+        state: proposalPreviews.length === 0 ? "empty" : "success",
+        rows:
+          proposalRows.length > 0
+            ? proposalRows
+            : ["No proposals available in the mock preview."],
+      });
+    } catch {
+      renderMockProposalPreview({
+        state: "error",
+        service: "unavailable",
+        status: "error",
+        mode: "read-only",
+        sourceScanId: "not loaded yet",
+        count: "not loaded yet",
+        approval: "not loaded yet",
+        autoExecute: "not loaded yet",
+        timestamp: "not loaded yet",
+      });
+
+      renderMockProposalPreviewPrimary({
+        state: "error",
+        proposalId: "not loaded yet",
+        linkedIssue: "not loaded yet",
+        productEntity: "not loaded yet",
+        proposalType: "not loaded yet",
+        proposalValue: "not loaded yet",
+        riskLevel: "not loaded yet",
+        humanReviewRequired: "not loaded yet",
+      });
+
+      renderMockProposalRegister({
         state: "error",
         rows: ["not loaded yet"],
       });
@@ -416,6 +530,115 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       mockScanIssueRegister.appendChild(list);
+    }
+  }
+
+  function renderMockProposalPreview({
+    state,
+    service,
+    status,
+    mode,
+    sourceScanId,
+    count,
+    approval,
+    autoExecute,
+    timestamp,
+  }) {
+    if (proposalPreviewState) {
+      proposalPreviewState.textContent = state;
+    }
+
+    if (proposalPreviewService) {
+      proposalPreviewService.textContent = service;
+    }
+
+    if (proposalPreviewStatus) {
+      proposalPreviewStatus.textContent = status;
+    }
+
+    if (proposalPreviewMode) {
+      proposalPreviewMode.textContent = mode;
+    }
+
+    if (proposalPreviewSourceScanId) {
+      proposalPreviewSourceScanId.textContent = sourceScanId;
+    }
+
+    if (proposalPreviewCount) {
+      proposalPreviewCount.textContent = count;
+    }
+
+    if (proposalPreviewApproval) {
+      proposalPreviewApproval.textContent = approval;
+    }
+
+    if (proposalPreviewAutoExecute) {
+      proposalPreviewAutoExecute.textContent = autoExecute;
+    }
+
+    if (proposalPreviewTimestamp) {
+      proposalPreviewTimestamp.textContent = timestamp;
+    }
+  }
+
+  function renderMockProposalPreviewPrimary({
+    state,
+    proposalId,
+    linkedIssue,
+    productEntity,
+    proposalType,
+    proposalValue,
+    riskLevel,
+    humanReviewRequired,
+  }) {
+    if (proposalPreviewPrimaryState) {
+      proposalPreviewPrimaryState.textContent = state;
+    }
+
+    if (proposalPreviewPrimaryId) {
+      proposalPreviewPrimaryId.textContent = proposalId;
+    }
+
+    if (proposalPreviewLinkedIssue) {
+      proposalPreviewLinkedIssue.textContent = linkedIssue;
+    }
+
+    if (proposalPreviewProductEntity) {
+      proposalPreviewProductEntity.textContent = productEntity;
+    }
+
+    if (proposalPreviewType) {
+      proposalPreviewType.textContent = proposalType;
+    }
+
+    if (proposalPreviewValue) {
+      proposalPreviewValue.textContent = proposalValue;
+    }
+
+    if (proposalPreviewRiskLevel) {
+      proposalPreviewRiskLevel.textContent = riskLevel;
+    }
+
+    if (proposalPreviewHumanReview) {
+      proposalPreviewHumanReview.textContent = humanReviewRequired;
+    }
+  }
+
+  function renderMockProposalRegister({ state, rows }) {
+    if (proposalPreviewRegister) {
+      proposalPreviewRegister.dataset.state = state;
+      proposalPreviewRegister.innerHTML = "";
+
+      const list = document.createElement("ol");
+      list.className = "proposal-register-list";
+
+      rows.forEach((row) => {
+        const item = document.createElement("li");
+        item.textContent = row;
+        list.appendChild(item);
+      });
+
+      proposalPreviewRegister.appendChild(list);
     }
   }
 });
