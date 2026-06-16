@@ -108,6 +108,7 @@ Dit document is bewust geen statuspagina, build-log, schema-overzicht of API-pla
 * `docs/HEALTH-CHECKER-OPERATOR-REVIEW-PREVIEW-CONTRACT-V1.md` - operator review preview contract; document only, geen execution/write-scope.
 * `docs/HEALTH-CHECKER-AUDIT-TRAIL-PREVIEW-CONTRACT-V1.md` - audit trail preview contract; document only, geen execution/write-scope.
 * `docs/HEALTH-CHECKER-OPERATOR-OVERVIEW-CONTRACT-V1.md` - operator overview contract; document only, geen execution/write-scope.
+* `docs/HEALTH-CHECKER-OPERATOR-COCKPIT-SCOPE-DECISION-V1.md` - operator cockpit scope decision; read-only basis voor SAM Health Checker en latere Axiora/Nautilus dashboardontwikkeling, geen definitief dashboarddesign of execution/write-scope.
 * `docs/DEVELOPER-WORKFLOW-HELPERS-V1-DECISION.md` - developer workflow helpers besluit; alleen lokale dev-handelingen, geen SAM-productworkflow automatisering.
 
 ## Verwijzing naar andere kernbestanden

@@ -2108,3 +2108,37 @@ Een minimale check toevoegen voor de huidige Health Checker lifecycle/state-sema
 * geen contractroutes aangepast;
 * geen brede refactor;
 * geen extra testframeworks toegevoegd.
+
+## Fase 36 - Health Checker operator cockpit scope decision vastgelegd
+
+**Datum:** Controle nodig
+
+**Doel**
+
+De huidige Health Checker cockpit documentair vastleggen als flexibele read-only operator cockpit die later als basis voor Axiora/Nautilus dashboardmodules kan dienen, zonder definitief dashboarddesign of execution/write-flow.
+
+**Uitgevoerd**
+
+* een compacte scope-decision toegevoegd;
+* de bestaande documentatieketen rondom product scan, proposal preview, review boundary, review status, review queue, review preview, audit trail en operator overview als flexibele cockpitbasis samengebracht.
+
+**Ontstane bestanden / artefacten**
+
+* nieuw scope-document:
+  * `docs/HEALTH-CHECKER-OPERATOR-COCKPIT-SCOPE-DECISION-V1.md`
+* bijgewerkt:
+  * `docs/APPROVED-DECISIONS-INDEX.md`
+  * `docs/CURRENT-STATUS.md`
+
+**Bewust niet gedaan**
+
+* geen code;
+* geen frontend;
+* geen backend;
+* geen endpoints;
+* geen database;
+* geen Prisma;
+* geen WooCommerce;
+* geen AI/OpenAI;
+* geen write/rewrite/execution;
+* geen definitief dashboarddesign.
