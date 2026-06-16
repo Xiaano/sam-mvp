@@ -96,6 +96,7 @@ Dit document is bewust geen statuspagina, build-log, schema-overzicht of API-pla
 ## Elders te detailleren
 
 * De bredere stackrichting `React/Vite` cockpit + `Node.js API` is historisch vaker genoemd, maar deze index behandelt alleen de duurzame keuze dat de MVP API-first wordt opgebouwd met `Fastify`, `TypeScript`, `PostgreSQL` en `Prisma`. Verdere cockpitdetails horen in scope-, architectuur- of API-documentatie en niet in deze besluitenindex.
+* `docs/HEALTH-CHECKER-COMMERCE-DEPTH-EXTENSION-GROUPS-REVIEW.md` - future extension review voor Commerce Depth, Source Intake en Extension Groups; document only, geen actieve MVP-scope.
 
 ## Verwijzing naar andere kernbestanden
 
