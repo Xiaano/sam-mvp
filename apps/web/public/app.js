@@ -587,7 +587,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     if (wcScanDescription) {
-      wcScanDescription.textContent = "Operator-controlled / no automatic scan";
+      wcScanDescription.textContent = "Operator-controlled / no automatic scan / runs only after button click";
     }
 
     if (wcScanWarning) {
@@ -613,7 +613,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (wcScanDescription) {
       wcScanDescription.textContent = isBusy
         ? "Running read-only scan"
-        : "Operator-controlled / no automatic scan";
+        : "Operator-controlled / no automatic scan / runs only after button click";
     }
   }
 
