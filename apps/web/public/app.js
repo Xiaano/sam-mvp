@@ -69,6 +69,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const proposalContractGovernance = document.getElementById("proposal-contract-governance");
   const proposalContractNote = document.getElementById("proposal-contract-note");
 
+  const wcConfigState = document.getElementById("wc-config-state");
+  const wcConfigService = document.getElementById("wc-config-service");
+  const wcConfigStatus = document.getElementById("wc-config-status");
+  const wcConfigMode = document.getElementById("wc-config-mode");
+  const wcConfigBaseUrlConfigured = document.getElementById("wc-config-base-url-configured");
+  const wcConfigBaseUrlLooksValid = document.getElementById("wc-config-base-url-looks-valid");
+  const wcConfigConsumerKeyConfigured = document.getElementById("wc-config-consumer-key-configured");
+  const wcConfigConsumerSecretConfigured = document.getElementById("wc-config-consumer-secret-configured");
+  const wcConfigSecretsExposed = document.getElementById("wc-config-secrets-exposed");
+  const wcConfigCalled = document.getElementById("wc-config-called");
+  const wcConfigWriteScope = document.getElementById("wc-config-write-scope");
+  const wcConfigNextStep = document.getElementById("wc-config-next-step");
+
   const apiBaseUrl = "http://localhost:3001";
 
   document.body.setAttribute("data-shell-state", "loaded");
@@ -101,6 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
   void loadMockScan();
   void loadMockProposalPreview();
   void loadProposalContract();
+  void loadWooCommerceConfigReadiness();
 
   async function loadHealth() {
     try {
@@ -426,6 +440,50 @@ document.addEventListener("DOMContentLoaded", () => {
         sourceTypes: "not loaded yet",
         governanceRules: ["not loaded yet"],
         note: "Per-proposal provenance is not yet present in mock proposal preview. Contract only / read-only / no execution.",
+      });
+    }
+  }
+
+  async function loadWooCommerceConfigReadiness() {
+    try {
+      const response = await fetch(new URL("/api/health-checker/woocommerce-config-readiness", apiBaseUrl));
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      const payload = await response.json();
+      const checks = payload?.checks ?? {};
+      const nextStep = payload?.nextStep ?? "not loaded yet";
+
+      renderWooCommerceConfigReadiness({
+        state: nextStep === "missing_config" || nextStep === "invalid_base_url" ? nextStep : "success",
+        service: payload.service ?? "not loaded yet",
+        status: payload.status ?? "not loaded yet",
+        mode: payload.mode ?? "read-only",
+        wcBaseUrlConfigured: checks.wcBaseUrlConfigured === true ? "true" : "false",
+        wcBaseUrlLooksValid: checks.wcBaseUrlLooksValid === true ? "true" : "false",
+        wcConsumerKeyConfigured: checks.wcConsumerKeyConfigured === true ? "true" : "false",
+        wcConsumerSecretConfigured: checks.wcConsumerSecretConfigured === true ? "true" : "false",
+        secretsExposed: checks.secretsExposed === true ? "true" : "false",
+        woocommerceApiCalled: checks.woocommerceApiCalled === true ? "true" : "false",
+        writeScopeEnabled: checks.writeScopeEnabled === true ? "true" : "false",
+        nextStep,
+      });
+    } catch {
+      renderWooCommerceConfigReadiness({
+        state: "error",
+        service: "unavailable",
+        status: "error",
+        mode: "read-only",
+        wcBaseUrlConfigured: "false",
+        wcBaseUrlLooksValid: "false",
+        wcConsumerKeyConfigured: "false",
+        wcConsumerSecretConfigured: "false",
+        secretsExposed: "false",
+        woocommerceApiCalled: "false",
+        writeScopeEnabled: "false",
+        nextStep: "missing config",
       });
     }
   }
@@ -775,6 +833,69 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (proposalContractNote) {
       proposalContractNote.textContent = note;
+    }
+  }
+
+  function renderWooCommerceConfigReadiness({
+    state,
+    service,
+    status,
+    mode,
+    wcBaseUrlConfigured,
+    wcBaseUrlLooksValid,
+    wcConsumerKeyConfigured,
+    wcConsumerSecretConfigured,
+    secretsExposed,
+    woocommerceApiCalled,
+    writeScopeEnabled,
+    nextStep,
+  }) {
+    if (wcConfigState) {
+      wcConfigState.textContent = state;
+    }
+
+    if (wcConfigService) {
+      wcConfigService.textContent = service;
+    }
+
+    if (wcConfigStatus) {
+      wcConfigStatus.textContent = status;
+    }
+
+    if (wcConfigMode) {
+      wcConfigMode.textContent = mode;
+    }
+
+    if (wcConfigBaseUrlConfigured) {
+      wcConfigBaseUrlConfigured.textContent = wcBaseUrlConfigured;
+    }
+
+    if (wcConfigBaseUrlLooksValid) {
+      wcConfigBaseUrlLooksValid.textContent = wcBaseUrlLooksValid;
+    }
+
+    if (wcConfigConsumerKeyConfigured) {
+      wcConfigConsumerKeyConfigured.textContent = wcConsumerKeyConfigured;
+    }
+
+    if (wcConfigConsumerSecretConfigured) {
+      wcConfigConsumerSecretConfigured.textContent = wcConsumerSecretConfigured;
+    }
+
+    if (wcConfigSecretsExposed) {
+      wcConfigSecretsExposed.textContent = secretsExposed;
+    }
+
+    if (wcConfigCalled) {
+      wcConfigCalled.textContent = woocommerceApiCalled;
+    }
+
+    if (wcConfigWriteScope) {
+      wcConfigWriteScope.textContent = writeScopeEnabled;
+    }
+
+    if (wcConfigNextStep) {
+      wcConfigNextStep.textContent = nextStep;
     }
   }
 });
