@@ -83,9 +83,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const wcConfigNextStep = document.getElementById("wc-config-next-step");
   const wcConfigAdapterName = document.getElementById("wc-config-adapter-name");
   const wcConfigAdapterCanRead = document.getElementById("wc-config-adapter-can-read");
-  const wcConfigAdapterCanWrite = document.getElementById("wc-config-adapter-can-write");
-  const wcConfigAdapterStatus = document.getElementById("wc-config-adapter-status");
-  const wcConfigAdapterNextStep = document.getElementById("wc-config-adapter-next-step");
 
   const apiBaseUrl = "http://localhost:3001";
 
@@ -945,6 +942,24 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  function summarizeWooCommerceConfig(baseUrlConfigured, baseUrlLooksValid) {
+    if (baseUrlConfigured !== "true") {
+      return "missing";
+    }
+
+    if (baseUrlLooksValid !== "true") {
+      return "invalid";
+    }
+
+    return "configured";
+  }
+
+  function summarizeWooCommerceCredentials(consumerKeyConfigured, consumerSecretConfigured) {
+    return consumerKeyConfigured === "true" && consumerSecretConfigured === "true"
+      ? "configured"
+      : "missing";
+  }
+
   function renderWooCommerceConfigReadiness({
     state,
     service,
@@ -964,6 +979,15 @@ document.addEventListener("DOMContentLoaded", () => {
     adapterStatus,
     adapterNextStep,
   }) {
+    const configSummary = summarizeWooCommerceConfig(
+      wcBaseUrlConfigured,
+      wcBaseUrlLooksValid,
+    );
+    const credentialsSummary = summarizeWooCommerceCredentials(
+      wcConsumerKeyConfigured,
+      wcConsumerSecretConfigured,
+    );
+
     if (wcConfigState) {
       wcConfigState.textContent = state;
     }
@@ -981,55 +1005,43 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (wcConfigBaseUrlConfigured) {
-      wcConfigBaseUrlConfigured.textContent = wcBaseUrlConfigured;
+      wcConfigBaseUrlConfigured.textContent = configSummary;
     }
 
     if (wcConfigBaseUrlLooksValid) {
-      wcConfigBaseUrlLooksValid.textContent = wcBaseUrlLooksValid;
+      wcConfigBaseUrlLooksValid.textContent = credentialsSummary;
     }
 
     if (wcConfigConsumerKeyConfigured) {
-      wcConfigConsumerKeyConfigured.textContent = wcConsumerKeyConfigured;
+      wcConfigConsumerKeyConfigured.textContent = secretsExposed;
     }
 
     if (wcConfigConsumerSecretConfigured) {
-      wcConfigConsumerSecretConfigured.textContent = wcConsumerSecretConfigured;
+      wcConfigConsumerSecretConfigured.textContent = woocommerceApiCalled;
     }
 
     if (wcConfigSecretsExposed) {
-      wcConfigSecretsExposed.textContent = secretsExposed;
+      wcConfigSecretsExposed.textContent = writeScopeEnabled;
     }
 
     if (wcConfigCalled) {
-      wcConfigCalled.textContent = woocommerceApiCalled;
+      wcConfigCalled.textContent = adapterName;
     }
 
     if (wcConfigWriteScope) {
-      wcConfigWriteScope.textContent = writeScopeEnabled;
+      wcConfigWriteScope.textContent = adapterCanReadProducts;
     }
 
     if (wcConfigNextStep) {
-      wcConfigNextStep.textContent = nextStep;
+      wcConfigNextStep.textContent = adapterCanWriteProducts;
     }
 
     if (wcConfigAdapterName) {
-      wcConfigAdapterName.textContent = adapterName;
+      wcConfigAdapterName.textContent = adapterStatus;
     }
 
     if (wcConfigAdapterCanRead) {
-      wcConfigAdapterCanRead.textContent = adapterCanReadProducts;
-    }
-
-    if (wcConfigAdapterCanWrite) {
-      wcConfigAdapterCanWrite.textContent = adapterCanWriteProducts;
-    }
-
-    if (wcConfigAdapterStatus) {
-      wcConfigAdapterStatus.textContent = adapterStatus;
-    }
-
-    if (wcConfigAdapterNextStep) {
-      wcConfigAdapterNextStep.textContent = adapterNextStep;
+      wcConfigAdapterCanRead.textContent = adapterNextStep;
     }
   }
 });
