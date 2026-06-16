@@ -73,6 +73,7 @@
   * `docs/HEALTH-CHECKER-OPERATOR-REVIEW-QUEUE-CONTRACT-V1.md` legt de volgende read-only stap vast: proposal previews kunnen later als operator review queue items worden getoond zonder execution of write-scope;
   * `docs/HEALTH-CHECKER-OPERATOR-REVIEW-PREVIEW-CONTRACT-V1.md` legt de volgende read-only stap vast: één proposal item kan later veilig als operator review preview/detailview worden getoond zonder execution of write-scope;
   * `docs/HEALTH-CHECKER-AUDIT-TRAIL-PREVIEW-CONTRACT-V1.md` legt de volgende read-only stap vast: audit trail previews kunnen later traceerbaar zijn zonder database- of execution-scope;
+  * `docs/HEALTH-CHECKER-OPERATOR-OVERVIEW-CONTRACT-V1.md` legt de volgende read-only stap vast: queue, preview en audit kunnen later als overzicht worden samengebracht zonder vast dashboarddesign of execution-scope;
   * `GET /api/health-checker/operator-overview-mock` blijft bewust read-only en statisch;
   * `GET /api/health-checker/operator-overview-mock` geeft alleen een mock operator-overzicht terug met scan summary, issues, proposal previews, review queue, approval policy, audit trail preview, safety/status panel en future extension hooks;
   * `GET /api/health-checker/operator-review-preview` blijft bewust read-only en statisch;
