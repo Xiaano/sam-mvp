@@ -143,6 +143,43 @@ Eindresultaat:
 
 * Needs documentation cleanup first
 
-## 9. Recommended Next Micro-Step
+## 9. Lifecycle & Execution Governance Inventory
+
+De bestaande documentatie dekt al de kern van de lifecycle- en execution-governance:
+
+* lifecycle states
+* state transitions
+* approval/review boundary
+* execution boundary
+* rollback/undo boundary
+* audit logging
+* actor identity
+* tenant/shop/source boundaries
+
+Nog verspreid of aandachtspunt:
+
+* retry
+* redo
+* restore point
+* recall last execution
+* de volledige keten scan -> register -> advise -> approve -> queue -> execute -> verify -> recover
+
+Architectuurlijn:
+
+* er is op dit moment geen nieuw lifecycle-document nodig
+* execution wordt in de huidige fase niet gebouwd
+* Health Checker blijft read-only
+* write/execution-functionaliteit mag pas later via een apart approved implementation plan
+
+Compacte toekomstige lifecycle-keten:
+
+* Scannen -> Registreren -> Adviseren -> Accorderen -> Klaarzetten/Doorzetten -> Uitvoeren -> Controleren -> Herstellen indien nodig
+
+Expliciete guardrail:
+
+* uitvoering mag nooit een zwart gat zijn
+* voor latere write/execution-scope moeten old value, new value, actor, approval, timestamp, target system, result, error status en recoverymogelijkheid herleidbaar zijn
+
+## 10. Recommended Next Micro-Step
 
 Kleine README-statuscleanup: de Health Checker samenvatting en statusregels laten aansluiten op `docs/CURRENT-STATUS.md`, zonder code, endpoints of scope uit te breiden.
