@@ -59,6 +59,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const proposalPreviewHumanReview = document.getElementById("proposal-preview-human-review");
   const proposalPreviewRegister = document.getElementById("proposal-preview-register");
 
+  const proposalContractState = document.getElementById("proposal-contract-state");
+  const proposalContractService = document.getElementById("proposal-contract-service");
+  const proposalContractStatus = document.getElementById("proposal-contract-status");
+  const proposalContractMode = document.getElementById("proposal-contract-mode");
+  const proposalContractModelPresent = document.getElementById("proposal-contract-model-present");
+  const proposalContractRequiredFields = document.getElementById("proposal-contract-required-fields");
+  const proposalContractSourceTypes = document.getElementById("proposal-contract-source-types");
+  const proposalContractGovernance = document.getElementById("proposal-contract-governance");
+  const proposalContractNote = document.getElementById("proposal-contract-note");
+
   const apiBaseUrl = "http://localhost:3001";
 
   document.body.setAttribute("data-shell-state", "loaded");
@@ -90,6 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
   void loadReadiness();
   void loadMockScan();
   void loadMockProposalPreview();
+  void loadProposalContract();
 
   async function loadHealth() {
     try {
@@ -349,6 +360,72 @@ document.addEventListener("DOMContentLoaded", () => {
       renderMockProposalRegister({
         state: "error",
         rows: ["not loaded yet"],
+      });
+    }
+  }
+
+  async function loadProposalContract() {
+    try {
+      const response = await fetch(new URL("/api/health-checker/proposal-contract", apiBaseUrl));
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      const payload = await response.json();
+      const sourceProvenanceModel = payload?.source_provenance_model ?? null;
+      const requiredFields = Array.isArray(sourceProvenanceModel?.required_fields)
+        ? sourceProvenanceModel.required_fields
+        : [];
+      const sourceTypes = Array.isArray(sourceProvenanceModel?.source_types)
+        ? sourceProvenanceModel.source_types
+        : [];
+      const reviewRules = sourceProvenanceModel?.review_rules ?? {};
+      const hasContractData = Boolean(sourceProvenanceModel);
+      const governanceRules = [
+        reviewRules.no_proposal_without_source_status === true
+          ? "no proposal without source status"
+          : null,
+        reviewRules.ai_generated_requires_review === true
+          ? "ai_generated requires review"
+          : null,
+        reviewRules.source_unknown_requires_review === true
+          ? "source_unknown requires review"
+          : null,
+        reviewRules.provenance_required_before_write_rewrite_execution === true
+          ? "provenance required before write/rewrite/execution"
+          : null,
+        reviewRules.no_execution_change_from_contract === true
+          ? "no execution change from contract"
+          : null,
+      ].filter(Boolean);
+
+      renderProposalContract({
+        state: hasContractData ? "success" : "empty",
+        service: payload.service ?? "not loaded yet",
+        status: payload.status ?? "not loaded yet",
+        mode: payload.mode ?? "not loaded yet",
+        modelPresent: hasContractData ? "yes" : "no",
+        requiredFields:
+          requiredFields.length > 0 ? `${requiredFields.length} fields` : "empty",
+        sourceTypes:
+          sourceTypes.length > 0 ? sourceTypes.join(", ") : "empty",
+        governanceRules:
+          governanceRules.length > 0 ? governanceRules : ["empty"],
+        note:
+          "Per-proposal provenance is not yet present in mock proposal preview. Contract only / read-only / no execution.",
+      });
+    } catch {
+      renderProposalContract({
+        state: "error",
+        service: "unavailable",
+        status: "error",
+        mode: "read-only",
+        modelPresent: "not loaded yet",
+        requiredFields: "not loaded yet",
+        sourceTypes: "not loaded yet",
+        governanceRules: ["not loaded yet"],
+        note: "Per-proposal provenance is not yet present in mock proposal preview. Contract only / read-only / no execution.",
       });
     }
   }
@@ -639,6 +716,65 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       proposalPreviewRegister.appendChild(list);
+    }
+  }
+
+  function renderProposalContract({
+    state,
+    service,
+    status,
+    mode,
+    modelPresent,
+    requiredFields,
+    sourceTypes,
+    governanceRules,
+    note,
+  }) {
+    if (proposalContractState) {
+      proposalContractState.textContent = state;
+    }
+
+    if (proposalContractService) {
+      proposalContractService.textContent = service;
+    }
+
+    if (proposalContractStatus) {
+      proposalContractStatus.textContent = status;
+    }
+
+    if (proposalContractMode) {
+      proposalContractMode.textContent = mode;
+    }
+
+    if (proposalContractModelPresent) {
+      proposalContractModelPresent.textContent = modelPresent;
+    }
+
+    if (proposalContractRequiredFields) {
+      proposalContractRequiredFields.textContent = requiredFields;
+    }
+
+    if (proposalContractSourceTypes) {
+      proposalContractSourceTypes.textContent = sourceTypes;
+    }
+
+    if (proposalContractGovernance) {
+      proposalContractGovernance.innerHTML = "";
+
+      const list = document.createElement("ul");
+      list.className = "contract-governance-list";
+
+      governanceRules.forEach((rule) => {
+        const item = document.createElement("li");
+        item.textContent = rule;
+        list.appendChild(item);
+      });
+
+      proposalContractGovernance.appendChild(list);
+    }
+
+    if (proposalContractNote) {
+      proposalContractNote.textContent = note;
     }
   }
 });
