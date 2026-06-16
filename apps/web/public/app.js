@@ -81,6 +81,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const wcConfigCalled = document.getElementById("wc-config-called");
   const wcConfigWriteScope = document.getElementById("wc-config-write-scope");
   const wcConfigNextStep = document.getElementById("wc-config-next-step");
+  const wcConfigAdapterName = document.getElementById("wc-config-adapter-name");
+  const wcConfigAdapterCanRead = document.getElementById("wc-config-adapter-can-read");
+  const wcConfigAdapterCanWrite = document.getElementById("wc-config-adapter-can-write");
+  const wcConfigAdapterStatus = document.getElementById("wc-config-adapter-status");
+  const wcConfigAdapterNextStep = document.getElementById("wc-config-adapter-next-step");
 
   const apiBaseUrl = "http://localhost:3001";
 
@@ -471,6 +476,11 @@ document.addEventListener("DOMContentLoaded", () => {
         woocommerceApiCalled: checks.woocommerceApiCalled === true ? "true" : "false",
         writeScopeEnabled: checks.writeScopeEnabled === true ? "true" : "false",
         nextStep,
+        adapterName: payload.adapter?.adapterName ?? "not loaded yet",
+        adapterCanReadProducts: payload.adapter?.canReadProducts === true ? "true" : "false",
+        adapterCanWriteProducts: payload.adapter?.canWriteProducts === false ? "false" : "not loaded yet",
+        adapterStatus: payload.adapter?.adapterStatus ?? "not loaded yet",
+        adapterNextStep: payload.adapter?.adapterNextStep ?? "not loaded yet",
       });
     } catch {
       renderWooCommerceConfigReadiness({
@@ -486,6 +496,11 @@ document.addEventListener("DOMContentLoaded", () => {
         woocommerceApiCalled: "false",
         writeScopeEnabled: "false",
         nextStep: "missing config",
+        adapterName: "not loaded yet",
+        adapterCanReadProducts: "false",
+        adapterCanWriteProducts: "false",
+        adapterStatus: "not loaded yet",
+        adapterNextStep: "not loaded yet",
       });
     }
   }
@@ -943,6 +958,11 @@ document.addEventListener("DOMContentLoaded", () => {
     woocommerceApiCalled,
     writeScopeEnabled,
     nextStep,
+    adapterName,
+    adapterCanReadProducts,
+    adapterCanWriteProducts,
+    adapterStatus,
+    adapterNextStep,
   }) {
     if (wcConfigState) {
       wcConfigState.textContent = state;
@@ -990,6 +1010,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (wcConfigNextStep) {
       wcConfigNextStep.textContent = nextStep;
+    }
+
+    if (wcConfigAdapterName) {
+      wcConfigAdapterName.textContent = adapterName;
+    }
+
+    if (wcConfigAdapterCanRead) {
+      wcConfigAdapterCanRead.textContent = adapterCanReadProducts;
+    }
+
+    if (wcConfigAdapterCanWrite) {
+      wcConfigAdapterCanWrite.textContent = adapterCanWriteProducts;
+    }
+
+    if (wcConfigAdapterStatus) {
+      wcConfigAdapterStatus.textContent = adapterStatus;
+    }
+
+    if (wcConfigAdapterNextStep) {
+      wcConfigAdapterNextStep.textContent = adapterNextStep;
     }
   }
 });
