@@ -103,6 +103,7 @@ Dit document is bewust geen statuspagina, build-log, schema-overzicht of API-pla
 * `docs/HEALTH-CHECKER-WOOCOMMERCE-READ-ONLY-PRODUCT-SCAN-V0-IMPLEMENTATION-REVIEW.md` - implementation review voor de eerste read-only WooCommerce productscan V0; document only, geen write/execution-scope.
 * `docs/HEALTH-CHECKER-WOOCOMMERCE-READ-ONLY-SCAN-TO-PROPOSAL-FLOW-IMPLEMENTATION-REVIEW.md` - read-only scan-to-proposal flow review; document only, geen write/execution-scope.
 * `docs/HEALTH-CHECKER-REVIEW-APPROVAL-BOUNDARY-V1-DECISION.md` - review/approval boundary besluit na proposal preview; document only, geen execution/write-scope.
+* `docs/HEALTH-CHECKER-REVIEW-STATUS-CONTRACT-V1.md` - reviewstatus contract; document only, geen execution/write-scope.
 * `docs/DEVELOPER-WORKFLOW-HELPERS-V1-DECISION.md` - developer workflow helpers besluit; alleen lokale dev-handelingen, geen SAM-productworkflow automatisering.
 
 ## Verwijzing naar andere kernbestanden
