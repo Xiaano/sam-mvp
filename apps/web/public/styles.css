@@ -156,6 +156,23 @@ h1 {
   color: var(--muted);
 }
 
+.action-button {
+  margin-top: 14px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(125, 211, 252, 0.34);
+  background: linear-gradient(180deg, rgba(29, 78, 216, 0.86), rgba(15, 118, 110, 0.86));
+  color: var(--text);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.action-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
 .issue-register {
   margin-top: 14px;
   padding: 14px;
@@ -232,6 +249,10 @@ h1 {
   border-radius: 14px;
   border: 1px dashed rgba(125, 211, 252, 0.35);
   background: rgba(23, 38, 63, 0.55);
+}
+
+.scan-register-block {
+  margin-top: 14px;
 }
 
 .proposal-register-list {

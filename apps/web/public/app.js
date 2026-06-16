@@ -84,6 +84,24 @@ document.addEventListener("DOMContentLoaded", () => {
   const wcConfigAdapterName = document.getElementById("wc-config-adapter-name");
   const wcConfigAdapterCanRead = document.getElementById("wc-config-adapter-can-read");
 
+  const wcScanState = document.getElementById("wc-scan-state");
+  const wcScanDescription = document.getElementById("wc-scan-description");
+  const wcScanWarning = document.getElementById("wc-scan-warning");
+  const wcScanButton = document.getElementById("wc-scan-run-button");
+  const wcScanService = document.getElementById("wc-scan-service");
+  const wcScanMode = document.getElementById("wc-scan-mode");
+  const wcScanSource = document.getElementById("wc-scan-source");
+  const wcScanStatus = document.getElementById("wc-scan-status");
+  const wcScanTimestamp = document.getElementById("wc-scan-timestamp");
+  const wcScanProductsScanned = document.getElementById("wc-scan-products-scanned");
+  const wcScanIssuesFound = document.getElementById("wc-scan-issues-found");
+  const wcScanCalled = document.getElementById("wc-scan-called");
+  const wcScanProductDataReturned = document.getElementById("wc-scan-product-data-returned");
+  const wcScanWriteScope = document.getElementById("wc-scan-write-scope");
+  const wcScanNextStep = document.getElementById("wc-scan-next-step");
+  const wcScanProductRegister = document.getElementById("wc-scan-product-register");
+  const wcScanIssueRegister = document.getElementById("wc-scan-issue-register");
+
   const apiBaseUrl = "http://localhost:3001";
 
   document.body.setAttribute("data-shell-state", "loaded");
@@ -117,6 +135,13 @@ document.addEventListener("DOMContentLoaded", () => {
   void loadMockProposalPreview();
   void loadProposalContract();
   void loadWooCommerceConfigReadiness();
+  renderWooCommerceReadOnlyProductScanIdle();
+
+  if (wcScanButton) {
+    wcScanButton.addEventListener("click", () => {
+      void loadWooCommerceReadOnlyProductScan();
+    });
+  }
 
   async function loadHealth() {
     try {
@@ -499,6 +524,413 @@ document.addEventListener("DOMContentLoaded", () => {
         adapterStatus: "not loaded yet",
         adapterNextStep: "not loaded yet",
       });
+    }
+  }
+
+  function renderWooCommerceReadOnlyProductScanIdle() {
+    renderWooCommerceReadOnlyProductScanSummary({
+      state: "not run",
+      service: "not loaded yet",
+      mode: "read-only",
+      source: "woocommerce_staging",
+      status: "not run",
+      timestamp: "not loaded yet",
+      productsScanned: "not loaded yet",
+      issuesFound: "not loaded yet",
+      woocommerceApiCalled: "false",
+      productDataReturned: "false",
+      writeScopeEnabled: "false",
+      nextStep: "manual operator trigger required",
+    });
+
+    renderWooCommerceReadOnlyProductRows({
+      state: "idle",
+      rows: ["No products scanned yet."],
+    });
+
+    renderWooCommerceReadOnlyIssueRows({
+      state: "idle",
+      rows: ["No issues available yet."],
+    });
+
+    if (wcScanDescription) {
+      wcScanDescription.textContent = "Operator-controlled / no automatic scan";
+    }
+
+    if (wcScanWarning) {
+      wcScanWarning.textContent = "Staging/test only";
+    }
+
+    if (wcScanButton) {
+      wcScanButton.disabled = false;
+      wcScanButton.textContent = "Run read-only product scan";
+    }
+  }
+
+  function setWooCommerceReadOnlyProductScanBusy(isBusy) {
+    if (wcScanState && isBusy) {
+      wcScanState.textContent = "running";
+    }
+
+    if (wcScanButton) {
+      wcScanButton.disabled = isBusy;
+      wcScanButton.textContent = isBusy ? "Running read-only scan" : "Run read-only product scan";
+    }
+
+    if (wcScanDescription) {
+      wcScanDescription.textContent = isBusy
+        ? "Running read-only scan"
+        : "Operator-controlled / no automatic scan";
+    }
+  }
+
+  function normalizeWooCommerceScanRows(rows) {
+    return rows.map((row, index) => {
+      const normalizedRow =
+        typeof row === "string"
+          ? {
+              index: index + 1,
+              id: row,
+              sku: "not loaded yet",
+              name: "not loaded yet",
+              status: "not loaded yet",
+              type: "not loaded yet",
+              stockStatus: "not loaded yet",
+              stockQuantity: "not loaded yet",
+              imagePresent: "not loaded yet",
+              shortDescriptionPresent: "not loaded yet",
+              longDescriptionPresent: "not loaded yet",
+              categoryCount: "not loaded yet",
+              tagCount: "not loaded yet",
+            }
+          : {
+              index: index + 1,
+              id: row.id ?? `product_${String(index + 1).padStart(3, "0")}`,
+              sku: row.sku ?? "not loaded yet",
+              name: row.name ?? "not loaded yet",
+              status: row.status ?? "not loaded yet",
+              type: row.type ?? "not loaded yet",
+              stockStatus: row.stockStatus ?? "not loaded yet",
+              stockQuantity:
+                row.stockQuantity === null || row.stockQuantity === undefined
+                  ? "not loaded yet"
+                  : String(row.stockQuantity),
+              imagePresent: row.imagePresent === true ? "true" : "false",
+              shortDescriptionPresent: row.shortDescriptionPresent === true ? "true" : "false",
+              longDescriptionPresent: row.longDescriptionPresent === true ? "true" : "false",
+              categoryCount:
+                row.categoryCount === null || row.categoryCount === undefined
+                  ? "not loaded yet"
+                  : String(row.categoryCount),
+              tagCount:
+                row.tagCount === null || row.tagCount === undefined
+                  ? "not loaded yet"
+                  : String(row.tagCount),
+            };
+
+      return normalizedRow;
+    });
+  }
+
+  function normalizeWooCommerceIssueRows(rows) {
+    return rows.map((row, index) => {
+      const normalizedRow =
+        typeof row === "string"
+          ? {
+              index: index + 1,
+              issueId: row,
+              productId: "not loaded yet",
+              sku: "not loaded yet",
+              type: "not loaded yet",
+              severity: "not loaded yet",
+              status: "not loaded yet",
+              message: "not loaded yet",
+            }
+          : {
+              index: index + 1,
+              issueId: row.issueId ?? `issue_${String(index + 1).padStart(3, "0")}`,
+              productId: row.productId ?? "not loaded yet",
+              sku: row.sku ?? "not loaded yet",
+              type: row.type ?? "not loaded yet",
+              severity: row.severity ?? "not loaded yet",
+              status: row.status ?? "not loaded yet",
+              message: row.message ?? "not loaded yet",
+            };
+
+      return normalizedRow;
+    });
+  }
+
+  function renderWooCommerceReadOnlyProductScanSummary({
+    state,
+    service,
+    mode,
+    source,
+    status,
+    timestamp,
+    productsScanned,
+    issuesFound,
+    woocommerceApiCalled,
+    productDataReturned,
+    writeScopeEnabled,
+    nextStep,
+  }) {
+    if (wcScanState) {
+      wcScanState.textContent = state;
+    }
+
+    if (wcScanService) {
+      wcScanService.textContent = service;
+    }
+
+    if (wcScanMode) {
+      wcScanMode.textContent = mode;
+    }
+
+    if (wcScanSource) {
+      wcScanSource.textContent = source;
+    }
+
+    if (wcScanStatus) {
+      wcScanStatus.textContent = status;
+    }
+
+    if (wcScanTimestamp) {
+      wcScanTimestamp.textContent = timestamp;
+    }
+
+    if (wcScanProductsScanned) {
+      wcScanProductsScanned.textContent = productsScanned;
+    }
+
+    if (wcScanIssuesFound) {
+      wcScanIssuesFound.textContent = issuesFound;
+    }
+
+    if (wcScanCalled) {
+      wcScanCalled.textContent = woocommerceApiCalled;
+    }
+
+    if (wcScanProductDataReturned) {
+      wcScanProductDataReturned.textContent = productDataReturned;
+    }
+
+    if (wcScanWriteScope) {
+      wcScanWriteScope.textContent = writeScopeEnabled;
+    }
+
+    if (wcScanNextStep) {
+      wcScanNextStep.textContent = nextStep;
+    }
+  }
+
+  function renderWooCommerceReadOnlyProductRows({ state, rows }) {
+    if (wcScanProductRegister) {
+      wcScanProductRegister.dataset.state = state;
+      wcScanProductRegister.innerHTML = "";
+
+      const list = document.createElement("ol");
+      list.className = "issue-register-list";
+
+      const renderMessageOnly = rows.length === 1 && typeof rows[0] === "string";
+
+      if (renderMessageOnly) {
+        const item = document.createElement("li");
+        item.className = "issue-register-row";
+        item.textContent = rows[0];
+        list.appendChild(item);
+        wcScanProductRegister.appendChild(list);
+        return;
+      }
+
+      normalizeWooCommerceScanRows(rows).forEach((row) => {
+        const item = document.createElement("li");
+        item.className = "issue-register-row";
+
+        const heading = document.createElement("div");
+        heading.className = "row-heading";
+
+        const indexLabel = document.createElement("strong");
+        indexLabel.textContent = `${row.index}. Product ${row.id}`;
+        heading.appendChild(indexLabel);
+        item.appendChild(heading);
+
+        const fields = [
+          ["sku", row.sku],
+          ["name", row.name],
+          ["status", row.status],
+          ["type", row.type],
+          ["stock status", row.stockStatus],
+          ["stock quantity", row.stockQuantity],
+          ["image present", row.imagePresent],
+          ["short description present", row.shortDescriptionPresent],
+          ["long description present", row.longDescriptionPresent],
+          ["category count", row.categoryCount],
+          ["tag count", row.tagCount],
+        ];
+
+        fields.forEach(([label, value]) => {
+          const field = document.createElement("div");
+          field.className = "row-field";
+
+          const fieldLabel = document.createElement("span");
+          fieldLabel.textContent = label;
+
+          const fieldValue = document.createElement("strong");
+          fieldValue.textContent = value;
+
+          field.appendChild(fieldLabel);
+          field.appendChild(fieldValue);
+          item.appendChild(field);
+        });
+
+        list.appendChild(item);
+      });
+
+      wcScanProductRegister.appendChild(list);
+    }
+  }
+
+  function renderWooCommerceReadOnlyIssueRows({ state, rows }) {
+    if (wcScanIssueRegister) {
+      wcScanIssueRegister.dataset.state = state;
+      wcScanIssueRegister.innerHTML = "";
+
+      const list = document.createElement("ol");
+      list.className = "issue-register-list";
+
+      const renderMessageOnly = rows.length === 1 && typeof rows[0] === "string";
+
+      if (renderMessageOnly) {
+        const item = document.createElement("li");
+        item.className = "issue-register-row";
+        item.textContent = rows[0];
+        list.appendChild(item);
+        wcScanIssueRegister.appendChild(list);
+        return;
+      }
+
+      normalizeWooCommerceIssueRows(rows).forEach((row) => {
+        const item = document.createElement("li");
+        item.className = "issue-register-row";
+
+        const heading = document.createElement("div");
+        heading.className = "row-heading";
+
+        const indexLabel = document.createElement("strong");
+        indexLabel.textContent = `${row.index}. ${row.issueId}`;
+        heading.appendChild(indexLabel);
+        item.appendChild(heading);
+
+        const fields = [
+          ["product id", row.productId],
+          ["sku", row.sku],
+          ["type", row.type],
+          ["severity", row.severity],
+          ["status", row.status],
+          ["message", row.message],
+        ];
+
+        fields.forEach(([label, value]) => {
+          const field = document.createElement("div");
+          field.className = "row-field";
+
+          const fieldLabel = document.createElement("span");
+          fieldLabel.textContent = label;
+
+          const fieldValue = document.createElement("strong");
+          fieldValue.textContent = value;
+
+          field.appendChild(fieldLabel);
+          field.appendChild(fieldValue);
+          item.appendChild(field);
+        });
+
+        list.appendChild(item);
+      });
+
+      wcScanIssueRegister.appendChild(list);
+    }
+  }
+
+  async function loadWooCommerceReadOnlyProductScan() {
+    setWooCommerceReadOnlyProductScanBusy(true);
+
+    try {
+      const response = await fetch(
+        new URL("/api/health-checker/woocommerce-read-only-product-scan", apiBaseUrl),
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      const payload = await response.json();
+      const products = Array.isArray(payload.products) ? payload.products : [];
+      const issues = Array.isArray(payload.issues) ? payload.issues : [];
+      const hasProducts = products.length > 0;
+      const hasIssues = issues.length > 0;
+
+      renderWooCommerceReadOnlyProductScanSummary({
+        state: payload.status ?? "success",
+        service: payload.service ?? "not loaded yet",
+        mode: payload.mode ?? "read-only",
+        source: payload.source ?? "woocommerce_staging",
+        status: payload.status ?? "success",
+        timestamp: payload.timestamp ?? "not loaded yet",
+        productsScanned:
+          payload.productsScanned === 0 || payload.productsScanned
+            ? String(payload.productsScanned)
+            : "not loaded yet",
+        issuesFound:
+          payload.issuesFound === 0 || payload.issuesFound
+            ? String(payload.issuesFound)
+            : "not loaded yet",
+        woocommerceApiCalled: payload.woocommerceApiCalled === true ? "true" : "false",
+        productDataReturned: payload.productDataReturned === true ? "true" : "false",
+        writeScopeEnabled: payload.writeScopeEnabled === false ? "false" : "not loaded yet",
+        nextStep: payload.nextStep ?? "not loaded yet",
+      });
+
+      renderWooCommerceReadOnlyProductRows({
+        state: hasProducts ? "success" : "empty",
+        rows:
+          hasProducts
+            ? products
+            : ["No products returned by the read-only scan."],
+      });
+
+      renderWooCommerceReadOnlyIssueRows({
+        state: hasIssues ? "success" : "empty",
+        rows: hasIssues ? issues : ["No issues detected in the read-only scan."],
+      });
+    } catch {
+      renderWooCommerceReadOnlyProductScanSummary({
+        state: "error",
+        service: "unavailable",
+        mode: "read-only",
+        source: "woocommerce_staging",
+        status: "error",
+        timestamp: "not loaded yet",
+        productsScanned: "not loaded yet",
+        issuesFound: "not loaded yet",
+        woocommerceApiCalled: "false",
+        productDataReturned: "false",
+        writeScopeEnabled: "false",
+        nextStep: "manual operator trigger required",
+      });
+
+      renderWooCommerceReadOnlyProductRows({
+        state: "error",
+        rows: ["unavailable"],
+      });
+
+      renderWooCommerceReadOnlyIssueRows({
+        state: "error",
+        rows: ["unavailable"],
+      });
+    } finally {
+      setWooCommerceReadOnlyProductScanBusy(false);
     }
   }
 
