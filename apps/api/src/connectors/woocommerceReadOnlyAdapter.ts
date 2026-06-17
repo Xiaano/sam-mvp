@@ -177,8 +177,8 @@ export function createWooCommerceReadOnlyProductScanSkeleton(): WooCommerceReadO
 }
 
 function getWooCommerceBasicAuthHeader() {
-  const consumerKey = process.env.WC_CONSUMER_KEY;
-  const consumerSecret = process.env.WC_CONSUMER_SECRET;
+  const consumerKey = process.env.WC_CONSUMER_KEY?.trim();
+  const consumerSecret = process.env.WC_CONSUMER_SECRET?.trim();
 
   if (!consumerKey || !consumerSecret) {
     return null;
@@ -458,7 +458,7 @@ export async function getWooCommerceReadOnlyConnectionReadiness(): Promise<WooCo
   const controller = new AbortController();
   const timeoutId = globalThis.setTimeout(() => {
     controller.abort();
-  }, 5000);
+  }, 15000);
 
   try {
     const response = await fetchFn(probeUrl, {
