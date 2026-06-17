@@ -23,8 +23,9 @@
           <span>secrets not exposed</span>
         </div>
         <p class="notice">
-          Read-only cockpit. Status data loads automatically; staging product scans require a
-          manual operator trigger.
+          Read-only operator cockpit. Mock/demo, staging/read-only, and governance/contracts are
+          separated into distinct tabs. Staging scans and proposal previews require a manual
+          operator trigger.
         </p>
       </header>
 
@@ -74,6 +75,10 @@
           aria-label="Overview panels"
           data-tab-panel="overview"
         >
+          <p class="zone-note">
+            Overview boundary: live status data and guardrails only. No product scan or approval
+            actions live here.
+          </p>
           <div class="grid" aria-label="Overview sections">
             <article class="primary">
               <h2>/health status</h2>
@@ -183,6 +188,10 @@
           data-tab-panel="mock-demo"
           hidden
         >
+          <p class="zone-note">
+            Mock / Demo boundary: synthetic or contract-driven data only. Useful for previewing
+            layouts without touching staging data.
+          </p>
           <div class="grid" aria-label="Mock and demo sections">
             <article class="primary">
               <h2>Mock scan result</h2>
@@ -336,6 +345,10 @@
           data-tab-panel="staging-read-only"
           hidden
         >
+          <p class="zone-note">
+            Staging / Read-only boundary: operator-controlled scans and previews only. No automatic
+            scan or preview on page load.
+          </p>
           <div class="grid" aria-label="Staging read-only sections">
             <article class="primary">
               <h2>WooCommerce Config Readiness</h2>
@@ -559,6 +572,10 @@
           data-tab-panel="governance-contracts"
           hidden
         >
+          <p class="zone-note">
+            Governance / Contracts boundary: policies, provenance, and review rules only. No
+            execution or write actions live here.
+          </p>
           <div class="grid" aria-label="Governance and contract sections">
             <article class="primary">
               <h2>Proposal Source / Provenance Contract</h2>
