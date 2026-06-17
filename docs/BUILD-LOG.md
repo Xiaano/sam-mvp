@@ -105,6 +105,52 @@ Een kort en veilig lokaal secrets-runbook vastleggen als voorbereiding op latere
 * geen proposal-preview;
 * geen write/rewrite/execution.
 
+## Fase 45 - WooCommerce config-readiness en connection-readiness lokaal groen
+
+**Datum:** Controle nodig
+
+**Doel**
+
+Kort vastleggen dat WooCommerce read-only config-readiness en connection-readiness lokaal groen zijn getest met handmatig lokaal geladen secrets buiten de repo.
+
+**Gerapporteerd**
+
+* lokale WooCommerce secrets zijn handmatig buiten de repo geladen volgens `docs/LOCAL-SECRETS-RUNBOOK.md`
+* geen secrets zijn in repo, docs, Codex of ChatGPT geplaatst
+* `GET /api/health-checker/woocommerce-config-readiness` is groen:
+  * `status: ready_for_read_only_adapter_skeleton`
+  * `secretsExposed: false`
+  * `woocommerceApiCalled: false`
+  * `writeScopeEnabled: false`
+  * `canReadProducts: true`
+  * `canWriteProducts: false`
+* `GET /api/health-checker/woocommerce-connection-readiness` is groen:
+  * `status: ready_for_read_only_product_scan`
+  * `connectionAttempted: true`
+  * `authenticationAccepted: true`
+  * `readAccessConfirmed: true`
+  * `httpStatus: 200`
+  * `woocommerceApiCalled: true`
+  * `productDataReturned: false`
+  * `writeScopeEnabled: false`
+* adapterfix is verwerkt:
+  * base URL en credentials worden getrimd
+  * Basic Auth werkt
+  * timeout staat op veilige expliciete `15` seconden
+  * geen raw URL, hostname, auth header, body, secrets of productdata worden geexposed
+
+**Nog niet uitgevoerd**
+
+* geen WooCommerce productscan
+* geen WooCommerce proposal-preview
+* geen write/rewrite/execution
+* geen database/Prisma
+
+**Volgende richting**
+
+* kleinste veilige volgende stap is daarna een read-only WooCommerce productscan-skeleton of productscan, afhankelijk van de eerstvolgende architectuurkeuze
+* nog geen proposal-preview op WooCommerce-data voordat productscan veilig is gecontroleerd
+
 ## Fase 1 - npm-uitvoercontextprobleem en lokale TypeScript-basis
 
 **Datum:** Controle nodig

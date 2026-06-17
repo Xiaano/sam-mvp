@@ -28,7 +28,8 @@
   * `DATABASE_URL` blijft buiten `sam-mvp`;
   * Codex mag geen `.env`, `DATABASE_URL` of secrets lezen.
   * `docs/LOCAL-SECRETS-RUNBOOK.md` is toegevoegd als lokale secrets-werkwijze voor latere read-only WooCommerce config-tests;
-  * er zijn nog geen echte secrets geladen, geopend of getest.
+  * lokale WooCommerce secrets zijn handmatig buiten de repo geladen volgens `docs/LOCAL-SECRETS-RUNBOOK.md`;
+  * geen secrets zijn in repo, docs, Codex of ChatGPT geplaatst.
 
 ## Actuele technische toestand
 
@@ -40,7 +41,11 @@
   * `GET /health` is lokaal succesvol gevalideerd;
   * `GET /diagnostics` is lokaal succesvol gevalideerd;
   * `GET /api/health-checker/readiness` is lokaal succesvol gevalideerd;
-  * `GET /api/health-checker/woocommerce-config-readiness` is lokaal runtime gecontroleerd zonder WooCommerce-config en faalde veilig dicht met `missing_config` en read-only metadata;
+  * `GET /api/health-checker/woocommerce-config-readiness` is lokaal groen met handmatig buiten de repo geladen secrets en geeft `ready_for_read_only_adapter_skeleton` terug;
+  * `GET /api/health-checker/woocommerce-config-readiness` houdt `secretsExposed: false`, `woocommerceApiCalled: false`, `writeScopeEnabled: false`, `canReadProducts: true` en `canWriteProducts: false`;
+  * `GET /api/health-checker/woocommerce-connection-readiness` is lokaal groen en geeft `ready_for_read_only_product_scan` terug;
+  * `GET /api/health-checker/woocommerce-connection-readiness` bevestigt `connectionAttempted: true`, `authenticationAccepted: true`, `readAccessConfirmed: true`, `httpStatus: 200`, `woocommerceApiCalled: true`, `productDataReturned: false` en `writeScopeEnabled: false`;
+  * de WooCommerce read-only adapterfix is verwerkt: base URL en credentials worden getrimd, Basic Auth werkt, timeout staat op veilige expliciete `15` seconden en er worden geen raw URL, hostname, auth header, body, secrets of productdata geexposed;
   * `GET /api/health-checker/mock-scan` is lokaal succesvol gevalideerd;
   * `GET /api/health-checker/issue-classification` is lokaal succesvol gevalideerd;
   * `GET /api/health-checker/proposal-contract` is lokaal succesvol gevalideerd;
@@ -106,6 +111,14 @@
 * Aantoonbaar genoemd pad voor Prisma app-integratie:
   * `apps/api/src/persistence/prismaClient.ts`
 * Via de lokaal gevalideerde API-routes is Prisma/database-runtime nog niet gevalideerd; `database` en `prisma` blijven daar bewust `not_checked`.
+* Nog niet uitgevoerd in de WooCommerce read-only lijn:
+  * geen WooCommerce productscan;
+  * geen WooCommerce proposal-preview;
+  * geen write/rewrite/execution;
+  * geen database/Prisma.
+* Volgende richting:
+  * kleinste veilige volgende stap is daarna een read-only WooCommerce productscan-skeleton of productscan, afhankelijk van de eerstvolgende architectuurkeuze;
+  * nog geen proposal-preview op WooCommerce-data voordat productscan veilig is gecontroleerd.
 
 ### TypeScript
 
