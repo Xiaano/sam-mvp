@@ -148,6 +148,7 @@ export type WooCommerceReadOnlyProductScanV0 = {
   products: WooCommerceReadOnlyProductSummary[];
   issues: WooCommerceReadOnlyDetectedIssue[];
   woocommerceApiCalled: boolean;
+  secretsExposed: false;
   productDataReturned: boolean;
   writeScopeEnabled: false;
   nextStep: WooCommerceReadOnlyProductScanStatus;
@@ -257,6 +258,7 @@ function createProductScanResponse(
     products,
     issues,
     woocommerceApiCalled,
+    secretsExposed: false,
     productDataReturned,
     writeScopeEnabled: false,
     nextStep: status,
