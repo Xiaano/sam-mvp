@@ -48,6 +48,15 @@
         }
       },
       "problemMatcher": []
+    },
+    {
+      "label": "git:status",
+      "type": "shell",
+      "command": "git status --short --branch",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
     }
   ]
 }
