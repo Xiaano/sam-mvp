@@ -337,6 +337,31 @@ h1 {
   background: rgba(10, 18, 30, 0.76);
 }
 
+.queue-preview-accordion {
+  margin-top: 14px;
+  padding: 12px 14px 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(115, 126, 140, 0.12);
+  background: rgba(10, 18, 30, 0.76);
+}
+
+.queue-preview-accordion > summary {
+  cursor: pointer;
+  list-style: none;
+  color: #d8e5ee;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.queue-preview-accordion > summary::-webkit-details-marker {
+  display: none;
+}
+
+.queue-preview-accordion[open] > summary {
+  margin-bottom: 12px;
+  color: #f3f7fb;
+}
+
 .issue-register {
   border-style: dashed;
 }

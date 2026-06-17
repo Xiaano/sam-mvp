@@ -131,6 +131,43 @@ document.addEventListener("DOMContentLoaded", () => {
   const wcProposalPreviewNextStep = document.getElementById("wc-proposal-preview-next-step");
   const wcProposalPreviewRegister = document.getElementById("wc-proposal-preview-register");
 
+  const wcQueuePreviewState = document.getElementById("wc-queue-preview-state");
+  const wcQueuePreviewDescription = document.getElementById("wc-queue-preview-description");
+  const wcQueuePreviewWarning = document.getElementById("wc-queue-preview-warning");
+  const wcQueuePreviewButton = document.getElementById("wc-queue-preview-run-button");
+  const wcQueuePreviewStatus = document.getElementById("wc-queue-preview-status");
+  const wcQueuePreviewSourceScanStatus = document.getElementById(
+    "wc-queue-preview-source-scan-status",
+  );
+  const wcQueuePreviewSourceProposalPreviewStatus = document.getElementById(
+    "wc-queue-preview-source-proposal-preview-status",
+  );
+  const wcQueuePreviewProposalsRead = document.getElementById("wc-queue-preview-proposals-read");
+  const wcQueuePreviewQueueItemsCreated = document.getElementById(
+    "wc-queue-preview-queue-items-created",
+  );
+  const wcQueuePreviewReviewQueueCount = document.getElementById(
+    "wc-queue-preview-review-queue-count",
+  );
+  const wcQueuePreviewCalled = document.getElementById("wc-queue-preview-called");
+  const wcQueuePreviewProductDataReturned = document.getElementById(
+    "wc-queue-preview-product-data-returned",
+  );
+  const wcQueuePreviewProposalDataReturned = document.getElementById(
+    "wc-queue-preview-proposal-data-returned",
+  );
+  const wcQueuePreviewQueueReturned = document.getElementById("wc-queue-preview-queue-returned");
+  const wcQueuePreviewWriteScope = document.getElementById("wc-queue-preview-write-scope");
+  const wcQueuePreviewSecretsExposed = document.getElementById("wc-queue-preview-secrets-exposed");
+  const wcQueuePreviewAutoExecute = document.getElementById("wc-queue-preview-auto-execute");
+  const wcQueuePreviewAiUsed = document.getElementById("wc-queue-preview-ai-used");
+  const wcQueuePreviewDatabaseWritten = document.getElementById(
+    "wc-queue-preview-database-written",
+  );
+  const wcQueuePreviewNextStep = document.getElementById("wc-queue-preview-next-step");
+  const wcQueuePreviewRegisterNote = document.getElementById("wc-queue-preview-register-note");
+  const wcQueuePreviewRegister = document.getElementById("wc-queue-preview-register");
+
   const apiBaseUrl = "http://localhost:3001";
 
   document.body.setAttribute("data-shell-state", "loaded");
@@ -178,6 +215,7 @@ document.addEventListener("DOMContentLoaded", () => {
   void loadWooCommerceConfigReadiness();
   renderWooCommerceReadOnlyProductScanIdle();
   renderWooCommerceReadOnlyProposalPreviewIdle();
+  renderWooCommerceReadOnlyOperatorReviewQueuePreviewIdle();
 
   if (wcScanButton) {
     wcScanButton.addEventListener("click", () => {
@@ -188,6 +226,12 @@ document.addEventListener("DOMContentLoaded", () => {
   if (wcProposalPreviewButton) {
     wcProposalPreviewButton.addEventListener("click", () => {
       void loadWooCommerceReadOnlyProposalPreview();
+    });
+  }
+
+  if (wcQueuePreviewButton) {
+    wcQueuePreviewButton.addEventListener("click", () => {
+      void loadWooCommerceReadOnlyOperatorReviewQueuePreview();
     });
   }
 
@@ -1234,6 +1278,383 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       wcProposalPreviewRegister.appendChild(list);
+    }
+  }
+
+  function renderWooCommerceReadOnlyOperatorReviewQueuePreviewIdle() {
+    renderWooCommerceReadOnlyOperatorReviewQueuePreviewSummary({
+      state: "not run",
+      status: "not run",
+      sourceScanStatus: "not loaded yet",
+      sourceProposalPreviewStatus: "not loaded yet",
+      proposalsRead: "not loaded yet",
+      queueItemsCreated: "not loaded yet",
+      reviewQueueCount: "not loaded yet",
+      woocommerceApiCalled: "false",
+      productDataReturned: "false",
+      proposalDataReturned: "false",
+      operatorReviewQueueReturned: "false",
+      writeScopeEnabled: "false",
+      secretsExposed: "false",
+      autoExecuteAllowed: "false",
+      aiUsed: "false",
+      databaseWritten: "false",
+      nextStep: "manual operator trigger required",
+    });
+
+    renderWooCommerceReadOnlyOperatorReviewQueuePreviewRows({
+      state: "idle",
+      rows: ["No operator review queue preview has been run yet."],
+    });
+
+    if (wcQueuePreviewDescription) {
+      wcQueuePreviewDescription.textContent =
+        "Operator-controlled / no automatic review queue load / runs only after button click";
+    }
+
+    if (wcQueuePreviewWarning) {
+      wcQueuePreviewWarning.textContent = "Read-only queue preview";
+    }
+
+    if (wcQueuePreviewRegisterNote) {
+      wcQueuePreviewRegisterNote.textContent = "First 3 queue items will appear here after run.";
+    }
+
+    if (wcQueuePreviewButton) {
+      wcQueuePreviewButton.disabled = false;
+      wcQueuePreviewButton.textContent = "Run read-only operator review queue preview";
+    }
+  }
+
+  function setWooCommerceReadOnlyOperatorReviewQueuePreviewBusy(isBusy) {
+    if (wcQueuePreviewState && isBusy) {
+      wcQueuePreviewState.textContent = "running";
+    }
+
+    if (wcQueuePreviewButton) {
+      wcQueuePreviewButton.disabled = isBusy;
+      wcQueuePreviewButton.textContent = isBusy
+        ? "Running read-only operator review queue preview"
+        : "Run read-only operator review queue preview";
+    }
+
+    if (wcQueuePreviewDescription) {
+      wcQueuePreviewDescription.textContent = isBusy
+        ? "Running read-only operator review queue preview"
+        : "Operator-controlled / no automatic review queue load / runs only after button click";
+    }
+  }
+
+  function renderWooCommerceReadOnlyOperatorReviewQueuePreviewSummary({
+    state,
+    status,
+    sourceScanStatus,
+    sourceProposalPreviewStatus,
+    proposalsRead,
+    queueItemsCreated,
+    reviewQueueCount,
+    woocommerceApiCalled,
+    productDataReturned,
+    proposalDataReturned,
+    operatorReviewQueueReturned,
+    writeScopeEnabled,
+    secretsExposed,
+    autoExecuteAllowed,
+    aiUsed,
+    databaseWritten,
+    nextStep,
+  }) {
+    if (wcQueuePreviewState) {
+      wcQueuePreviewState.textContent = state;
+    }
+
+    if (wcQueuePreviewStatus) {
+      wcQueuePreviewStatus.textContent = status;
+    }
+
+    if (wcQueuePreviewSourceScanStatus) {
+      wcQueuePreviewSourceScanStatus.textContent = sourceScanStatus;
+    }
+
+    if (wcQueuePreviewSourceProposalPreviewStatus) {
+      wcQueuePreviewSourceProposalPreviewStatus.textContent = sourceProposalPreviewStatus;
+    }
+
+    if (wcQueuePreviewProposalsRead) {
+      wcQueuePreviewProposalsRead.textContent = proposalsRead;
+    }
+
+    if (wcQueuePreviewQueueItemsCreated) {
+      wcQueuePreviewQueueItemsCreated.textContent = queueItemsCreated;
+    }
+
+    if (wcQueuePreviewReviewQueueCount) {
+      wcQueuePreviewReviewQueueCount.textContent = reviewQueueCount;
+    }
+
+    if (wcQueuePreviewCalled) {
+      wcQueuePreviewCalled.textContent = woocommerceApiCalled;
+    }
+
+    if (wcQueuePreviewProductDataReturned) {
+      wcQueuePreviewProductDataReturned.textContent = productDataReturned;
+    }
+
+    if (wcQueuePreviewProposalDataReturned) {
+      wcQueuePreviewProposalDataReturned.textContent = proposalDataReturned;
+    }
+
+    if (wcQueuePreviewQueueReturned) {
+      wcQueuePreviewQueueReturned.textContent = operatorReviewQueueReturned;
+    }
+
+    if (wcQueuePreviewWriteScope) {
+      wcQueuePreviewWriteScope.textContent = writeScopeEnabled;
+    }
+
+    if (wcQueuePreviewSecretsExposed) {
+      wcQueuePreviewSecretsExposed.textContent = secretsExposed;
+    }
+
+    if (wcQueuePreviewAutoExecute) {
+      wcQueuePreviewAutoExecute.textContent = autoExecuteAllowed;
+    }
+
+    if (wcQueuePreviewAiUsed) {
+      wcQueuePreviewAiUsed.textContent = aiUsed;
+    }
+
+    if (wcQueuePreviewDatabaseWritten) {
+      wcQueuePreviewDatabaseWritten.textContent = databaseWritten;
+    }
+
+    if (wcQueuePreviewNextStep) {
+      wcQueuePreviewNextStep.textContent = nextStep;
+    }
+  }
+
+  function normalizeWooCommerceReadOnlyOperatorReviewQueuePreviewRows(rows) {
+    return rows.map((row, index) => {
+      if (typeof row === "string") {
+        return {
+          index: index + 1,
+          queueItemId: row,
+          proposalId: "not loaded yet",
+          sourceIssueId: "not loaded yet",
+          productId: "not loaded yet",
+          sku: "not loaded yet",
+          issueType: "not loaded yet",
+          proposalType: "not loaded yet",
+          targetField: "not loaded yet",
+          reviewStatus: "not loaded yet",
+          recommendedAction: "not loaded yet",
+          availableActions: "not loaded yet",
+          requiresHumanReview: "not loaded yet",
+          requiresHumanApproval: "not loaded yet",
+          autoExecuteAllowed: "not loaded yet",
+          writeScopeEnabled: "not loaded yet",
+          sourceProvenance: {},
+          createdAt: "not loaded yet",
+          updatedAt: "not loaded yet",
+        };
+      }
+
+      return {
+        index: index + 1,
+        queueItemId: row.queueItemId ?? `wc_review_queue_${String(index + 1).padStart(3, "0")}`,
+        proposalId: row.proposalId ?? "not loaded yet",
+        sourceIssueId: row.sourceIssueId ?? "not loaded yet",
+        productId: row.productId ?? "not loaded yet",
+        sku: row.sku ?? "not loaded yet",
+        issueType: row.issueType ?? "not loaded yet",
+        proposalType: row.proposalType ?? "not loaded yet",
+        targetField: row.targetField ?? "not loaded yet",
+        reviewStatus: row.reviewStatus ?? "not loaded yet",
+        recommendedAction: row.recommendedAction ?? "not loaded yet",
+        availableActions: Array.isArray(row.availableActions)
+          ? row.availableActions.join(", ")
+          : row.availableActions ?? "not loaded yet",
+        requiresHumanReview: row.requiresHumanReview === true ? "true" : "false",
+        requiresHumanApproval: row.requiresHumanApproval === true ? "true" : "false",
+        autoExecuteAllowed: row.autoExecuteAllowed === true ? "true" : "false",
+        writeScopeEnabled: row.writeScopeEnabled === true ? "true" : "false",
+        sourceProvenance: row.sourceProvenance ?? {},
+        createdAt: row.createdAt ?? "not loaded yet",
+        updatedAt: row.updatedAt ?? "not loaded yet",
+      };
+    });
+  }
+
+  function renderWooCommerceReadOnlyOperatorReviewQueuePreviewRows({ state, rows }) {
+    if (wcQueuePreviewRegister) {
+      wcQueuePreviewRegister.dataset.state = state;
+      wcQueuePreviewRegister.innerHTML = "";
+
+      const list = document.createElement("ol");
+      list.className = "proposal-register-list";
+
+      const renderMessageOnly = rows.length === 1 && typeof rows[0] === "string";
+
+      if (renderMessageOnly) {
+        const item = document.createElement("li");
+        item.className = "proposal-register-row";
+        item.textContent = rows[0];
+        list.appendChild(item);
+        wcQueuePreviewRegister.appendChild(list);
+        return;
+      }
+
+      normalizeWooCommerceReadOnlyOperatorReviewQueuePreviewRows(rows).forEach((row) => {
+        const item = document.createElement("li");
+        item.className = "proposal-register-row";
+
+        const heading = document.createElement("div");
+        heading.className = "row-heading";
+
+        const indexLabel = document.createElement("strong");
+        indexLabel.textContent = `${row.index}. ${row.queueItemId}`;
+        heading.appendChild(indexLabel);
+        item.appendChild(heading);
+
+        const provenance = row.sourceProvenance;
+        const fields = [
+          ["proposal id", row.proposalId],
+          ["source issue", row.sourceIssueId],
+          ["product id", row.productId],
+          ["sku", row.sku],
+          ["issue type", row.issueType],
+          ["proposal type", row.proposalType],
+          ["target field", row.targetField],
+          ["review status", row.reviewStatus],
+          ["recommended action", row.recommendedAction],
+          ["available actions", row.availableActions],
+          ["human review", row.requiresHumanReview],
+          ["human approval", row.requiresHumanApproval],
+          ["auto execute allowed", row.autoExecuteAllowed],
+          ["write scope enabled", row.writeScopeEnabled],
+          ["created at", row.createdAt],
+          ["updated at", row.updatedAt],
+          ["source type", provenance.sourceType ?? "not loaded yet"],
+          ["source name", provenance.sourceName ?? "not loaded yet"],
+          ["source reference", provenance.sourceReference ?? "not loaded yet"],
+          ["source confidence", provenance.sourceConfidence ?? "not loaded yet"],
+          ["source human review", provenance.requiresHumanReview === true ? "true" : "false"],
+        ];
+
+        fields.forEach(([label, value]) => {
+          const field = document.createElement("div");
+          field.className = "row-field";
+
+          const fieldLabel = document.createElement("span");
+          fieldLabel.textContent = label;
+
+          const fieldValue = document.createElement("strong");
+          fieldValue.textContent = value;
+
+          field.appendChild(fieldLabel);
+          field.appendChild(fieldValue);
+          item.appendChild(field);
+        });
+
+        list.appendChild(item);
+      });
+
+      wcQueuePreviewRegister.appendChild(list);
+    }
+  }
+
+  async function loadWooCommerceReadOnlyOperatorReviewQueuePreview() {
+    setWooCommerceReadOnlyOperatorReviewQueuePreviewBusy(true);
+
+    try {
+      const response = await fetch(
+        new URL(
+          "/api/health-checker/woocommerce-read-only-operator-review-queue-preview",
+          apiBaseUrl,
+        ),
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      const payload = await response.json();
+      const reviewQueue = Array.isArray(payload.reviewQueue) ? payload.reviewQueue : [];
+      const hasQueueItems = reviewQueue.length > 0;
+      const queueItemsCreated =
+        payload.queueItemsCreated === 0 || payload.queueItemsCreated
+          ? String(payload.queueItemsCreated)
+          : "not loaded yet";
+      const reviewQueueCount =
+        payload.reviewQueueCount === 0 || payload.reviewQueueCount
+          ? String(payload.reviewQueueCount)
+          : queueItemsCreated;
+
+      renderWooCommerceReadOnlyOperatorReviewQueuePreviewSummary({
+        state: payload.status ?? "success",
+        status: payload.status ?? "success",
+        sourceScanStatus: payload.sourceScanStatus ?? "not loaded yet",
+        sourceProposalPreviewStatus: payload.sourceProposalPreviewStatus ?? "not loaded yet",
+        proposalsRead:
+          payload.proposalsRead === 0 || payload.proposalsRead
+            ? String(payload.proposalsRead)
+            : "not loaded yet",
+        queueItemsCreated,
+        reviewQueueCount,
+        woocommerceApiCalled: payload.woocommerceApiCalled === true ? "true" : "false",
+        productDataReturned: payload.productDataReturned === true ? "true" : "false",
+        proposalDataReturned: payload.proposalDataReturned === true ? "true" : "false",
+        operatorReviewQueueReturned:
+          payload.operatorReviewQueueReturned === true ? "true" : "false",
+        writeScopeEnabled: payload.writeScopeEnabled === false ? "false" : "not loaded yet",
+        secretsExposed: payload.secretsExposed === false ? "false" : "not loaded yet",
+        autoExecuteAllowed: payload.autoExecuteAllowed === false ? "false" : "not loaded yet",
+        aiUsed: payload.aiUsed === false ? "false" : "not loaded yet",
+        databaseWritten: payload.databaseWritten === false ? "false" : "not loaded yet",
+        nextStep: payload.nextStep ?? "not loaded yet",
+      });
+
+      if (wcQueuePreviewRegisterNote) {
+        wcQueuePreviewRegisterNote.textContent = hasQueueItems
+          ? `Showing first ${Math.min(3, reviewQueue.length)} of ${reviewQueue.length} queue items.`
+          : "No review queue items returned by the read-only preview.";
+      }
+
+      renderWooCommerceReadOnlyOperatorReviewQueuePreviewRows({
+        state: hasQueueItems ? "success" : "empty",
+        rows: hasQueueItems ? reviewQueue.slice(0, 3) : ["No review queue items returned by the read-only preview."],
+      });
+    } catch {
+      renderWooCommerceReadOnlyOperatorReviewQueuePreviewSummary({
+        state: "error",
+        status: "error",
+        sourceScanStatus: "unavailable",
+        sourceProposalPreviewStatus: "unavailable",
+        proposalsRead: "not loaded yet",
+        queueItemsCreated: "not loaded yet",
+        reviewQueueCount: "not loaded yet",
+        woocommerceApiCalled: "false",
+        productDataReturned: "false",
+        proposalDataReturned: "false",
+        operatorReviewQueueReturned: "false",
+        writeScopeEnabled: "false",
+        secretsExposed: "false",
+        autoExecuteAllowed: "false",
+        aiUsed: "false",
+        databaseWritten: "false",
+        nextStep: "manual operator trigger required",
+      });
+
+      renderWooCommerceReadOnlyOperatorReviewQueuePreviewRows({
+        state: "error",
+        rows: ["unavailable"],
+      });
+
+      if (wcQueuePreviewRegisterNote) {
+        wcQueuePreviewRegisterNote.textContent = "unavailable";
+      }
+    } finally {
+      setWooCommerceReadOnlyOperatorReviewQueuePreviewBusy(false);
     }
   }
 
