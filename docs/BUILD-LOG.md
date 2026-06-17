@@ -2176,3 +2176,38 @@ De lokale Codex-werkwijze documentair vastleggen met taakklassen en strikte gate
 * geen AI/OpenAI;
 * geen secrets;
 * geen product-chain automation.
+
+## Fase 38 - AGENTS.md repo-brede Codex-guardrail vastgelegd
+
+**Datum:** Controle nodig
+
+**Doel**
+
+De repo-brede Codex-instructie vastleggen zodat toekomstige taken standaard binnen de projectregels, taakklassen en rapportagevorm blijven.
+
+**Uitgevoerd**
+
+* een compact `AGENTS.md`-document toegevoegd;
+* de besluitenindex en statusdocumentatie kort aangevuld met de nieuwe guardrailverwijzing.
+
+**Ontstane bestanden / artefacten**
+
+* nieuw document:
+  * `AGENTS.md`
+* bijgewerkt:
+  * `docs/APPROVED-DECISIONS-INDEX.md`
+  * `docs/CURRENT-STATUS.md`
+  * `docs/BUILD-LOG.md`
+
+**Bewust niet gedaan**
+
+* geen code;
+* geen frontend;
+* geen backend;
+* geen endpoints;
+* geen database;
+* geen Prisma;
+* geen WooCommerce;
+* geen AI/OpenAI;
+* geen secrets;
+* geen productchain automation.

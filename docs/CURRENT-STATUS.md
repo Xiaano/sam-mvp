@@ -9,6 +9,7 @@
 * Remote `origin` wijst naar `https://github.com/Xiaano/sam-mvp.git`.
 * De eerste commit en push naar `main` zijn succesvol afgerond.
 * GitHub-status: `initialized and pushed`.
+* Repo-brede Codex-guardrail is vastgelegd in `AGENTS.md`.
 * Secrets-status:
   * er is geen `.env` in `sam-mvp`;
   * echte secrets blijven buiten `sam-mvp`;
