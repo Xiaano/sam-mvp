@@ -15,6 +15,7 @@
 - `S1` = secrets/auth/security.
 - `W1` = write/rewrite/execution.
 - `R1` = refactor/cleanup.
+- `T1` = local development tooling.
 
 ## Werkafspraken
 

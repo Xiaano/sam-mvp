@@ -2212,6 +2212,41 @@ De repo-brede Codex-instructie vastleggen zodat toekomstige taken standaard binn
 * geen secrets;
 * geen productchain automation.
 
+## Fase 40 - T1 local development tooling taakklasse vastgelegd
+
+**Datum:** Controle nodig
+
+**Doel**
+
+De repo-brede taakklasse voor lokale development tooling documentair toevoegen, zodat VS Code tasks en dunne PowerShell helpers apart van productfuncties kunnen worden afgebakend.
+
+**Uitgevoerd**
+
+* `T1` toegevoegd aan de Codex-taakklassen en het task playbook;
+* de statusdocumentatie kort aangevuld met de nieuwe toolingklasse.
+
+**Ontstane bestanden / artefacten**
+
+* bijgewerkt:
+  * `AGENTS.md`
+  * `docs/CODEX-WORKFLOW-UPGRADE-DECISION.md`
+  * `docs/CODEX-TASK-PLAYBOOK.md`
+  * `docs/CURRENT-STATUS.md`
+  * `docs/BUILD-LOG.md`
+
+**Bewust niet gedaan**
+
+* geen code;
+* geen frontend;
+* geen backend;
+* geen endpoints;
+* geen database;
+* geen Prisma;
+* geen WooCommerce;
+* geen AI/OpenAI;
+* geen secrets;
+* geen productchain automation.
+
 ## Fase 39 - Codex Task Playbook vastgelegd
 
 **Datum:** Controle nodig

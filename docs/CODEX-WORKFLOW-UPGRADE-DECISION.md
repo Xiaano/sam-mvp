@@ -9,7 +9,7 @@
 
 ## Kernbesluit
 
-Codex werkt voortaan met taakklassen: `D0`, `F1`, `A1`, `X1`, `DB1`, `S1`, `W1`, `R1`.
+Codex werkt voortaan met taakklassen: `D0`, `F1`, `A1`, `X1`, `DB1`, `S1`, `W1`, `R1`, `T1`.
 
 ## Taakklassen
 
@@ -21,6 +21,7 @@ Codex werkt voortaan met taakklassen: `D0`, `F1`, `A1`, `X1`, `DB1`, `S1`, `W1`,
 * `S1` = secrets/auth/security
 * `W1` = write/rewrite/execution
 * `R1` = refactor/cleanup
+* `T1` = local development tooling
 
 ## Bundelregels
 
@@ -38,6 +39,13 @@ Codex werkt voortaan met taakklassen: `D0`, `F1`, `A1`, `X1`, `DB1`, `S1`, `W1`,
 
 * werkbankautomatisering is alleen lokale development tooling
 * werkbankautomatisering is geen product-chain automation
+
+## T1 - local development tooling
+
+* lokale development tooling hoort in `T1`
+* toegestaan: VS Code tasks, lokale startcommando's, statuschecks en dunne PowerShell helpers voor dev-workflows
+* verboden: productscan/proposal-chain, live externe API-acties, secrets lezen, writes/execution en automatische git-acties
+* T1 is geen productfunctionaliteit en geen SAM product-chain automation
 
 ## Volgende stap
 

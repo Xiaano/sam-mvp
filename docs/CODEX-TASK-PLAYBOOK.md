@@ -75,12 +75,20 @@ Dit playbook legt praktisch vast hoe Codex taakklassen moet lezen en toepassen, 
 * Stop wanneer cleanup verandert in functionele uitbreiding.
 * Passende validatie: regressiecheck op bestaande grenzen en output.
 
+### T1 - local development tooling
+
+* Toegestaan: VS Code tasks, lokale startcommando's, statuschecks en dunne PowerShell helpers voor dev-workflows.
+* Verboden: productscan/proposal-chain, live externe API-acties, secrets lezen, writes/execution en automatische git-acties.
+* Stop wanneer tooling productlogica, integratiegedrag of stateful productflow probeert te automatiseren.
+* Passende validatie: alleen lokale commandoboundaries, task labels en status-/startgedrag controleren.
+
 ## Veilige opdrachtvoorbeelden
 
 * "Maak een documentatiebundel voor de Health Checker flow."
 * "Voeg een read-only statusendpoint toe."
 * "Toon bestaande read-only data in de frontend."
 * "Werk een contractdocument bij zonder gedrag te wijzigen."
+* "Maak een lokale dev-task voor API of frontend start."
 
 ## Gevaarlijk behulpzaam gedrag dat niet mag
 

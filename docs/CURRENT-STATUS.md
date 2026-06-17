@@ -11,6 +11,7 @@
 * GitHub-status: `initialized and pushed`.
 * Repo-brede Codex-guardrail is vastgelegd in `AGENTS.md`.
 * De praktische taakklasse-uitleg staat in `docs/CODEX-TASK-PLAYBOOK.md`.
+* `T1` is gereserveerd voor lokale development tooling.
 * Secrets-status:
   * er is geen `.env` in `sam-mvp`;
   * echte secrets blijven buiten `sam-mvp`;
