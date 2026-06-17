@@ -347,12 +347,12 @@ const proposalPreviews: ProposalPreview[] = [
   {
     proposal_id: "preview_004",
     issue_id: "issue_004",
-    source_issue_type: "seo_basic_gap",
-    proposal_type: "improve_basic_seo",
-    title: "Improve basic SEO metadata",
-    current_state: "Basic SEO metadata is incomplete.",
-    proposed_change: "Prepare a metadata improvement suggestion for operator review.",
-    reason: "Basic SEO gaps reduce discoverability and consistency across products.",
+    source_issue_type: "long_description_too_short",
+    proposal_type: "improve_long_description",
+    title: "Improve long product description",
+    current_state: "Long description is too short.",
+    proposed_change: "Prepare an expanded long-description draft for operator review.",
+    reason: "Short long descriptions reduce product detail, clarity and merchandising quality.",
     risk_level: "medium",
     confidence: "medium",
     requires_human_approval: true,
@@ -410,8 +410,8 @@ const reviewQueue: ReviewItem[] = [
   {
     review_id: "review_004",
     proposal_id: "preview_004",
-    source_issue_type: "seo_basic_gap",
-    proposal_type: "improve_basic_seo",
+    source_issue_type: "long_description_too_short",
+    proposal_type: "improve_long_description",
     current_status: "ready_for_review",
     recommended_action: "needs_more_context",
     available_actions: [
@@ -424,7 +424,7 @@ const reviewQueue: ReviewItem[] = [
     requires_human_review: true,
     requires_human_approval: true,
     auto_execute_allowed: false,
-    operator_note: "More brand-specific context is needed before approval.",
+    operator_note: "More product detail is needed before approval of the long-description draft.",
   },
 ];
 
