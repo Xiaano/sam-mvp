@@ -8,8 +8,6 @@
       "options": {
         "cwd": "${workspaceFolder}",
         "env": {
-          "HOME": "${workspaceFolder}",
-          "USERPROFILE": "${workspaceFolder}",
           "NPM_CONFIG_CACHE": "${workspaceFolder}\\.npm-cache",
           "NPM_CONFIG_PREFIX": "${workspaceFolder}\\.npm-prefix",
           "NPM_CONFIG_USERCONFIG": "${workspaceFolder}\\.npmrc"
@@ -24,8 +22,6 @@
       "options": {
         "cwd": "${workspaceFolder}",
         "env": {
-          "HOME": "${workspaceFolder}",
-          "USERPROFILE": "${workspaceFolder}",
           "NPM_CONFIG_CACHE": "${workspaceFolder}\\.npm-cache",
           "NPM_CONFIG_PREFIX": "${workspaceFolder}\\.npm-prefix",
           "NPM_CONFIG_USERCONFIG": "${workspaceFolder}\\.npmrc"
@@ -40,8 +36,6 @@
       "options": {
         "cwd": "${workspaceFolder}",
         "env": {
-          "HOME": "${workspaceFolder}",
-          "USERPROFILE": "${workspaceFolder}",
           "NPM_CONFIG_CACHE": "${workspaceFolder}\\.npm-cache",
           "NPM_CONFIG_PREFIX": "${workspaceFolder}\\.npm-prefix",
           "NPM_CONFIG_USERCONFIG": "${workspaceFolder}\\.npmrc"
