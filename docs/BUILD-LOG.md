@@ -79,6 +79,32 @@ Kort vastleggen dat `GET /api/health-checker/woocommerce-config-readiness` lokaa
   * nog geen WooCommerce proposal-preview
   * geen write/rewrite/execution
 
+## Fase 44 - Local secrets runbook toegevoegd
+
+**Datum:** Controle nodig
+
+**Doel**
+
+Een kort en veilig lokaal secrets-runbook vastleggen als voorbereiding op latere WooCommerce read-only config-tests.
+
+**Uitgevoerd**
+
+* `docs/LOCAL-SECRETS-RUNBOOK.md` toegevoegd;
+* vastgelegd dat echte secrets nooit in de repo mogen staan;
+* vastgelegd dat Codex geen `.env`, keys, tokens, certificaten of secrets mag openen, lezen of tonen;
+* vastgelegd dat secrets alleen handmatig door Ricardo buiten de repo worden beheerd;
+* voorbeeld externe locatie vastgelegd als placeholderpad: `D:\AXIORA_SECRETS\sam-mvp.env`;
+* WooCommerce testvolgorde en stopregels vastgelegd.
+
+**Bewust niet gedaan**
+
+* geen echte secrets toegevoegd;
+* geen `.env` aangemaakt;
+* geen WooCommerce/API-call;
+* geen productscan;
+* geen proposal-preview;
+* geen write/rewrite/execution.
+
 ## Fase 1 - npm-uitvoercontextprobleem en lokale TypeScript-basis
 
 **Datum:** Controle nodig

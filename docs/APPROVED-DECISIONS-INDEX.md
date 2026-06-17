@@ -112,6 +112,7 @@ Dit document is bewust geen statuspagina, build-log, schema-overzicht of API-pla
 * `docs/CODEX-WORKFLOW-UPGRADE-DECISION.md` - Codex workflow upgrade decision; taakklassen en lokale dev-tooling, geen product-chain automation.
 * `docs/CODEX-TASK-PLAYBOOK.md` - praktische interpretatie van taakklassen en veilige uitvoeringschecklist; document only, geen product-chain automation.
 * `AGENTS.md` - repo-brede Codex-instructie; taakklassen, guardrails en rapportageformat voor lokale uitvoering.
+* `docs/LOCAL-SECRETS-RUNBOOK.md` - lokale secrets-werkwijze voor latere read-only WooCommerce config-tests; geen echte secrets in repo, geen `.env` lezen of tonen.
 * `docs/CURRENT-STATUS.md` - actuele status van de afgeronde T1-werkbankbasis en lokale dev-werkvorm.
 * `docs/DEVELOPER-WORKFLOW-HELPERS-V1-DECISION.md` - developer workflow helpers besluit; alleen lokale dev-handelingen, geen SAM-productworkflow automatisering.
 

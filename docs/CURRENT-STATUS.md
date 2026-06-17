@@ -27,6 +27,8 @@
   * echte secrets blijven buiten `sam-mvp`;
   * `DATABASE_URL` blijft buiten `sam-mvp`;
   * Codex mag geen `.env`, `DATABASE_URL` of secrets lezen.
+  * `docs/LOCAL-SECRETS-RUNBOOK.md` is toegevoegd als lokale secrets-werkwijze voor latere read-only WooCommerce config-tests;
+  * er zijn nog geen echte secrets geladen, geopend of getest.
 
 ## Actuele technische toestand
 
