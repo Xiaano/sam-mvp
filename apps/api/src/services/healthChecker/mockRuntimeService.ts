@@ -459,9 +459,10 @@ const auditTrailPreview: AuditTrailPreviewEvent[] = [
     reason: "The operator overview presents the review queue.",
   },
   {
-    event_type: "proposal_approved",
+    event_type: "proposal_approval_previewed",
     source_endpoint: "/api/health-checker/approval-flow-contract",
-    reason: "Approval remains human-led and non-executing.",
+    reason:
+      "Approval is shown as a human-led contract preview and remains non-executing.",
   },
   {
     event_type: "audit_log_recorded",
@@ -803,7 +804,7 @@ export function createMockAuditLogPreview(): MockAuditLogPreview {
       },
       {
         event_id: "audit_005",
-        event_type: "proposal_approved",
+        event_type: "proposal_approval_previewed",
         timestamp: "2026-06-14T00:04:00.000Z",
         actor_type: "operator",
         actor_id: "operator_001",
@@ -813,9 +814,11 @@ export function createMockAuditLogPreview(): MockAuditLogPreview {
         action: "approve",
         previous_status: "ready_for_review",
         new_status: "approved",
-        reason: "The operator approved the mock proposal preview.",
+        reason:
+          "The operator approval is represented as a mock contract preview.",
         source_endpoint: "/api/health-checker/approval-flow-contract",
-        risk_note: "Approval does not imply immediate execution.",
+        risk_note:
+          "Previewed approval does not imply runtime approval or execution.",
       },
       {
         event_id: "audit_006",
@@ -835,7 +838,7 @@ export function createMockAuditLogPreview(): MockAuditLogPreview {
       },
       {
         event_id: "audit_007",
-        event_type: "proposal_rejected",
+        event_type: "proposal_rejection_previewed",
         timestamp: "2026-06-14T00:06:00.000Z",
         actor_type: "operator",
         actor_id: "operator_001",
@@ -845,9 +848,11 @@ export function createMockAuditLogPreview(): MockAuditLogPreview {
         action: "reject",
         previous_status: "ready_for_review",
         new_status: "rejected",
-        reason: "A second proposal was rejected during review.",
-        source_endpoint: "/api/health-checker/operator-review-contract",
-        risk_note: "Rejected decisions should keep operator reasoning traceable.",
+        reason:
+          "The rejection is represented as a mock operator-review preview.",
+        source_endpoint: "/api/health-checker/operator-review-preview",
+        risk_note:
+          "Previewed rejection keeps operator reasoning traceable without runtime writes.",
       },
     ]),
     compliance_preview: {
