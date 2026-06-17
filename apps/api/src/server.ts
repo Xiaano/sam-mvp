@@ -18,6 +18,7 @@ import { registerHealthCheckerReadinessRoute } from "./routes/healthCheckerReadi
 import { registerHealthCheckerWooCommerceConnectionReadinessRoute } from "./routes/healthCheckerWooCommerceConnectionReadiness.js";
 import { registerHealthCheckerWooCommerceProductScanSkeletonRoute } from "./routes/healthCheckerWooCommerceProductScanSkeleton.js";
 import { registerHealthCheckerWooCommerceReadOnlyProductScanRoute } from "./routes/healthCheckerWooCommerceReadOnlyProductScan.js";
+import { registerHealthCheckerWooCommerceReadOnlyOperatorReviewQueuePreviewRoute } from "./routes/healthCheckerWooCommerceReadOnlyOperatorReviewQueuePreview.js";
 import { registerHealthCheckerWooCommerceReadOnlyProposalPreviewRoute } from "./routes/healthCheckerWooCommerceReadOnlyProposalPreview.js";
 import { registerHealthCheckerWooCommerceConfigReadinessRoute } from "./routes/healthCheckerWooCommerceConfigReadiness.js";
 
@@ -65,6 +66,7 @@ export function createApiServer() {
   registerHealthCheckerWooCommerceConnectionReadinessRoute(app);
   registerHealthCheckerWooCommerceProductScanSkeletonRoute(app);
   registerHealthCheckerWooCommerceReadOnlyProductScanRoute(app);
+  registerHealthCheckerWooCommerceReadOnlyOperatorReviewQueuePreviewRoute(app);
   registerHealthCheckerWooCommerceReadOnlyProposalPreviewRoute(app);
   registerHealthCheckerWooCommerceConfigReadinessRoute(app);
 
