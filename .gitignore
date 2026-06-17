@@ -15,6 +15,9 @@ prisma/dev.db
 .npm-cache/
 .npm-prefix/
 .npmrc
+# Local PowerShell/VS Code cache artifacts
+/AppData/
+/Microsoft/Windows/PowerShell/ModuleAnalysisCache
 secrets/
 *.pem
 *.key
