@@ -62,6 +62,8 @@ type WooCommerceReadOnlyProposalPreviewResponse = {
   woocommerceApiCalled: boolean;
   productDataReturned: boolean;
   proposalDataReturned: true;
+  secretsExposed: false;
+  autoExecuteAllowed: false;
   writeScopeEnabled: false;
   aiUsed: false;
   databaseWritten: false;
@@ -164,6 +166,8 @@ function createProposalPreviewResponse(
     woocommerceApiCalled: sourceScan.woocommerceApiCalled,
     productDataReturned: sourceScan.productDataReturned,
     proposalDataReturned: true,
+    secretsExposed: false,
+    autoExecuteAllowed: false,
     writeScopeEnabled: false,
     aiUsed: false,
     databaseWritten: false,
