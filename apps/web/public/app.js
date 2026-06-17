@@ -40,6 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const mockScanIssueCategories = document.getElementById("mock-scan-issue-categories");
   const mockScanTopIssue = document.getElementById("mock-scan-top-issue");
   const mockScanIssueCount = document.getElementById("mock-scan-issue-count");
+  const mockScanIssueRegisterNote = document.getElementById("mock-scan-issue-register-note");
   const mockScanIssueRegister = document.getElementById("mock-scan-issue-register");
 
   const proposalPreviewState = document.getElementById("proposal-preview-state");
@@ -59,6 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const proposalPreviewValue = document.getElementById("proposal-preview-value");
   const proposalPreviewRiskLevel = document.getElementById("proposal-preview-risk-level");
   const proposalPreviewHumanReview = document.getElementById("proposal-preview-human-review");
+  const proposalPreviewRegisterNote = document.getElementById("proposal-preview-register-note");
   const proposalPreviewRegister = document.getElementById("proposal-preview-register");
 
   const proposalContractState = document.getElementById("proposal-contract-state");
@@ -101,7 +103,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const wcScanProductDataReturned = document.getElementById("wc-scan-product-data-returned");
   const wcScanWriteScope = document.getElementById("wc-scan-write-scope");
   const wcScanNextStep = document.getElementById("wc-scan-next-step");
+  const wcScanProductRegisterNote = document.getElementById("wc-scan-product-register-note");
   const wcScanProductRegister = document.getElementById("wc-scan-product-register");
+  const wcScanIssueRegisterNote = document.getElementById("wc-scan-issue-register-note");
   const wcScanIssueRegister = document.getElementById("wc-scan-issue-register");
 
   const wcProposalPreviewState = document.getElementById("wc-proposal-preview-state");
@@ -842,6 +846,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const list = document.createElement("ol");
       list.className = "issue-register-list";
+      const previewRows = rows.length > 3 ? rows.slice(0, 3) : rows;
 
       const renderMessageOnly = rows.length === 1 && typeof rows[0] === "string";
 
@@ -850,11 +855,23 @@ document.addEventListener("DOMContentLoaded", () => {
         item.className = "issue-register-row";
         item.textContent = rows[0];
         list.appendChild(item);
+        if (wcScanProductRegisterNote) {
+          wcScanProductRegisterNote.textContent = "No items available.";
+        }
         wcScanProductRegister.appendChild(list);
         return;
       }
 
-      normalizeWooCommerceScanRows(rows).forEach((row) => {
+      if (wcScanProductRegisterNote) {
+        wcScanProductRegisterNote.textContent =
+          rows.length > 3
+            ? `Showing first 3 of ${rows.length} items.`
+            : rows.length > 0
+              ? `Showing ${rows.length} of ${rows.length} items.`
+              : "No items available.";
+      }
+
+      normalizeWooCommerceScanRows(previewRows).forEach((row) => {
         const item = document.createElement("li");
         item.className = "issue-register-row";
 
@@ -909,6 +926,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const list = document.createElement("ol");
       list.className = "issue-register-list";
+      const previewRows = rows.length > 3 ? rows.slice(0, 3) : rows;
 
       const renderMessageOnly = rows.length === 1 && typeof rows[0] === "string";
 
@@ -917,11 +935,23 @@ document.addEventListener("DOMContentLoaded", () => {
         item.className = "issue-register-row";
         item.textContent = rows[0];
         list.appendChild(item);
+        if (wcScanIssueRegisterNote) {
+          wcScanIssueRegisterNote.textContent = "No items available.";
+        }
         wcScanIssueRegister.appendChild(list);
         return;
       }
 
-      normalizeWooCommerceIssueRows(rows).forEach((row) => {
+      if (wcScanIssueRegisterNote) {
+        wcScanIssueRegisterNote.textContent =
+          rows.length > 3
+            ? `Showing first 3 of ${rows.length} items.`
+            : rows.length > 0
+              ? `Showing ${rows.length} of ${rows.length} items.`
+              : "No items available.";
+      }
+
+      normalizeWooCommerceIssueRows(previewRows).forEach((row) => {
         const item = document.createElement("li");
         item.className = "issue-register-row";
 
@@ -1212,6 +1242,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const list = document.createElement("ol");
       list.className = "proposal-register-list";
+      const previewRows = rows.length > 3 ? rows.slice(0, 3) : rows;
 
       const renderMessageOnly = rows.length === 1 && typeof rows[0] === "string";
 
@@ -1220,11 +1251,23 @@ document.addEventListener("DOMContentLoaded", () => {
         item.className = "proposal-register-row";
         item.textContent = rows[0];
         list.appendChild(item);
+        if (proposalPreviewRegisterNote) {
+          proposalPreviewRegisterNote.textContent = "No items available.";
+        }
         wcProposalPreviewRegister.appendChild(list);
         return;
       }
 
-      normalizeWooCommerceProposalPreviewRows(rows).forEach((row) => {
+      if (proposalPreviewRegisterNote) {
+        proposalPreviewRegisterNote.textContent =
+          rows.length > 3
+            ? `Showing first 3 of ${rows.length} items.`
+            : rows.length > 0
+              ? `Showing ${rows.length} of ${rows.length} items.`
+              : "No items available.";
+      }
+
+      normalizeWooCommerceProposalPreviewRows(previewRows).forEach((row) => {
         const item = document.createElement("li");
         item.className = "proposal-register-row";
 
@@ -1492,6 +1535,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const list = document.createElement("ol");
       list.className = "proposal-register-list";
+      const previewRows = rows.length > 3 ? rows.slice(0, 3) : rows;
 
       const renderMessageOnly = rows.length === 1 && typeof rows[0] === "string";
 
@@ -1500,11 +1544,23 @@ document.addEventListener("DOMContentLoaded", () => {
         item.className = "proposal-register-row";
         item.textContent = rows[0];
         list.appendChild(item);
+        if (wcQueuePreviewRegisterNote) {
+          wcQueuePreviewRegisterNote.textContent = "No items available.";
+        }
         wcQueuePreviewRegister.appendChild(list);
         return;
       }
 
-      normalizeWooCommerceReadOnlyOperatorReviewQueuePreviewRows(rows).forEach((row) => {
+      if (wcQueuePreviewRegisterNote) {
+        wcQueuePreviewRegisterNote.textContent =
+          rows.length > 3
+            ? `Showing first 3 of ${rows.length} items.`
+            : rows.length > 0
+              ? `Showing ${rows.length} of ${rows.length} items.`
+              : "No items available.";
+      }
+
+      normalizeWooCommerceReadOnlyOperatorReviewQueuePreviewRows(previewRows).forEach((row) => {
         const item = document.createElement("li");
         item.className = "proposal-register-row";
 
@@ -1893,8 +1949,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const list = document.createElement("ol");
       list.className = "issue-register-list";
+      const previewRows = rows.length > 3 ? rows.slice(0, 3) : rows;
 
-      rows.forEach((row) => {
+      if (mockScanIssueRegisterNote) {
+        mockScanIssueRegisterNote.textContent =
+          rows.length > 3
+            ? `Showing first 3 of ${rows.length} items.`
+            : rows.length > 0
+              ? `Showing ${rows.length} of ${rows.length} items.`
+              : "No items available.";
+      }
+
+      previewRows.forEach((row) => {
         const normalizedRow =
           typeof row === "string"
             ? {
@@ -2047,8 +2113,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const list = document.createElement("ol");
       list.className = "proposal-register-list";
+      const previewRows = rows.length > 3 ? rows.slice(0, 3) : rows;
 
-      rows.forEach((row) => {
+      if (proposalPreviewRegisterNote) {
+        proposalPreviewRegisterNote.textContent =
+          rows.length > 3
+            ? `Showing first 3 of ${rows.length} items.`
+            : rows.length > 0
+              ? `Showing ${rows.length} of ${rows.length} items.`
+              : "No items available.";
+      }
+
+      previewRows.forEach((row) => {
         const normalizedRow =
           typeof row === "string"
             ? {
