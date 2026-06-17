@@ -12,6 +12,16 @@
 * Repo-brede Codex-guardrail is vastgelegd in `AGENTS.md`.
 * De praktische taakklasse-uitleg staat in `docs/CODEX-TASK-PLAYBOOK.md`.
 * `T1` is gereserveerd voor lokale development tooling.
+* `CODEX-TASK-PLAYBOOK.md` is toegevoegd en afgerond.
+* Eerste `T1`-werkbankbasis is afgerond:
+  * `api:dev` bestaat;
+  * `web:dev` is toegevoegd;
+  * `git:status` is toegevoegd;
+  * `HOME` en `USERPROFILE` zijn verwijderd uit VS Code tasks;
+  * lokale PowerShell/VS Code-cache-artefacten zijn genegeerd via `.gitignore`.
+* De werkbank blijft alleen development tooling en opent geen productscan, proposal-preview, review/approval/execution, live WooCommerce-acties, secrets of database/Prisma.
+* Twee VS Code vensters zijn het werkpatroon: hoofdvenster voor code en Codex, tweede venster voor `api:dev`/`web:dev` lokale runtime.
+* Volgende richting: terug naar de SAM MVP-bouwlijn en eerst bepalen wat de kleinste veilige volgende MVP-stap is.
 * Secrets-status:
   * er is geen `.env` in `sam-mvp`;
   * echte secrets blijven buiten `sam-mvp`;

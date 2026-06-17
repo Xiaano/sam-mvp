@@ -2212,6 +2212,39 @@ De repo-brede Codex-instructie vastleggen zodat toekomstige taken standaard binn
 * geen secrets;
 * geen productchain automation.
 
+## Fase 41 - Eerste T1-werkbankbasis afgerond
+
+**Datum:** Controle nodig
+
+**Doel**
+
+De eerste lokale development tooling-basis documenteren nadat `web:dev`, `git:status` en de hygiene-correcties op de VS Code tasks en `.gitignore` zijn afgerond.
+
+**Uitgevoerd**
+
+* `CODEX-TASK-PLAYBOOK.md` toegevoegd en afgerond;
+* `T1 - Local Development Tooling` toegevoegd als taakklasse;
+* `api:dev`, `web:dev` en `git:status` zijn aanwezig als werkbanktaken;
+* `HOME` en `USERPROFILE` zijn uit de VS Code tasks verwijderd;
+* lokale PowerShell/VS Code-cache-artefacten zijn via `.gitignore` genegeerd.
+
+**Ontstane bestanden / artefacten**
+
+* bijgewerkt:
+  * `docs/CURRENT-STATUS.md`
+  * `docs/BUILD-LOG.md`
+
+**Bewust niet gedaan**
+
+* geen code;
+* geen productscan;
+* geen proposal-preview;
+* geen review/approval/execution;
+* geen live WooCommerce-acties;
+* geen secrets;
+* geen database/Prisma;
+* geen automatische git add/commit/push.
+
 ## Fase 40 - T1 local development tooling taakklasse vastgelegd
 
 **Datum:** Controle nodig
