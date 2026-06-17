@@ -25,12 +25,14 @@ function hasConfiguredValue(value: string | undefined) {
 }
 
 function looksLikeHttpUrl(value: string | undefined) {
-  if (!hasConfiguredValue(value)) {
+  const normalizedValue = typeof value === "string" ? value.trim() : "";
+
+  if (normalizedValue.length === 0) {
     return false;
   }
 
   try {
-    const parsedUrl = new URL(value);
+    const parsedUrl = new URL(normalizedValue);
     return parsedUrl.protocol === "http:" || parsedUrl.protocol === "https:";
   } catch {
     return false;
