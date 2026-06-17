@@ -250,6 +250,50 @@ Kort vastleggen hoe WooCommerce read-only proposal-preview later veilig naar ope
 * geen database/Prisma;
 * geen secrets.
 
+## Fase 49 - WooCommerce read-only operator review queue preview lokaal groen
+
+**Datum:** Controle nodig
+
+**Doel**
+
+Kort vastleggen dat `GET /api/health-checker/woocommerce-read-only-operator-review-queue-preview` lokaal groen is getest met echte WooCommerce staging read-only data.
+
+**Gerapporteerd**
+
+* `GET /api/health-checker/woocommerce-read-only-operator-review-queue-preview` is lokaal runtime groen getest
+* resultaat:
+  * `service: sam-health-checker`
+  * `mode: read-only`
+  * `source: woocommerce_staging`
+  * `status: scan_completed`
+  * `sourceScanStatus: scan_completed`
+  * `sourceProposalPreviewStatus: scan_completed`
+  * `proposalsRead: 40`
+  * `queueItemsCreated: 40`
+  * `reviewQueueCount: 40`
+  * `woocommerceApiCalled: true`
+  * `productDataReturned: true`
+  * `proposalDataReturned: true`
+  * `operatorReviewQueueReturned: true`
+  * `writeScopeEnabled: false`
+  * `secretsExposed: false`
+  * `autoExecuteAllowed: false`
+  * `aiUsed: false`
+  * `databaseWritten: false`
+  * `nextStep: ready_for_operator_review_queue_preview`
+* dit is echte WooCommerce staging read-only data, geen mock
+* geen frontend auto-load toegevoegd
+* geen echte reviewbeslissing uitgevoerd
+* geen approval
+* geen execution
+* geen database/Prisma
+* geen AI
+* geen write/rewrite naar WooCommerce
+
+**Volgende richting**
+
+* pas na deze vastlegging bepalen of de volgende stap cockpit/operator-weergave, contractverfijning of review-state planning wordt
+
 ## Fase 1 - npm-uitvoercontextprobleem en lokale TypeScript-basis
 
 **Datum:** Controle nodig

@@ -54,6 +54,10 @@
   * `GET /api/health-checker/woocommerce-read-only-proposal-preview` bevestigt `service: sam-health-checker`, `mode: read-only`, `source: woocommerce_staging`, `sourceScanStatus: scan_completed`, `issuesRead: 40`, `proposalsCreated: 40`, `proposalCount: 40`, `woocommerceApiCalled: true`, `productDataReturned: true`, `proposalDataReturned: true`, `writeScopeEnabled: false`, `secretsExposed: false`, `autoExecuteAllowed: false`, `aiUsed: false`, `databaseWritten: false` en `nextStep: ready_for_operator_review`;
   * deze WooCommerce proposal-preview is echte staging read-only data, geen mock en geen skeleton;
   * er zijn geen secrets getoond, er is geen AI gebruikt en er is geen database-write uitgevoerd;
+  * `GET /api/health-checker/woocommerce-read-only-operator-review-queue-preview` is lokaal runtime groen getest met echte WooCommerce staging read-only data en geeft `scan_completed` terug;
+  * `GET /api/health-checker/woocommerce-read-only-operator-review-queue-preview` bevestigt `service: sam-health-checker`, `mode: read-only`, `source: woocommerce_staging`, `sourceScanStatus: scan_completed`, `sourceProposalPreviewStatus: scan_completed`, `proposalsRead: 40`, `queueItemsCreated: 40`, `reviewQueueCount: 40`, `woocommerceApiCalled: true`, `productDataReturned: true`, `proposalDataReturned: true`, `operatorReviewQueueReturned: true`, `writeScopeEnabled: false`, `secretsExposed: false`, `autoExecuteAllowed: false`, `aiUsed: false`, `databaseWritten: false` en `nextStep: ready_for_operator_review_queue_preview`;
+  * deze WooCommerce operator review queue preview is echte staging read-only data, geen mock;
+  * er is geen frontend auto-load toegevoegd, geen echte reviewbeslissing uitgevoerd, geen approval, geen execution, geen database/Prisma, geen AI en geen write/rewrite naar WooCommerce geopend;
   * `GET /api/health-checker/mock-scan` is lokaal succesvol gevalideerd;
   * `GET /api/health-checker/issue-classification` is lokaal succesvol gevalideerd;
   * `GET /api/health-checker/proposal-contract` is lokaal succesvol gevalideerd;
@@ -124,8 +128,8 @@
   * geen write/rewrite/execution;
   * geen database/Prisma.
 * Volgende richting:
-  * pas na deze vastlegging bepalen of operator-review op WooCommerce proposal-preview de volgende veilige stap is;
-  * nog geen review/approval/execution op WooCommerce proposal-preview voordat die vervolgstap apart is afgebakend.
+  * pas na deze vastlegging bepalen of de volgende stap cockpit/operator-weergave, contractverfijning of review-state planning wordt;
+  * nog geen echte reviewbeslissing, approval of execution op WooCommerce proposal-preview voordat die vervolgstap apart is afgebakend.
 
 ### TypeScript
 
