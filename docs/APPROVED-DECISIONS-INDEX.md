@@ -110,6 +110,7 @@ Dit document is bewust geen statuspagina, build-log, schema-overzicht of API-pla
 * `docs/HEALTH-CHECKER-OPERATOR-OVERVIEW-CONTRACT-V1.md` - operator overview contract; document only, geen execution/write-scope.
 * `docs/HEALTH-CHECKER-OPERATOR-COCKPIT-SCOPE-DECISION-V1.md` - operator cockpit scope decision; read-only basis voor SAM Health Checker en latere Axiora/Nautilus dashboardontwikkeling, geen definitief dashboarddesign of execution/write-scope.
 * `docs/CODEX-WORKFLOW-UPGRADE-DECISION.md` - Codex workflow upgrade decision; taakklassen en lokale dev-tooling, geen product-chain automation.
+* `docs/CODEX-TASK-PLAYBOOK.md` - praktische interpretatie van taakklassen en veilige uitvoeringschecklist; document only, geen product-chain automation.
 * `AGENTS.md` - repo-brede Codex-instructie; taakklassen, guardrails en rapportageformat voor lokale uitvoering.
 * `docs/DEVELOPER-WORKFLOW-HELPERS-V1-DECISION.md` - developer workflow helpers besluit; alleen lokale dev-handelingen, geen SAM-productworkflow automatisering.
 

@@ -10,6 +10,7 @@
 * De eerste commit en push naar `main` zijn succesvol afgerond.
 * GitHub-status: `initialized and pushed`.
 * Repo-brede Codex-guardrail is vastgelegd in `AGENTS.md`.
+* De praktische taakklasse-uitleg staat in `docs/CODEX-TASK-PLAYBOOK.md`.
 * Secrets-status:
   * er is geen `.env` in `sam-mvp`;
   * echte secrets blijven buiten `sam-mvp`;

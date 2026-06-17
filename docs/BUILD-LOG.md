@@ -2211,3 +2211,38 @@ De repo-brede Codex-instructie vastleggen zodat toekomstige taken standaard binn
 * geen AI/OpenAI;
 * geen secrets;
 * geen productchain automation.
+
+## Fase 39 - Codex Task Playbook vastgelegd
+
+**Datum:** Controle nodig
+
+**Doel**
+
+De praktische interpretatie van Codex taakklassen documenteren, inclusief veilige voorbeelden, stopcriteria en pre-/post-flight checklists.
+
+**Uitgevoerd**
+
+* een compact `docs/CODEX-TASK-PLAYBOOK.md` toegevoegd;
+* de besluitenindex en statusdocumentatie kort aangevuld met deze praktische werkwijzer.
+
+**Ontstane bestanden / artefacten**
+
+* nieuw document:
+  * `docs/CODEX-TASK-PLAYBOOK.md`
+* bijgewerkt:
+  * `docs/APPROVED-DECISIONS-INDEX.md`
+  * `docs/CURRENT-STATUS.md`
+  * `docs/BUILD-LOG.md`
+
+**Bewust niet gedaan**
+
+* geen code;
+* geen frontend;
+* geen backend;
+* geen endpoints;
+* geen database;
+* geen Prisma;
+* geen WooCommerce;
+* geen AI/OpenAI;
+* geen secrets;
+* geen productchain automation.
