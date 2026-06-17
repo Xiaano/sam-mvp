@@ -44,6 +44,41 @@ Kort vastleggen dat de lokale Health Checker mock/read-only contractketen runtim
   * nog geen proposal-preview op WooCommerce-data
   * geen write/rewrite/execution
 
+## Fase 43 - WooCommerce config-readiness missing-config runtime veilig dicht
+
+**Datum:** Controle nodig
+
+**Doel**
+
+Kort vastleggen dat `GET /api/health-checker/woocommerce-config-readiness` lokaal runtime veilig dicht faalt zonder WooCommerce-config.
+
+**Gerapporteerd**
+
+* `status: missing_config`
+* `mode: read-only`
+* `wcBaseUrlConfigured: false`
+* `wcConsumerKeyConfigured: false`
+* `wcConsumerSecretConfigured: false`
+* `secretsExposed: false`
+* `woocommerceApiCalled: false`
+* `writeScopeEnabled: false`
+* `canReadProducts: false`
+* `canWriteProducts: false`
+* `adapterStatus: missing_config`
+* cockpit toont dezelfde veilige missing-config/read-only status
+* conclusie:
+  * missing config faalt veilig dicht
+  * er worden geen secrets getoond
+  * er wordt geen WooCommerce API-call gedaan
+  * er is geen write-scope
+  * er is geen productscan of proposal-preview uitgevoerd
+* volgende richting:
+  * echte WooCommerce read-only config alleen later testen wanneer secrets bewust lokaal buiten de repo zijn geladen
+  * nog geen connection-readiness
+  * nog geen WooCommerce productscan
+  * nog geen WooCommerce proposal-preview
+  * geen write/rewrite/execution
+
 ## Fase 1 - npm-uitvoercontextprobleem en lokale TypeScript-basis
 
 **Datum:** Controle nodig

@@ -38,6 +38,7 @@
   * `GET /health` is lokaal succesvol gevalideerd;
   * `GET /diagnostics` is lokaal succesvol gevalideerd;
   * `GET /api/health-checker/readiness` is lokaal succesvol gevalideerd;
+  * `GET /api/health-checker/woocommerce-config-readiness` is lokaal runtime gecontroleerd zonder WooCommerce-config en faalde veilig dicht met `missing_config` en read-only metadata;
   * `GET /api/health-checker/mock-scan` is lokaal succesvol gevalideerd;
   * `GET /api/health-checker/issue-classification` is lokaal succesvol gevalideerd;
   * `GET /api/health-checker/proposal-contract` is lokaal succesvol gevalideerd;
