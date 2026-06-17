@@ -50,6 +50,8 @@
   * `GET /api/health-checker/audit-log-preview` is lokaal succesvol gevalideerd;
   * `GET /api/health-checker/mock-scan-to-review-flow` is lokaal succesvol gevalideerd;
   * `GET /api/health-checker/operator-overview-mock` is lokaal succesvol gevalideerd;
+  * de lokale mock/read-only contractketen is runtime groen tot en met `GET /api/health-checker/audit-log-preview`;
+  * semantische fixes zijn verwerkt zodat `long_description_check` in de mock flow long-description gericht blijft en audit eventnamen nu `proposal_approval_previewed` en `proposal_rejection_previewed` gebruiken;
   * de minimale lifecycle/state semantic-guard checks zijn lokaal succesvol uitgevoerd via `node node_modules/tsx/dist/cli.mjs apps/api/src/checks/healthCheckerLifecycleStateChecks.ts`;
   * `GET /diagnostics` blijft bewust read-only en statisch;
   * `GET /diagnostics` maakt geen databaseverbinding, voert geen Prisma-query uit, gebruikt geen WooCommerce en toont geen secrets;
@@ -89,6 +91,7 @@
   * `docs/HEALTH-CHECKER-OPERATOR-OVERVIEW-CONTRACT-V1.md` legt de volgende read-only stap vast: queue, preview en audit kunnen later als overzicht worden samengebracht zonder vast dashboarddesign of execution-scope;
   * `docs/HEALTH-CHECKER-OPERATOR-COCKPIT-SCOPE-DECISION-V1.md` legt vast dat de huidige cockpit een flexibele read-only operator cockpit mag blijven en later als basis voor Axiora/Nautilus dashboardmodules kan dienen zonder definitief dashboarddesign of execution-scope;
   * `docs/CODEX-WORKFLOW-UPGRADE-DECISION.md` legt de lokale ontwikkelwerkwijze vast met taakklassen en strikte gates voor externe API, database, secrets en write/execution;
+  * de lokale mock/read-only contractketen is runtime groen tot en met audit-log preview en de bijbehorende semantische preview/contractnamen zijn verduidelijkt;
   * `GET /api/health-checker/operator-overview-mock` blijft bewust read-only en statisch;
   * `GET /api/health-checker/operator-overview-mock` geeft alleen een mock operator-overzicht terug met scan summary, issues, proposal previews, review queue, approval policy, audit trail preview, safety/status panel en future extension hooks;
   * `GET /api/health-checker/operator-review-preview` blijft bewust read-only en statisch;

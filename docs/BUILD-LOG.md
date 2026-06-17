@@ -13,6 +13,37 @@ De focus ligt op:
 * warnings en resterende aandachtspunten;
 * expliciet niet uitgevoerde acties.
 
+## Fase 42 - Mock/read-only contractketen runtime groen tot audit-log preview
+
+**Datum:** Controle nodig
+
+**Doel**
+
+Kort vastleggen dat de lokale Health Checker mock/read-only contractketen runtime groen is tot en met audit-log preview.
+
+**Gerapporteerd**
+
+* `GET /health` groen
+* `GET /diagnostics` groen
+* `GET /api/health-checker/readiness` groen
+* mock scan, mock proposal preview, mock scan-to-review flow, operator review preview, approval-flow contract en audit-log preview groen
+* semantische fixes verwerkt:
+  * `long_description_check` blijft long-description gericht
+  * audit eventnamen verduidelijkt naar `proposal_approval_previewed` en `proposal_rejection_previewed`
+* safety gates blijven dicht:
+  * `database not_used/not_checked`
+  * `prisma not_used/not_checked`
+  * `woocommerce not_connected/not_built`
+  * `secrets not_required/not_exposed`
+  * `write_actions disabled`
+  * `auto_execute disabled`
+  * `runtime_logging disabled`
+* volgende richting:
+  * voorzichtig naar read-only WooCommerce config/readiness kijken
+  * nog geen productscan
+  * nog geen proposal-preview op WooCommerce-data
+  * geen write/rewrite/execution
+
 ## Fase 1 - npm-uitvoercontextprobleem en lokale TypeScript-basis
 
 **Datum:** Controle nodig
