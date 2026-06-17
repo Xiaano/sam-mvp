@@ -17,6 +17,9 @@ type WooCommerceReadOnlyConnectionReadinessErrorCategory =
   | "invalid_config"
   | "authentication_rejected"
   | "read_access_not_confirmed"
+  | "request_timeout"
+  | "fetch_or_tls_error"
+  | "url_build_error"
   | "network_unreachable"
   | "runtime_unsupported";
 
@@ -185,13 +188,26 @@ function getWooCommerceBasicAuthHeader() {
 }
 
 function buildWooCommerceProductProbeUrl(baseUrl: string) {
-  const normalizedBaseUrl = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
+  const trimmedBaseUrl = baseUrl.trim();
+  const normalizedBaseUrl = trimmedBaseUrl.endsWith("/") ? trimmedBaseUrl : `${trimmedBaseUrl}/`;
   const probeUrl = new URL("wp-json/wc/v3/products", normalizedBaseUrl);
 
   probeUrl.searchParams.set("per_page", "1");
   probeUrl.searchParams.set("_fields", "id");
 
   return probeUrl;
+}
+
+function getConnectionFetchErrorCategory(error: unknown): WooCommerceReadOnlyConnectionReadinessErrorCategory {
+  if (error instanceof DOMException && error.name === "AbortError") {
+    return "request_timeout";
+  }
+
+  if (error instanceof TypeError) {
+    return "fetch_or_tls_error";
+  }
+
+  return "network_unreachable";
 }
 
 function buildWooCommerceReadOnlyProductScanUrl(baseUrl: string) {
@@ -410,7 +426,7 @@ export async function getWooCommerceReadOnlyConnectionReadiness(): Promise<WooCo
     );
   }
 
-  const baseUrl = process.env.WC_BASE_URL;
+  const baseUrl = process.env.WC_BASE_URL?.trim();
   const authHeader = getWooCommerceBasicAuthHeader();
 
   if (!baseUrl || !authHeader) {
@@ -424,7 +440,21 @@ export async function getWooCommerceReadOnlyConnectionReadiness(): Promise<WooCo
     );
   }
 
-  const probeUrl = buildWooCommerceProductProbeUrl(baseUrl);
+  let probeUrl: URL;
+
+  try {
+    probeUrl = buildWooCommerceProductProbeUrl(baseUrl);
+  } catch {
+    return createConnectionReadinessResponse(
+      "network_unreachable",
+      "url_build_error",
+      true,
+      false,
+      false,
+      null,
+    );
+  }
+
   const controller = new AbortController();
   const timeoutId = globalThis.setTimeout(() => {
     controller.abort();
@@ -470,10 +500,10 @@ export async function getWooCommerceReadOnlyConnectionReadiness(): Promise<WooCo
       false,
       response.status,
     );
-  } catch {
+  } catch (error) {
     return createConnectionReadinessResponse(
       "network_unreachable",
-      "network_unreachable",
+      getConnectionFetchErrorCategory(error),
       true,
       false,
       false,
