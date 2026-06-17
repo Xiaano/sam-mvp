@@ -183,6 +183,46 @@ Kort vastleggen dat de eerste echte WooCommerce read-only productscan lokaal gro
 
 * pas na deze vastlegging bepalen of WooCommerce read-only proposal-preview de volgende veilige stap is
 
+## Fase 47 - WooCommerce read-only proposal-preview lokaal groen
+
+**Datum:** Controle nodig
+
+**Doel**
+
+Kort vastleggen dat WooCommerce read-only proposal-preview lokaal groen is getest met echte stagingdata.
+
+**Gerapporteerd**
+
+* `GET /api/health-checker/woocommerce-read-only-proposal-preview` is lokaal runtime groen getest
+* resultaat:
+  * `service: sam-health-checker`
+  * `mode: read-only`
+  * `source: woocommerce_staging`
+  * `status: scan_completed`
+  * `sourceScanStatus: scan_completed`
+  * `issuesRead: 40`
+  * `proposalsCreated: 40`
+  * `proposalCount: 40`
+  * `woocommerceApiCalled: true`
+  * `productDataReturned: true`
+  * `proposalDataReturned: true`
+  * `writeScopeEnabled: false`
+  * `secretsExposed: false`
+  * `autoExecuteAllowed: false`
+  * `aiUsed: false`
+  * `databaseWritten: false`
+  * `nextStep: ready_for_operator_review`
+* dit is echte WooCommerce staging read-only data, geen mock en geen skeleton
+* geen secrets zijn getoond
+* geen AI gebruikt
+* geen database-write
+* geen write/rewrite/execution
+* geen review/approval/execution uitgevoerd
+
+**Volgende richting**
+
+* pas na deze vastlegging bepalen of operator-review op WooCommerce proposal-preview de volgende veilige stap is
+
 ## Fase 1 - npm-uitvoercontextprobleem en lokale TypeScript-basis
 
 **Datum:** Controle nodig

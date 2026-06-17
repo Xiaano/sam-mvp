@@ -50,6 +50,10 @@
   * `GET /api/health-checker/woocommerce-read-only-product-scan` bevestigt `service: sam-health-checker`, `mode: read-only`, `source: woocommerce_staging`, `productsScanned: 10`, `issuesFound: 40`, `woocommerceApiCalled: true`, `productDataReturned: true`, `writeScopeEnabled: false` en `secretsExposed: false`;
   * deze WooCommerce productscan is echte staging read-only data, geen mock en geen skeleton;
   * er zijn geen secrets getoond en er is geen write/rewrite/execution geopend;
+  * `GET /api/health-checker/woocommerce-read-only-proposal-preview` is lokaal runtime groen getest met echte WooCommerce staging read-only data en geeft `scan_completed` terug;
+  * `GET /api/health-checker/woocommerce-read-only-proposal-preview` bevestigt `service: sam-health-checker`, `mode: read-only`, `source: woocommerce_staging`, `sourceScanStatus: scan_completed`, `issuesRead: 40`, `proposalsCreated: 40`, `proposalCount: 40`, `woocommerceApiCalled: true`, `productDataReturned: true`, `proposalDataReturned: true`, `writeScopeEnabled: false`, `secretsExposed: false`, `autoExecuteAllowed: false`, `aiUsed: false`, `databaseWritten: false` en `nextStep: ready_for_operator_review`;
+  * deze WooCommerce proposal-preview is echte staging read-only data, geen mock en geen skeleton;
+  * er zijn geen secrets getoond, er is geen AI gebruikt en er is geen database-write uitgevoerd;
   * `GET /api/health-checker/mock-scan` is lokaal succesvol gevalideerd;
   * `GET /api/health-checker/issue-classification` is lokaal succesvol gevalideerd;
   * `GET /api/health-checker/proposal-contract` is lokaal succesvol gevalideerd;
@@ -116,12 +120,11 @@
   * `apps/api/src/persistence/prismaClient.ts`
 * Via de lokaal gevalideerde API-routes is Prisma/database-runtime nog niet gevalideerd; `database` en `prisma` blijven daar bewust `not_checked`.
 * Nog niet uitgevoerd in de WooCommerce read-only lijn:
-  * geen WooCommerce proposal-preview;
   * geen write/rewrite/execution;
   * geen database/Prisma.
 * Volgende richting:
-  * pas na deze vastlegging bepalen of WooCommerce read-only proposal-preview de volgende veilige stap is;
-  * nog geen proposal-preview op WooCommerce-data voordat productscan veilig is gecontroleerd.
+  * pas na deze vastlegging bepalen of operator-review op WooCommerce proposal-preview de volgende veilige stap is;
+  * nog geen review/approval/execution op WooCommerce proposal-preview voordat die vervolgstap apart is afgebakend.
 
 ### TypeScript
 
