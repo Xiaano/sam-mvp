@@ -151,6 +151,38 @@ Kort vastleggen dat WooCommerce read-only config-readiness en connection-readine
 * kleinste veilige volgende stap is daarna een read-only WooCommerce productscan-skeleton of productscan, afhankelijk van de eerstvolgende architectuurkeuze
 * nog geen proposal-preview op WooCommerce-data voordat productscan veilig is gecontroleerd
 
+## Fase 46 - Eerste echte WooCommerce read-only productscan lokaal groen
+
+**Datum:** Controle nodig
+
+**Doel**
+
+Kort vastleggen dat de eerste echte WooCommerce read-only productscan lokaal groen is getest.
+
+**Gerapporteerd**
+
+* `GET /api/health-checker/woocommerce-read-only-product-scan` is lokaal runtime groen getest
+* resultaat:
+  * `service: sam-health-checker`
+  * `mode: read-only`
+  * `source: woocommerce_staging`
+  * `status: scan_completed`
+  * `productsScanned: 10`
+  * `issuesFound: 40`
+  * `woocommerceApiCalled: true`
+  * `productDataReturned: true`
+  * `writeScopeEnabled: false`
+  * `secretsExposed: false`
+* dit is echte WooCommerce staging read-only data, geen mock en geen skeleton
+* geen secrets zijn getoond
+* geen write/rewrite/execution
+* geen proposal-preview op WooCommerce-data
+* geen database/Prisma
+
+**Volgende richting**
+
+* pas na deze vastlegging bepalen of WooCommerce read-only proposal-preview de volgende veilige stap is
+
 ## Fase 1 - npm-uitvoercontextprobleem en lokale TypeScript-basis
 
 **Datum:** Controle nodig
