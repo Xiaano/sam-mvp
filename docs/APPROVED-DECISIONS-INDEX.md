@@ -105,6 +105,7 @@ Dit document is bewust geen statuspagina, build-log, schema-overzicht of API-pla
 * `docs/HEALTH-CHECKER-REVIEW-APPROVAL-BOUNDARY-V1-DECISION.md` - review/approval boundary besluit na proposal preview; document only, geen execution/write-scope.
 * `docs/HEALTH-CHECKER-REVIEW-STATUS-CONTRACT-V1.md` - reviewstatus contract; document only, geen execution/write-scope.
 * `docs/HEALTH-CHECKER-OPERATOR-REVIEW-QUEUE-CONTRACT-V1.md` - operator review queue contract; document only, geen execution/write-scope.
+* `docs/WOOCOMMERCE-OPERATOR-REVIEW-QUEUE-MAPPING-DECISION.md` - mapping decision voor WooCommerce read-only proposal-preview naar operator review queue preview; document only, geen persistence, approval, execution of write-scope.
 * `docs/HEALTH-CHECKER-OPERATOR-REVIEW-PREVIEW-CONTRACT-V1.md` - operator review preview contract; document only, geen execution/write-scope.
 * `docs/HEALTH-CHECKER-AUDIT-TRAIL-PREVIEW-CONTRACT-V1.md` - audit trail preview contract; document only, geen execution/write-scope.
 * `docs/HEALTH-CHECKER-OPERATOR-OVERVIEW-CONTRACT-V1.md` - operator overview contract; document only, geen execution/write-scope.

@@ -99,6 +99,7 @@
   * `GET /api/health-checker/mock-proposal-preview` gebruikt nu `apps/api/src/services/healthChecker/mockRuntimeService.ts` terwijl de response read-only/mock blijft;
   * `GET /api/health-checker/woocommerce-read-only-proposal-preview` is lokaal gevalideerd als de read-only keten van productscan naar preview-only proposals;
   * `GET /api/health-checker/woocommerce-read-only-proposal-preview` gebruikt de bestaande read-only productscan als bron, zet issues om naar preview-only proposalregels en houdt write scope, AI en database expliciet uit;
+  * `docs/WOOCOMMERCE-OPERATOR-REVIEW-QUEUE-MAPPING-DECISION.md` legt de volgende afgebakende richting vast: WooCommerce read-only proposal-preview mag later alleen via een aparte read-only mapping naar operator-review queue preview, zonder persistence, approval, execution of write-scope;
   * `docs/HEALTH-CHECKER-REVIEW-APPROVAL-BOUNDARY-V1-DECISION.md` legt de volgende read-only stap vast: review en approval blijven aparte fases na proposal preview, zonder execution of write-scope;
   * `docs/HEALTH-CHECKER-REVIEW-STATUS-CONTRACT-V1.md` legt de volgende read-only stap vast: reviewstatussen en reviewbeslissingen blijven contractmatig gescheiden van execution en write;
   * `docs/HEALTH-CHECKER-OPERATOR-REVIEW-QUEUE-CONTRACT-V1.md` legt de volgende read-only stap vast: proposal previews kunnen later als operator review queue items worden getoond zonder execution of write-scope;

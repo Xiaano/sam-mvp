@@ -223,6 +223,33 @@ Kort vastleggen dat WooCommerce read-only proposal-preview lokaal groen is getes
 
 * pas na deze vastlegging bepalen of operator-review op WooCommerce proposal-preview de volgende veilige stap is
 
+## Fase 48 - WooCommerce operator review queue mapping decision vastgelegd
+
+**Datum:** Controle nodig
+
+**Doel**
+
+Kort vastleggen hoe WooCommerce read-only proposal-preview later veilig naar operator-review queue preview mag worden gemapt.
+
+**Uitgevoerd**
+
+* `docs/WOOCOMMERCE-OPERATOR-REVIEW-QUEUE-MAPPING-DECISION.md` toegevoegd;
+* vastgelegd dat bestaande WooCommerce proposal-preview input alleen read-only naar queue-preview shape mag worden getransformeerd;
+* vastgelegd dat mock/operator-review en WooCommerce stagingdata gescheiden blijven;
+* vastgelegd dat `writeScopeEnabled`, `secretsExposed`, `autoExecuteAllowed`, `aiUsed` en `databaseWritten` expliciet veilig moeten blijven.
+
+**Bewust niet gedaan**
+
+* geen code;
+* geen frontend;
+* geen backend/API-wijziging;
+* geen WooCommerce/API-call;
+* geen productscan;
+* geen proposal-preview;
+* geen review/approval/execution;
+* geen database/Prisma;
+* geen secrets.
+
 ## Fase 1 - npm-uitvoercontextprobleem en lokale TypeScript-basis
 
 **Datum:** Controle nodig
