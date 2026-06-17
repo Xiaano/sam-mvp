@@ -2142,3 +2142,37 @@ De huidige Health Checker cockpit documentair vastleggen als flexibele read-only
 * geen AI/OpenAI;
 * geen write/rewrite/execution;
 * geen definitief dashboarddesign.
+
+## Fase 37 - Codex workflow upgrade decision vastgelegd
+
+**Datum:** Controle nodig
+
+**Doel**
+
+De lokale Codex-werkwijze documentair vastleggen met taakklassen en strikte gates voor documentatie, frontend, read-only API, externe integraties, database, secrets en write/execution.
+
+**Uitgevoerd**
+
+* een compacte workflow-upgrade decision toegevoegd;
+* de bestaande documentatieketen aangevuld met een expliciete werkwijzer voor taakklassen en rapportagecontrole.
+
+**Ontstane bestanden / artefacten**
+
+* nieuw workflow-document:
+  * `docs/CODEX-WORKFLOW-UPGRADE-DECISION.md`
+* bijgewerkt:
+  * `docs/APPROVED-DECISIONS-INDEX.md`
+  * `docs/CURRENT-STATUS.md`
+
+**Bewust niet gedaan**
+
+* geen code;
+* geen frontend;
+* geen backend;
+* geen endpoints;
+* geen database;
+* geen Prisma;
+* geen WooCommerce;
+* geen AI/OpenAI;
+* geen secrets;
+* geen product-chain automation.

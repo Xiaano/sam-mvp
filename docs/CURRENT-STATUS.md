@@ -75,6 +75,7 @@
   * `docs/HEALTH-CHECKER-AUDIT-TRAIL-PREVIEW-CONTRACT-V1.md` legt de volgende read-only stap vast: audit trail previews kunnen later traceerbaar zijn zonder database- of execution-scope;
   * `docs/HEALTH-CHECKER-OPERATOR-OVERVIEW-CONTRACT-V1.md` legt de volgende read-only stap vast: queue, preview en audit kunnen later als overzicht worden samengebracht zonder vast dashboarddesign of execution-scope;
   * `docs/HEALTH-CHECKER-OPERATOR-COCKPIT-SCOPE-DECISION-V1.md` legt vast dat de huidige cockpit een flexibele read-only operator cockpit mag blijven en later als basis voor Axiora/Nautilus dashboardmodules kan dienen zonder definitief dashboarddesign of execution-scope;
+  * `docs/CODEX-WORKFLOW-UPGRADE-DECISION.md` legt de lokale ontwikkelwerkwijze vast met taakklassen en strikte gates voor externe API, database, secrets en write/execution;
   * `GET /api/health-checker/operator-overview-mock` blijft bewust read-only en statisch;
   * `GET /api/health-checker/operator-overview-mock` geeft alleen een mock operator-overzicht terug met scan summary, issues, proposal previews, review queue, approval policy, audit trail preview, safety/status panel en future extension hooks;
   * `GET /api/health-checker/operator-review-preview` blijft bewust read-only en statisch;
